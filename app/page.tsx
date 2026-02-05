@@ -2,12 +2,19 @@
 
 import React from "react";
 import { ShieldCheck, Network, Building2, University, Landmark, Server, FileText, ArrowRight, CheckCircle2 } from "lucide-react";
+import type { ReactNode } from "react";
 
-const Pill = ({ children }) => (
+const Pill = ({ children }: { children: ReactNode }) => (
   <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
     {children}
   </span>
 );
+
+
+#const Pill = ({ children }) => (
+#  <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs text-white/80">
+#    {children}
+#  </span>
 
 const Section = ({ id, kicker, title, subtitle, children }) => (
   <section id={id} className="py-14 sm:py-16">
