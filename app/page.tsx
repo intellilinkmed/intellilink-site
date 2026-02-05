@@ -168,7 +168,7 @@ export default function IntellilinkLanding() {
             </div>
 
             <h1 className="mt-5 text-3xl sm:text-5xl font-semibold leading-tight">
-              Enterprise Satellite Internet — the way regulators and banks understand it.
+              Enterprise Satellite Internet... the way regulators and banks understand it.
             </h1>
             <p className="mt-4 text-base sm:text-lg text-white/75 leading-relaxed">
               <span className="text-white">Starlink is connectivity.</span> Intellilink is trust.
