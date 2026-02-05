@@ -10,7 +10,15 @@ const Pill = ({ children }: { children: ReactNode }) => (
   </span>
 );
 
-const Section = ({ id, kicker, title, subtitle, children }) => (
+type SectionProps = {
+  id?: string;
+  kicker?: string;
+  title?: string;
+  subtitle?: string;
+  children: ReactNode;
+};
+
+const Section = ({ id, kicker, title, subtitle, children }: SectionProps) => (
   <section id={id} className="py-14 sm:py-16">
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <div className="max-w-3xl">
@@ -35,7 +43,9 @@ const Section = ({ id, kicker, title, subtitle, children }) => (
   </section>
 );
 
-const Card = ({ children }) => (
+type CardProps = { children: ReactNode };
+
+const Card = ({ children }: CardProps) => (
   <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6 shadow-[0_1px_0_rgba(255,255,255,0.06)]">
     {children}
   </div>
