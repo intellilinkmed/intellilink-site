@@ -1,7 +1,19 @@
 "use client";
 
 import React from "react";
-import { ShieldCheck, Network, Building2, University, Landmark, Server, FileText, ArrowRight, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
+import {
+  ShieldCheck,
+  Network,
+  Building2,
+  University,
+  Landmark,
+  Server,
+  FileText,
+  ArrowRight,
+  CheckCircle2,
+  Globe,
+} from "lucide-react";
 import type { ReactNode } from "react";
 
 const Pill = ({ children }: { children: ReactNode }) => (
@@ -23,17 +35,17 @@ const Section = ({ id, kicker, title, subtitle, children }: SectionProps) => (
     <div className="mx-auto max-w-6xl px-4 sm:px-6">
       <div className="max-w-3xl">
         {kicker && (
-          <p className="text-xs font-semibold tracking-widest text-amber-200/80 uppercase">
+          <p className="text-xs font-semibold uppercase tracking-widest text-amber-200/80">
             {kicker}
           </p>
         )}
         {title && (
-          <h2 className="mt-2 text-2xl sm:text-3xl font-semibold text-white">
+          <h2 className="mt-2 text-2xl font-semibold text-white sm:text-3xl">
             {title}
           </h2>
         )}
         {subtitle && (
-          <p className="mt-3 text-sm sm:text-base leading-relaxed text-white/75">
+          <p className="mt-3 text-sm leading-relaxed text-white/75 sm:text-base">
             {subtitle}
           </p>
         )}
@@ -43,45 +55,78 @@ const Section = ({ id, kicker, title, subtitle, children }: SectionProps) => (
   </section>
 );
 
-type CardProps = { children: ReactNode };
-
-const Card = ({ children }: CardProps) => (
-  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 sm:p-6 shadow-[0_1px_0_rgba(255,255,255,0.06)]">
+const Card = ({ children }: { children: ReactNode }) => (
+  <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 shadow-[0_1px_0_rgba(255,255,255,0.06)] sm:p-6">
     {children}
   </div>
 );
 
+type ProofDoc = {
+  title: string;
+  desc: string;
+  htmlHref: string;
+  pdfHref: string;
+};
+
 export default function IntellilinkLanding() {
-  const proofDocs = [
+  const proofDocs: ProofDoc[] = [
     {
       title: "Technical Proof Brief",
       desc: "Field validation summary of the control-plane architecture.",
-      href: "#proof",
+      htmlHref: "/docs/technical-proof-brief.html",
+      pdfHref: "/docs/technical-proof-brief.pdf",
     },
     {
       title: "Field Case Study",
-      desc: "Anonymized ISP PoP validation (enterprise-ready delivery model).",
-      href: "#proof",
+      desc: "Anonymized ISP PoP validation for enterprise-ready delivery.",
+      htmlHref: "/docs/field-case-study.html",
+      pdfHref: "/docs/field-case-study.pdf",
     },
     {
       title: "Executive Proof Summary",
-      desc: "Two-page executive overview for decision-makers.",
-      href: "#proof",
+      desc: "Executive overview for decision-makers and strategic stakeholders.",
+      htmlHref: "/docs/executive-proof-summary.html",
+      pdfHref: "/docs/executive-proof-summary.pdf",
     },
     {
       title: "Regulator Brief",
-      desc: "Architecture-level governance framing for regulators.",
-      href: "#proof",
+      desc: "Architecture-level governance framing for regulators and policymakers.",
+      htmlHref: "/docs/regulator-brief.html",
+      pdfHref: "/docs/regulator-brief.pdf",
     },
   ];
 
   const audiences = [
-    { icon: Building2, title: "ISPs", desc: "New premium enterprise satellite offering with governance." },
-    { icon: Landmark, title: "Regulators", desc: "Visibility and accountable upstream model restored." },
-    { icon: University, title: "Universities", desc: "Reliable connectivity without direct-to-LAN exposure." },
-    { icon: Server, title: "Data Centers", desc: "Resilience for critical services and interconnect." },
-    { icon: ShieldCheck, title: "Banks", desc: "Risk-reduced satellite adoption, audit-ready posture." },
-    { icon: Network, title: "Government", desc: "Sovereign-ready connectivity governance layer." },
+    {
+      icon: Building2,
+      title: "ISPs",
+      desc: "A new premium enterprise satellite offering with governance and control.",
+    },
+    {
+      icon: Landmark,
+      title: "Regulators",
+      desc: "Visibility and accountable upstream structure restored.",
+    },
+    {
+      icon: University,
+      title: "Universities",
+      desc: "Reliable connectivity without unmanaged direct-to-LAN exposure.",
+    },
+    {
+      icon: Server,
+      title: "Data Centers",
+      desc: "Added resilience for critical services and interconnect.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Banks",
+      desc: "Risk-reduced satellite adoption with audit-ready posture.",
+    },
+    {
+      icon: Network,
+      title: "Government",
+      desc: "Sovereign-ready connectivity governance layer.",
+    },
   ];
 
   const steps = [
@@ -99,7 +144,7 @@ export default function IntellilinkLanding() {
     },
     {
       title: "ISP Governance PoP",
-      desc: "Policy, routing, NAT, and audit-ready control points.",
+      desc: "Policy, routing, NAT, and audit-ready control points are applied.",
     },
   ];
 
@@ -110,7 +155,7 @@ export default function IntellilinkLanding() {
     },
     {
       title: "Policy Insertion Point",
-      desc: "Central place to apply security baselines, routing, and publication controls.",
+      desc: "A central place to apply security baselines, routing, and publication controls.",
     },
     {
       title: "Performance Preserved",
@@ -121,65 +166,96 @@ export default function IntellilinkLanding() {
   return (
     <div className="min-h-screen bg-[#07132b] text-white">
       {/* Top bar */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07132b]/80 backdrop-blur">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-3 flex items-center justify-between">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07132b]/85 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
-            <div className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-              <ShieldCheck className="h-5 w-5 text-amber-200/90" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold leading-none">Intellilink Media LLC</p>
-              <p className="text-[11px] text-white/65">Intellilink Compliance Gateway</p>
+            <Image
+              src="/intellilink-gateway-logo.png"
+              alt="Intellilink Gateway logo"
+              width={160}
+              height={48}
+              priority
+              className="h-10 w-auto sm:h-12"
+            />
+            <div className="hidden sm:block">
+              <p className="text-sm font-semibold leading-none">
+                Intellilink Media LLC
+              </p>
+              <p className="mt-1 text-[11px] text-white/65">
+                Intellilink Gateway™
+              </p>
             </div>
           </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm text-white/75">
-            <a className="hover:text-white" href="#problem">Problem</a>
-            <a className="hover:text-white" href="#solution">Solution</a>
-            <a className="hover:text-white" href="#proof">Proof</a>
-            <a className="hover:text-white" href="#pilot">Pilot</a>
-            <a className="hover:text-white" href="#contact">Contact</a>
+          <nav className="hidden items-center gap-6 text-sm text-white/75 md:flex">
+            <a className="hover:text-white" href="#problem">
+              Problem
+            </a>
+            <a className="hover:text-white" href="#solution">
+              Solution
+            </a>
+            <a className="hover:text-white" href="#proof">
+              Proof Pack
+            </a>
+            <a className="hover:text-white" href="#pilot">
+              Pilot
+            </a>
+            <a className="hover:text-white" href="#contact">
+              Contact
+            </a>
           </nav>
 
-          <div className="flex items-center gap-2">
-            <a
-              href="#contact"
-              className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/90 hover:bg-white/10"
-            >
-              Request a Pilot
-            </a>
-          </div>
+          <a
+            href="#contact"
+            className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/90 hover:bg-white/10"
+          >
+            Request a Pilot
+          </a>
         </div>
       </header>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute -top-40 left-1/2 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-200/10 blur-3xl" />
-          <div className="absolute -bottom-52 right-[-120px] h-[520px] w-[520px] rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute left-1/2 top-[-10rem] h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-amber-200/10 blur-3xl" />
+          <div className="absolute bottom-[-13rem] right-[-7rem] h-[520px] w-[520px] rounded-full bg-white/5 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-16 sm:py-20">
-          <div className="max-w-3xl">
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+          <div className="max-w-4xl">
+            <div className="mb-6">
+              <Image
+                src="/intellilink-gateway-logo.png"
+                alt="Intellilink Gateway"
+                width={420}
+                height={120}
+                priority
+                className="h-auto w-[260px] sm:w-[360px]"
+              />
+            </div>
+
             <div className="flex flex-wrap gap-2">
               <Pill>High-trust enterprise architecture</Pill>
-              <Pill>Field validated control plane</Pill>
+              <Pill>Field-validated control plane</Pill>
               <Pill>Vendor-neutral governance layer</Pill>
             </div>
 
-            <h1 className="mt-5 text-3xl sm:text-5xl font-semibold leading-tight">
-              Enterprise Satellite Internet... the way regulators and banks understand it.
+            <h1 className="mt-5 text-3xl font-semibold leading-tight sm:text-5xl">
+              Enterprise satellite internet... the way regulators and banks
+              understand it.
             </h1>
-            <p className="mt-4 text-base sm:text-lg text-white/75 leading-relaxed">
-              <span className="text-white">Starlink is connectivity.</span> Intellilink is trust.
-              We add a compliance gateway layer that restores governance and accountability while
-              preserving satellite performance.
+
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-white/75 sm:text-lg">
+              <span className="text-white">Starlink is connectivity.</span>{" "}
+              Intellilink is trust. We add a compliance gateway layer that
+              restores governance and accountability while preserving satellite
+              performance.
             </p>
 
-            <div className="mt-7 flex flex-col sm:flex-row gap-3">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-200 text-[#07132b] px-5 py-3 text-sm font-semibold hover:bg-amber-100"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-amber-200 px-5 py-3 text-sm font-semibold text-[#07132b] hover:bg-amber-100"
               >
                 Request a Pilot <ArrowRight className="h-4 w-4" />
               </a>
@@ -187,15 +263,17 @@ export default function IntellilinkLanding() {
                 href="#proof"
                 className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/10"
               >
-                Download Proof Pack <FileText className="h-4 w-4" />
+                View Proof Pack <FileText className="h-4 w-4" />
               </a>
             </div>
 
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
               {features.map((f) => (
                 <Card key={f.title}>
                   <p className="text-sm font-semibold">{f.title}</p>
-                  <p className="mt-2 text-sm text-white/70 leading-relaxed">{f.desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {f.desc}
+                  </p>
                 </Card>
               ))}
             </div>
@@ -210,26 +288,26 @@ export default function IntellilinkLanding() {
         title="Satellite adoption is rising — governance is lagging"
         subtitle="Direct-to-LAN satellite deployments can bypass traditional ISP delivery structures. Regulated enterprises require an accountable upstream boundary, audit-friendly controls, and predictable service publication."
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           <Card>
             <p className="text-sm font-semibold">Enterprise risk</p>
             <p className="mt-2 text-sm text-white/70">
-              Banks, universities, and government agencies hesitate to adopt satellite without
-              governance guardrails.
+              Banks, universities, and government agencies hesitate to adopt
+              satellite without governance guardrails.
             </p>
           </Card>
           <Card>
             <p className="text-sm font-semibold">Regulatory concern</p>
             <p className="mt-2 text-sm text-white/70">
-              National frameworks assume terrestrial ISPs as control points. Satellite needs an
-              equivalent insertion layer.
+              National frameworks assume terrestrial ISPs as control points.
+              Satellite needs an equivalent insertion layer.
             </p>
           </Card>
           <Card>
             <p className="text-sm font-semibold">ISP displacement risk</p>
             <p className="mt-2 text-sm text-white/70">
-              Enterprise satellite networks may vertically integrate terminals, backbone and
-              gateways — making local ISPs optional.
+              Enterprise satellite networks may vertically integrate terminals,
+              backbone, and gateways — making local ISPs optional.
             </p>
           </Card>
         </div>
@@ -242,21 +320,29 @@ export default function IntellilinkLanding() {
         title="A governance layer that restores the ISP model"
         subtitle="Intellilink introduces a compliance gateway and anchors satellite traffic into a local ISP Governance PoP. This preserves satellite resilience while restoring accountable control points."
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <Card>
             <p className="text-sm font-semibold">How it works</p>
-            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               {steps.map((s, idx) => (
-                <div key={s.title} className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+                <div
+                  key={s.title}
+                  className="rounded-xl border border-white/10 bg-white/[0.03] p-4"
+                >
                   <p className="text-xs text-white/60">Step {idx + 1}</p>
                   <p className="mt-1 text-sm font-semibold">{s.title}</p>
-                  <p className="mt-2 text-sm text-white/70 leading-relaxed">{s.desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {s.desc}
+                  </p>
                 </div>
               ))}
             </div>
+
             <div className="mt-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
               <p className="text-xs text-white/60">Reference flow</p>
-              <p className="mt-1 text-sm font-semibold">Starlink → Gateway → Tunnel → ISP PoP → Internet</p>
+              <p className="mt-1 text-sm font-semibold">
+                Starlink → Gateway → Tunnel → ISP PoP → Internet
+              </p>
             </div>
           </Card>
 
@@ -271,15 +357,18 @@ export default function IntellilinkLanding() {
                 "Optional observability and automation controllers",
               ].map((x) => (
                 <li key={x} className="flex gap-2">
-                  <CheckCircle2 className="h-5 w-5 text-amber-200/80 mt-[2px]" />
-                  <p className="text-sm text-white/75 leading-relaxed">{x}</p>
+                  <CheckCircle2 className="mt-[2px] h-5 w-5 text-amber-200/80" />
+                  <p className="text-sm leading-relaxed text-white/75">{x}</p>
                 </li>
               ))}
             </ul>
+
             <div className="mt-5 rounded-xl border border-amber-200/20 bg-amber-200/5 p-4">
               <p className="text-sm text-white/80">
-                <span className="font-semibold text-white">Positioning:</span> Intellilink is not a retail ISP.
-                Intellilink provides a governance layer that enables compliant delivery of satellite connectivity.
+                <span className="font-semibold text-white">Positioning:</span>{" "}
+                Intellilink is not a retail ISP. Intellilink provides a
+                governance layer that enables compliant delivery of satellite
+                connectivity.
               </p>
             </div>
           </Card>
@@ -291,48 +380,62 @@ export default function IntellilinkLanding() {
         id="proof"
         kicker="Proof"
         title="Field-validated control plane"
-        subtitle="These documents communicate the architecture and validation outcomes to technical, executive, and regulatory stakeholders. Replace links with your hosted PDFs when you deploy."
+        subtitle="These documents are available both as web-readable HTML and downloadable PDFs for technical teams, executives, and regulators."
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           {proofDocs.map((d) => (
             <Card key={d.title}>
-              <div className="flex items-start justify-between gap-3">
+              <div className="flex h-full flex-col justify-between gap-4">
                 <div>
                   <p className="text-sm font-semibold">{d.title}</p>
                   <p className="mt-2 text-sm text-white/70">{d.desc}</p>
                 </div>
-                <a
-                  href={d.href}
-                  className="shrink-0 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white/85 hover:bg-white/10"
-                >
-                  View <ArrowRight className="h-4 w-4" />
-                </a>
+
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <a
+                    href={d.htmlHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-3 py-2 text-xs font-semibold text-white/85 hover:bg-white/10"
+                  >
+                    Read HTML <Globe className="h-4 w-4" />
+                  </a>
+                  <a
+                    href={d.pdfHref}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-amber-200/20 bg-amber-200/10 px-3 py-2 text-xs font-semibold text-amber-100 hover:bg-amber-200/15"
+                  >
+                    Download PDF <ArrowRight className="h-4 w-4" />
+                  </a>
+                </div>
               </div>
             </Card>
           ))}
         </div>
 
         <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
-          <p className="text-sm font-semibold">Proof Pack (recommended)</p>
+          <p className="text-sm font-semibold">Complete Proof Pack</p>
           <p className="mt-2 text-sm text-white/70">
-            Upload your PDFs (Proof Brief, Case Study, Executive Summary, Regulator Brief) and link them here.
-            This page becomes your credibility hub for ISPs, regulators, and enterprise IT.
+            Publish each document in two formats: a web-native HTML version for
+            quick reading and indexing, and a PDF version for download,
+            forwarding, and offline institutional review.
           </p>
         </div>
       </Section>
 
-      {/* Who it's for */}
+      {/* Stakeholders */}
       <Section
         id="audience"
         kicker="Stakeholders"
         title="Designed for regulated connectivity environments"
         subtitle="A common governance layer for enterprises and national telecom ecosystems."
       >
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {audiences.map((a) => (
             <Card key={a.title}>
               <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5">
                   <a.icon className="h-5 w-5 text-amber-200/85" />
                 </div>
                 <div>
@@ -352,44 +455,55 @@ export default function IntellilinkLanding() {
         title="A low-risk technical sandbox"
         subtitle="Start small. Validate quickly. Produce audit-ready outputs for stakeholders."
       >
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           <Card>
             <p className="text-sm font-semibold">Scope</p>
             <ul className="mt-4 space-y-2 text-sm text-white/75">
-              {["1 enterprise site", "1 satellite terminal", "1 gateway device", "1 PoP anchor per ISP"].map(
-                (x) => (
-                  <li key={x} className="flex gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-amber-200/80 mt-[2px]" />
-                    <span>{x}</span>
-                  </li>
-                )
-              )}
+              {[
+                "1 enterprise site",
+                "1 satellite terminal",
+                "1 gateway device",
+                "1 PoP anchor per ISP",
+              ].map((x) => (
+                <li key={x} className="flex gap-2">
+                  <CheckCircle2 className="mt-[2px] h-5 w-5 text-amber-200/80" />
+                  <span>{x}</span>
+                </li>
+              ))}
             </ul>
           </Card>
+
           <Card>
             <p className="text-sm font-semibold">Success criteria</p>
             <ul className="mt-4 space-y-2 text-sm text-white/75">
-              {["Traffic anchored via ISP PoP", "Browsing and apps functional", "Performance preserved", "Technical report produced"].map(
-                (x) => (
-                  <li key={x} className="flex gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-amber-200/80 mt-[2px]" />
-                    <span>{x}</span>
-                  </li>
-                )
-              )}
+              {[
+                "Traffic anchored via ISP PoP",
+                "Browsing and apps functional",
+                "Performance preserved",
+                "Technical report produced",
+              ].map((x) => (
+                <li key={x} className="flex gap-2">
+                  <CheckCircle2 className="mt-[2px] h-5 w-5 text-amber-200/80" />
+                  <span>{x}</span>
+                </li>
+              ))}
             </ul>
           </Card>
+
           <Card>
             <p className="text-sm font-semibold">Outputs</p>
             <ul className="mt-4 space-y-2 text-sm text-white/75">
-              {["Pilot report", "Architecture diagrams", "Operational checklist", "Regulator observation notes"].map(
-                (x) => (
-                  <li key={x} className="flex gap-2">
-                    <CheckCircle2 className="h-5 w-5 text-amber-200/80 mt-[2px]" />
-                    <span>{x}</span>
-                  </li>
-                )
-              )}
+              {[
+                "Pilot report",
+                "Architecture diagrams",
+                "Operational checklist",
+                "Regulator observation notes",
+              ].map((x) => (
+                <li key={x} className="flex gap-2">
+                  <CheckCircle2 className="mt-[2px] h-5 w-5 text-amber-200/80" />
+                  <span>{x}</span>
+                </li>
+              ))}
             </ul>
           </Card>
         </div>
@@ -400,9 +514,9 @@ export default function IntellilinkLanding() {
         id="contact"
         kicker="Contact"
         title="Request a pilot discussion"
-        subtitle="Use this form as a placeholder. When you deploy, connect it to Formspree, Netlify Forms, or your CRM."
+        subtitle="Enterprise, ISP, and regulator pilots are open. Share your details below to schedule a confidential technical discussion."
       >
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
           <Card>
             <form className="space-y-3">
               <div>
@@ -442,7 +556,7 @@ export default function IntellilinkLanding() {
                 Submit
               </button>
               <p className="text-xs text-white/55">
-                Note: This form is a visual placeholder in this template.
+                Note: All submissions are treated as confidential.
               </p>
             </form>
           </Card>
@@ -450,26 +564,30 @@ export default function IntellilinkLanding() {
           <Card>
             <p className="text-sm font-semibold">Preferred contacts</p>
             <p className="mt-2 text-sm text-white/70">
-              For partnerships, pilots, and regulator/ISP workshops:
+              For partnerships, pilots, and regulator / ISP workshops:
             </p>
+
             <div className="mt-4 space-y-3 text-sm text-white/75">
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">Email</p>
-                <p className="mt-1 font-semibold">yourname@intellilink.example</p>
+                <p className="mt-1 font-semibold">info@intellilink.media</p>
               </div>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">Phone / WhatsApp</p>
-                <p className="mt-1 font-semibold">+260 XXX XXX XXX</p>
+                <p className="mt-1 font-semibold">+260 963 880 701</p>
               </div>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">LinkedIn</p>
-                <p className="mt-1 font-semibold">linkedin.com/in/yourprofile</p>
+                <p className="mt-1 font-semibold">linkedin.com/in/mukwesa</p>
               </div>
             </div>
+
             <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-              <p className="text-xs text-white/60">Note</p>
+              <p className="text-xs text-white/60">Positioning note</p>
               <p className="mt-2 text-sm text-white/70">
-                Replace the placeholder contact fields and attach your Proof Pack PDFs.
+                Intellilink Gateway™ is a governance layer for compliant
+                enterprise satellite delivery — designed to work alongside
+                satellite access and local ISP PoPs.
               </p>
             </div>
           </Card>
@@ -478,15 +596,29 @@ export default function IntellilinkLanding() {
 
       {/* Footer */}
       <footer className="border-t border-white/10 bg-[#061028]">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div>
-            <p className="text-sm font-semibold">Intellilink Media LLC</p>
-            <p className="text-xs text-white/60 mt-1">Governance layer for enterprise satellite connectivity</p>
+        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-4 px-4 py-8 sm:flex-row sm:items-center sm:px-6">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/intellilink-gateway-logo.png"
+              alt="Intellilink Gateway logo"
+              width={140}
+              height={40}
+              className="h-9 w-auto"
+            />
+            <div>
+              <p className="text-sm font-semibold">Intellilink Media LLC</p>
+              <p className="mt-1 text-xs text-white/60">
+                Governance layer for enterprise satellite connectivity
+              </p>
+            </div>
           </div>
-          <p className="text-xs text-white/50">© {new Date().getFullYear()} Intellilink Media LLC. All rights reserved.</p>
+
+          <p className="text-xs text-white/50">
+            © {new Date().getFullYear()} Intellilink Media LLC. All rights
+            reserved.
+          </p>
         </div>
       </footer>
     </div>
   );
 }
-
