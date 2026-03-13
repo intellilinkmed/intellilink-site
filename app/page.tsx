@@ -161,33 +161,6 @@ export default function IntellilinkLanding() {
       title: "Performance Preserved",
       desc: "Governance without breaking Starlink’s resilience and user experience.",
     },
-  ];
-
-  const proofDocs = [
-    {
-      title: "Technical Proof Brief",
-      desc: "Field validation summary of the control-plane architecture.",
-      htmlHref: "/docs/technical-proof-brief.html",
-      pdfHref: "/docs/technical-proof-brief.pdf",
-    },
-    {
-      title: "Field Case Study",
-      desc: "Anonymized ISP PoP validation for enterprise-ready delivery.",
-      htmlHref: "/docs/field-case-study.html",
-      pdfHref: "/docs/field-case-study.pdf",
-    },
-    {
-      title: "Executive Proof Summary",
-      desc: "Executive overview for decision-makers and strategic stakeholders.",
-      htmlHref: "/docs/executive-proof-summary.html",
-      pdfHref: "/docs/executive-proof-summary.pdf",
-    },
-    {
-      title: "Regulator Brief",
-      desc: "Architecture-level governance framing for regulators and policymakers.",
-      htmlHref: "/docs/regulator-brief.html",
-      pdfHref: "/docs/regulator-brief.pdf",
-    },
   ];  
 
   return (
