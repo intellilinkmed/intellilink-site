@@ -1,0 +1,3821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTELLILINK GATEWAY™ — Technical Proof Brief</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ink:       #0e1820;
+  --ink-mid:   #2a3a50;
+  --ink-light: #5a6e84;
+  --rule:      #c0c8d4;
+  --page:      #ffffff;
+  --off:       #f4f6f9;
+  --blue-dark: #1a3a5c;
+  --blue-mid:  #2e5fa3;
+  --blue-light:#dce9f8;
+  --amber:     #8c5a00;
+  --amber-light:#fdf3e4;
+  --red-dark:  #8b1a1a;
+  --green-dark:#1a4e30;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { background: #d8dce4; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: var(--ink);
+  font-size: 10.5pt;
+  line-height: 1.65;
+  background: #d8dce4;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── PAGE SHELL ── */
+.doc-page {
+  width: 1100px;
+  background: var(--page);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.14);
+  margin-bottom: 0;
+}
+
+/* ── COVER PAGE ── */
+.cover {
+  background: var(--blue-dark);
+  min-height: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.cover-texture {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -52deg, transparent, transparent 18px,
+    rgba(255,255,255,0.018) 18px, rgba(255,255,255,0.018) 19px
+  );
+  pointer-events: none;
+}
+.cover-top-bar {
+  background: rgba(255,255,255,0.06);
+  padding: 14px 48px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  color: #6a9ecf;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: space-between;
+}
+.cover-main {
+  padding: 56px 48px 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.cover-kicker {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  color: #5a8ec4;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.cover h1 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #f0f5fa;
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.cover h1 span {
+  color: #60a0e0;
+}
+.cover-subtitle {
+  font-size: 15px;
+  color: #8ab4d4;
+  font-weight: 300;
+  margin-bottom: 32px;
+  line-height: 1.4;
+}
+.cover-rule {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #1a3a5c, #2e5fa3, #60a0e0);
+  margin-bottom: 28px;
+}
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-left: 1px solid rgba(255,255,255,0.1);
+  max-width: 680px;
+}
+.cover-meta-cell {
+  padding: 12px 18px;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.cmc-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 1.5px;
+  color: #4a7eaa;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.cmc-value {
+  font-size: 10px;
+  font-weight: 600;
+  color: #b8d4ee;
+}
+.cover-bottom {
+  padding: 20px 48px;
+  border-top: 3px solid var(--blue-mid);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.15);
+}
+.cover-architect {
+  font-size: 10px;
+  color: #5a8eb8;
+  line-height: 1.6;
+}
+.cover-architect strong {
+  color: #8ab8d8;
+  font-size: 11px;
+}
+.cover-logo-text {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #3a6a8c;
+  letter-spacing: 1px;
+  text-align: right;
+}
+
+/* ── DOCUMENT CONTROL TABLE ── */
+.doc-control-page {
+  background: var(--off);
+  padding: 48px 72px;
+  border-top: 1px solid var(--rule);
+}
+.dc-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.dc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+  margin-bottom: 28px;
+}
+.dc-table th {
+  background: var(--blue-dark);
+  color: #c0d8ee;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #2a4a6c;
+}
+.dc-table td {
+  padding: 8px 14px;
+  border: 1px solid var(--rule);
+  color: var(--ink-mid);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.dc-table tr:nth-child(even) td {
+  background: #edf1f7;
+}
+.dc-table tr:nth-child(odd) td {
+  background: var(--page);
+}
+.dc-architect-box {
+  border: 1.5px solid var(--blue-mid);
+  border-radius: 3px;
+  padding: 16px 20px;
+  background: var(--blue-light);
+  display: inline-block;
+  min-width: 320px;
+}
+.dab-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: var(--blue-mid);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.dab-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 2px;
+}
+.dab-role {
+  font-size: 10px;
+  color: var(--ink-mid);
+}
+
+/* ── BODY CONTENT PAGES ── */
+.content-pages {
+  padding: 52px 72px 48px;
+  background: var(--page);
+  border-top: 1px solid var(--rule);
+}
+
+/* Section headings */
+.section {
+  margin-bottom: 36px;
+}
+.section + .section {
+  padding-top: 28px;
+  border-top: 1px solid #e0e6ee;
+}
+
+.section-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  color: var(--blue-mid);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.section h2 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+  line-height: 1.3;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--blue-light);
+}
+.section h3 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink-mid);
+  margin: 18px 0 8px;
+  letter-spacing: 0.3px;
+}
+
+/* Body text */
+.section p {
+  font-size: 10.5px;
+  color: var(--ink-mid);
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+/* Bullet lists */
+.doc-list {
+  list-style: none;
+  margin: 8px 0 12px 0;
+  padding: 0;
+}
+.doc-list li {
+  font-size: 10.5px;
+  color: var(--ink-mid);
+  padding: 3px 0 3px 18px;
+  position: relative;
+  line-height: 1.6;
+}
+.doc-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--blue-mid);
+  font-size: 9px;
+  top: 4px;
+}
+
+/* Traffic flow block */
+.flow-block {
+  background: var(--off);
+  border: 1.5px solid var(--rule);
+  border-left: 4px solid var(--blue-mid);
+  border-radius: 3px;
+  padding: 14px 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9.5px;
+  color: var(--ink-mid);
+  line-height: 2;
+  margin: 14px 0;
+}
+.flow-block .flow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.flow-block .flow-arrow {
+  color: var(--blue-mid);
+  font-size: 11px;
+  margin-left: 12px;
+  display: block;
+}
+
+/* Callout / note box */
+.note-box {
+  background: var(--amber-light);
+  border: 1.5px solid #d4a050;
+  border-radius: 3px;
+  padding: 12px 16px;
+  font-size: 10px;
+  color: #5a3800;
+  margin: 12px 0;
+  line-height: 1.6;
+}
+.note-box strong {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+
+/* Proven / not-proven lists */
+.proven-list {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+}
+.proven-list li {
+  font-size: 10.5px;
+  color: var(--ink-mid);
+  padding: 3px 0 3px 22px;
+  position: relative;
+  line-height: 1.6;
+}
+.proven-list.yes li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--green-dark);
+  font-size: 11px;
+  top: 3px;
+}
+.proven-list.no li::before {
+  content: "✖";
+  position: absolute;
+  left: 0;
+  color: var(--red-dark);
+  font-size: 11px;
+  top: 3px;
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 12px 0;
+}
+.col-box {
+  border: 1.5px solid var(--rule);
+  border-radius: 3px;
+  padding: 14px 16px;
+  background: var(--off);
+}
+.col-box-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--blue-mid);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── FIGURE FRAMES ── */
+.figure-block {
+  margin: 28px 0;
+  border: 1.5px solid var(--rule);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+.figure-frame {
+  width: 100%;
+  border: none;
+  display: block;
+  background: #f5f6f7;
+}
+.figure-caption-bar {
+  background: var(--blue-dark);
+  padding: 10px 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.fig-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  color: #60a0e0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.fig-caption {
+  font-size: 10px;
+  color: #a8c8e4;
+  line-height: 1.5;
+}
+
+/* ── DISCLAIMER SECTION ── */
+.disclaimer-section {
+  background: var(--off);
+  border-top: 1px solid var(--rule);
+  padding: 36px 72px;
+}
+.disclaimer-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.disclaimer-box {
+  border: 1.5px solid var(--rule);
+  border-radius: 3px;
+  padding: 16px 18px;
+  background: var(--page);
+}
+.disclaimer-box-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--red-dark);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e0c0c0;
+}
+.disclaimer-box p {
+  font-size: 9.5px;
+  color: var(--ink-light);
+  line-height: 1.65;
+}
+
+/* ── FOOTER ── */
+.doc-footer {
+  background: var(--blue-dark);
+  padding: 10px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 3px solid var(--blue-mid);
+}
+.footer-left {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: #4a7eaa;
+  text-transform: uppercase;
+}
+.footer-right {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  color: #3a5a70;
+}
+
+/* ── IP NOTICE ── */
+.ip-bar {
+  background: var(--blue-dark);
+  padding: 10px 72px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  color: #3a6080;
+  text-transform: uppercase;
+  border-top: 1px solid #1a2a3a;
+}
+
+/* ── COVER BRAND LOCKUP ── */
+/* ── BRAND LOCKUP (globe + wordmark) ── */
+.cover-brand-lockup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  line-height: 1;
+}
+.cbl-globe {
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+}
+.cbl-divider {
+  width: 1px;
+  height: 62px;
+  background: rgba(255,255,255,0.22);
+  margin: 0 26px;
+  flex-shrink: 0;
+}
+.cbl-words {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2px;
+}
+.cbl-top {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+.cbl-main {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: #5ab4e0;
+  line-height: 1;
+}
+.cbl-tm {
+  font-size: 11px;
+  font-weight: 400;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+.cbl-rule {
+  width: 205px;
+  height: 2px;
+  background: #e8720a;
+  margin-top: 8px;
+}
+
+/* ── PRINT / PDF STABILITY ── */
+.figure-block {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.section {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+.figure-frame {
+  display: block;
+  max-width: 100%;
+}
+@media print {
+  html, body { background: white !important; padding: 0 !important; display: block !important; }
+  @page { size: A4 portrait; margin: 0; }
+  .doc-page { box-shadow: none !important; width: 100% !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  .figure-block { page-break-inside: avoid !important; break-inside: avoid !important; }
+}
+
+</style>
+</head>
+<body>
+<div class="doc-page">
+
+  <!-- ══════════════════════════════════════════
+       COVER PAGE
+  ══════════════════════════════════════════ -->
+  <div class="cover">
+    <div class="cover-texture"></div>
+    <div class="cover-top-bar">
+      <span>Intellilink Media LLC™ · United States of America</span>
+      <span>Document Class: Technical Proof Brief · For Institutional Review</span>
+    </div>
+    <div class="cover-main">
+      <div class="cover-kicker">Enterprise Satellite Connectivity · Governance Control Plane</div>
+      <div class="cover-brand-lockup">
+
+        <!-- Globe SVG -->
+        <svg class="cbl-globe" width="84" height="84" viewBox="0 0 84 84"
+             xmlns="http://www.w3.org/2000/svg" aria-label="Intellilink Globe Logo">
+          <defs>
+            <radialGradient id="cbl-rg-sphere" cx="36%" cy="28%" r="64%">
+              <stop offset="0%"   stop-color="#7ad0f8"/>
+              <stop offset="32%"  stop-color="#2e8ed8"/>
+              <stop offset="72%"  stop-color="#1460b8"/>
+              <stop offset="100%" stop-color="#0a2e6e"/>
+            </radialGradient>
+            <radialGradient id="cbl-rg-sheen" cx="28%" cy="22%" r="42%">
+              <stop offset="0%"   stop-color="rgba(255,255,255,0.30)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+            <clipPath id="cbl-sphere-clip">
+              <circle cx="42" cy="42" r="32"/>
+            </clipPath>
+          </defs>
+
+          <!-- Sphere -->
+          <circle cx="42" cy="42" r="32" fill="url(#cbl-rg-sphere)"/>
+          <circle cx="42" cy="42" r="32" fill="url(#cbl-rg-sheen)"/>
+
+          <!-- Grid lines, clipped to sphere -->
+          <g clip-path="url(#cbl-sphere-clip)" fill="none"
+             stroke="rgba(255,255,255,0.26)" stroke-width="0.65">
+            <ellipse cx="42" cy="42" rx="32" ry="11.5"/>
+            <ellipse cx="42" cy="42" rx="32" ry="22"/>
+            <ellipse cx="42" cy="42" rx="32" ry="30"/>
+            <ellipse cx="42" cy="42" rx="11.5" ry="32"/>
+            <ellipse cx="42" cy="42" rx="22" ry="32"/>
+          </g>
+
+          <!-- Text band across equator -->
+          <g clip-path="url(#cbl-sphere-clip)">
+            <rect x="10" y="36" width="64" height="12" fill="rgba(6,24,64,0.52)"/>
+            <text x="42" y="44.5" text-anchor="middle"
+                  font-family="'IBM Plex Sans','Arial',sans-serif"
+                  font-size="6.6" font-weight="700" letter-spacing="1.35"
+                  fill="rgba(255,255,255,0.92)">INTELLILINK</text>
+            <text x="42" y="52" text-anchor="middle"
+                  font-family="'IBM Plex Sans','Arial',sans-serif"
+                  font-size="4.1" font-weight="400" letter-spacing="0.9"
+                  fill="rgba(255,255,255,0.60)">MEDIA</text>
+          </g>
+
+          <!-- Orange ring -->
+          <circle cx="42" cy="42" r="36" fill="none"
+                  stroke="#e8720a" stroke-width="3.2"/>
+
+          <!-- Antenna arcs (top-right) -->
+          <path d="M 63 15 Q 74 8 78 21" fill="none" stroke="#e8720a"
+                stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
+          <path d="M 66 11 Q 80 3 84 18" fill="none" stroke="#e8720a"
+                stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+        </svg>
+
+        <!-- Vertical divider -->
+        <div class="cbl-divider"></div>
+
+        <!-- Wordmark -->
+        <div class="cbl-words">
+          <div class="cbl-top">INTELLILINK</div>
+          <div class="cbl-main">GATEWAY<sup class="cbl-tm">&#8482;</sup></div>
+          <div class="cbl-rule"></div>
+        </div>
+
+      </div>
+      <div class="cover-subtitle">Technical Proof Brief<br>Enterprise Satellite Connectivity Governance Control Plane</div>
+      <div class="cover-rule"></div>
+      <div class="cover-meta-grid">
+        <div class="cover-meta-cell">
+          <div class="cmc-label">Document</div>
+          <div class="cmc-value">Technical Proof Brief</div>
+        </div>
+        <div class="cover-meta-cell">
+          <div class="cmc-label">Version</div>
+          <div class="cmc-value">2.0</div>
+        </div>
+        <div class="cover-meta-cell">
+          <div class="cmc-label">Date</div>
+          <div class="cmc-value">07 February 2026</div>
+        </div>
+        <div class="cover-meta-cell">
+          <div class="cmc-label">Status</div>
+          <div class="cmc-value">Technical Validation Summary</div>
+        </div>
+      </div>
+    </div>
+    <div class="cover-bottom">
+      <div class="cover-architect">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:7.5px;letter-spacing:1.5px;color:#3a6888;text-transform:uppercase;margin-bottom:5px;">Architected by</div>
+        <strong>Emmanuel Mukwesa</strong><br>
+        Founder &amp; Architect<br>
+        Intellilink Media LLC™ · United States of America
+      </div>
+      <div class="cover-logo-text">
+        INTELLILINK MEDIA LLC™<br>
+        <span style="font-size:8px;color:#2a4a5a;">Prepared by Intellilink Media LLC™ (USA)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       DOCUMENT CONTROL
+  ══════════════════════════════════════════ -->
+  <div class="doc-control-page">
+    <div class="dc-title">Document Control</div>
+    <table class="dc-table">
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Document Title</td><td>Intellilink Gateway™ — Technical Proof Brief</td></tr>
+        <tr><td>Document Type</td><td>Technical Validation Summary</td></tr>
+        <tr><td>Version</td><td>2.0</td></tr>
+        <tr><td>Date</td><td>07 February 2026</td></tr>
+        <tr><td>Status</td><td>Technical Validation Summary</td></tr>
+        <tr><td>Prepared by</td><td>Intellilink Media LLC™ (USA)</td></tr>
+        <tr><td>Distribution</td><td>Institutional · Regulatory · Technical Stakeholders</td></tr>
+        <tr><td>Classification</td><td>Public — Institutional Release (Anonymized)</td></tr>
+        <tr><td>Network Identifiers</td><td>No ISP names, locations, or sensitive network identifiers disclosed</td></tr>
+      </tbody>
+    </table>
+    <div class="dc-architect-box">
+      <div class="dab-label">Architect Attribution</div>
+      <div class="dab-name">Emmanuel Mukwesa</div>
+      <div class="dab-role">Founder &amp; Architect · Intellilink Media LLC™<br>United States of America</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       CONTENT PAGES
+  ══════════════════════════════════════════ -->
+  <div class="content-pages">
+
+    <!-- SECTION 1 -->
+    <div class="section">
+      <div class="section-num">Section 01</div>
+      <h2>Executive Technical Overview</h2>
+      <p>The rapid adoption of satellite Internet services, particularly low-Earth-orbit (LEO) systems, has significantly improved connectivity resilience for enterprises across Africa. However, many enterprise deployments operate outside traditional Internet Service Provider (ISP) delivery models, reducing visibility, accountability, and alignment with national Internet governance frameworks.</p>
+      <p>Intellilink Gateway™ introduces a control-plane architecture designed to restore traditional ISP governance characteristics — including local IP anchoring, accountable upstream presence, and auditability — while preserving the performance and resilience benefits of satellite connectivity.</p>
+      <p>This document summarizes both laboratory and field validation of the Intellilink Gateway™ control plane under real operating conditions.</p>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section">
+      <div class="section-num">Section 02</div>
+      <h2>Architectural Overview</h2>
+      <p>The Intellilink Gateway™ architecture separates access connectivity from governance enforcement.</p>
+      <div class="two-col">
+        <div class="col-box">
+          <div class="col-box-title">Access Layer (Unchanged)</div>
+          <ul class="doc-list">
+            <li>Satellite transport underlay (e.g., Starlink)</li>
+            <li>Enterprise retains direct satellite performance characteristics</li>
+          </ul>
+        </div>
+        <div class="col-box">
+          <div class="col-box-title">Governance Layer (Introduced)</div>
+          <ul class="doc-list">
+            <li>Secure gateway node adjacent to satellite CPE</li>
+            <li>Encrypted tunnel to a domestic ISP Point of Presence (PoP)</li>
+            <li>Policy enforcement, traffic visibility, addressing, and logging applied at the PoP</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Logical Traffic Flow</h3>
+      <div class="flow-block">
+        <span>Enterprise LAN</span>
+        <span class="flow-arrow">→ Satellite CPE (Starlink)</span>
+        <span class="flow-arrow">→ Intellilink Gateway™ (Agent Node)</span>
+        <span class="flow-arrow">→ Encrypted Tunnel</span>
+        <span class="flow-arrow">→ ISP PoP (Governance Anchor)</span>
+        <span class="flow-arrow">→ Internet</span>
+      </div>
+
+      <div class="note-box">
+        <strong>Architectural Note</strong>
+        The architecture does not replace satellite connectivity. Instead, it re-anchors enterprise traffic into a conventional ISP governance domain.
+      </div>
+
+      <!-- FIGURE 1 -->
+      <div class="figure-block">
+        <iframe class="figure-frame" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;ICG Reference Architecture — Regulatory Technical Brief&lt;/title&gt;
+&lt;style&gt;
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@400;600;700&amp;display=swap&#x27;);
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #e0e3e8; padding: 32px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; }
+  .wrapper { width: 1100px; }
+  svg { display: block; width: 100%; height: auto; box-shadow: 0 4px 24px rgba(0,0,0,0.18); }
+  .export-note {
+    margin-top: 14px;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 10px;
+    color: #888;
+    text-align: center;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;wrapper&quot;&gt;
+&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 1100 720&quot; font-family=&quot;&#x27;IBM Plex Sans&#x27;,&#x27;Arial&#x27;,&#x27;Helvetica&#x27;,sans-serif&quot;&gt;
+  &lt;defs&gt;
+    &lt;marker id=&quot;arrow-solid&quot;   markerWidth=&quot;8&quot; markerHeight=&quot;8&quot; refX=&quot;6&quot; refY=&quot;3&quot; orient=&quot;auto&quot;&gt;&lt;path d=&quot;M0,0 L0,6 L8,3 z&quot; fill=&quot;#1a3a5c&quot;/&gt;&lt;/marker&gt;
+    &lt;marker id=&quot;arrow-ctrl&quot;    markerWidth=&quot;8&quot; markerHeight=&quot;8&quot; refX=&quot;6&quot; refY=&quot;3&quot; orient=&quot;auto&quot;&gt;&lt;path d=&quot;M0,0 L0,6 L8,3 z&quot; fill=&quot;#8b1a1a&quot;/&gt;&lt;/marker&gt;
+    &lt;marker id=&quot;arrow-ctrl-r&quot;  markerWidth=&quot;8&quot; markerHeight=&quot;8&quot; refX=&quot;2&quot; refY=&quot;3&quot; orient=&quot;auto&quot;&gt;&lt;path d=&quot;M8,0 L8,6 L0,3 z&quot; fill=&quot;#8b1a1a&quot;/&gt;&lt;/marker&gt;
+    &lt;filter id=&quot;sh&quot;&gt;&lt;feDropShadow dx=&quot;1&quot; dy=&quot;1&quot; stdDeviation=&quot;2&quot; flood-color=&quot;#00000028&quot;/&gt;&lt;/filter&gt;
+  &lt;/defs&gt;
+
+  &lt;!-- Background --&gt;
+  &lt;rect width=&quot;1100&quot; height=&quot;720&quot; fill=&quot;#f5f6f7&quot;/&gt;
+
+  &lt;!-- ══ HEADER ══ --&gt;
+  &lt;rect x=&quot;0&quot; y=&quot;0&quot; width=&quot;1100&quot; height=&quot;74&quot; fill=&quot;#1a3a5c&quot;/&gt;
+  &lt;text x=&quot;24&quot; y=&quot;22&quot; font-size=&quot;9.5&quot; fill=&quot;#8ab4d4&quot; font-weight=&quot;600&quot; letter-spacing=&quot;1.8&quot;&gt;USE CASE: DOMESTIC TRAFFIC ANCHORING FOR SATELLITE BROADBAND NETWORKS&lt;/text&gt;
+  &lt;text x=&quot;24&quot; y=&quot;44&quot; font-size=&quot;17&quot; fill=&quot;#ffffff&quot; font-weight=&quot;700&quot;&gt;Intellilink Compliance Gateway (ICG) — Reference Architecture&lt;/text&gt;
+  &lt;text x=&quot;24&quot; y=&quot;62&quot; font-size=&quot;10.5&quot; fill=&quot;#a8c4dc&quot;&gt;Architecture for compliant enterprise satellite connectivity with domestic traffic anchoring and sovereign enforcement.&lt;/text&gt;
+  &lt;text x=&quot;1078&quot; y=&quot;28&quot; font-size=&quot;9&quot; fill=&quot;#8ab4d4&quot; text-anchor=&quot;end&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;Document Class: Technical Proof Brief&lt;/text&gt;
+  &lt;text x=&quot;1078&quot; y=&quot;43&quot; font-size=&quot;9&quot; fill=&quot;#8ab4d4&quot; text-anchor=&quot;end&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;Revision: 3.0  |  February 2026&lt;/text&gt;
+  &lt;text x=&quot;1078&quot; y=&quot;58&quot; font-size=&quot;9&quot; fill=&quot;#8ab4d4&quot; text-anchor=&quot;end&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;For Regulatory Review&lt;/text&gt;
+
+  &lt;!-- ══ DOMAIN BACKGROUNDS ══ --&gt;
+  &lt;!-- Enterprise --&gt;
+  &lt;rect x=&quot;16&quot;  y=&quot;86&quot; width=&quot;214&quot; height=&quot;394&quot; rx=&quot;2&quot; fill=&quot;#e8eff7&quot; stroke=&quot;#5a7fa8&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;rect x=&quot;16&quot;  y=&quot;86&quot; width=&quot;214&quot; height=&quot;22&quot;  rx=&quot;2&quot; fill=&quot;#c8daea&quot; stroke=&quot;#5a7fa8&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;123&quot; y=&quot;101&quot; font-size=&quot;9.5&quot; font-weight=&quot;700&quot; fill=&quot;#1a3a5c&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;ENTERPRISE DOMAIN&lt;/text&gt;
+  &lt;text x=&quot;123&quot; y=&quot;490&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#5a7fa8&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;CONSUMER&lt;/text&gt;
+
+  &lt;!-- Satellite --&gt;
+  &lt;rect x=&quot;238&quot; y=&quot;86&quot; width=&quot;238&quot; height=&quot;394&quot; rx=&quot;2&quot; fill=&quot;#fdf7ee&quot; stroke=&quot;#a08040&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6,3&quot;/&gt;
+  &lt;rect x=&quot;238&quot; y=&quot;86&quot; width=&quot;238&quot; height=&quot;22&quot;  rx=&quot;2&quot; fill=&quot;#f0ddb8&quot; stroke=&quot;#a08040&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;357&quot; y=&quot;101&quot; font-size=&quot;9.5&quot; font-weight=&quot;700&quot; fill=&quot;#6b4a00&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;SATELLITE ACCESS DOMAIN&lt;/text&gt;
+  &lt;text x=&quot;357&quot; y=&quot;490&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#a08040&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;ACCESS&lt;/text&gt;
+
+  &lt;!-- Compliance/ISP --&gt;
+  &lt;rect x=&quot;504&quot; y=&quot;86&quot; width=&quot;284&quot; height=&quot;394&quot; rx=&quot;2&quot; fill=&quot;#edf6ed&quot; stroke=&quot;#2a7a2a&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;rect x=&quot;504&quot; y=&quot;86&quot; width=&quot;284&quot; height=&quot;22&quot;  rx=&quot;2&quot; fill=&quot;#c8e8c8&quot; stroke=&quot;#2a7a2a&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;646&quot; y=&quot;101&quot; font-size=&quot;9.5&quot; font-weight=&quot;700&quot; fill=&quot;#1a4a1a&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;COMPLIANCE / ISP DOMAIN&lt;/text&gt;
+  &lt;text x=&quot;646&quot; y=&quot;490&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#2a7a2a&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;PROVIDER&lt;/text&gt;
+
+  &lt;!-- External Networks --&gt;
+  &lt;rect x=&quot;796&quot; y=&quot;86&quot; width=&quot;288&quot; height=&quot;394&quot; rx=&quot;2&quot; fill=&quot;#f0f0f0&quot; stroke=&quot;#909090&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;rect x=&quot;796&quot; y=&quot;86&quot; width=&quot;288&quot; height=&quot;22&quot;  rx=&quot;2&quot; fill=&quot;#d8d8d8&quot; stroke=&quot;#909090&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;940&quot; y=&quot;101&quot; font-size=&quot;9.5&quot; font-weight=&quot;700&quot; fill=&quot;#444&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;EXTERNAL NETWORKS DOMAIN&lt;/text&gt;
+  &lt;text x=&quot;940&quot; y=&quot;490&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#777&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;1.2&quot;&gt;EXTERNAL PEERINGS&lt;/text&gt;
+
+  &lt;!-- ══ NATIONAL SOVEREIGN BOUNDARY ══ --&gt;
+  &lt;!-- Vertical gap / label column --&gt;
+  &lt;rect x=&quot;480&quot; y=&quot;86&quot; width=&quot;24&quot; height=&quot;394&quot; fill=&quot;#f5f6f7&quot;/&gt;
+  &lt;!-- Thick dashed vertical line --&gt;
+  &lt;line x1=&quot;492&quot; y1=&quot;86&quot; x2=&quot;492&quot; y2=&quot;498&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;3&quot; stroke-dasharray=&quot;10,5&quot;/&gt;
+  &lt;!-- Arrowheads --&gt;
+  &lt;polygon points=&quot;492,90 487,101 497,101&quot;  fill=&quot;#c0392b&quot;/&gt;
+  &lt;polygon points=&quot;492,494 487,483 497,483&quot; fill=&quot;#c0392b&quot;/&gt;
+  &lt;!-- Rotated label --&gt;
+  &lt;text transform=&quot;translate(486,340) rotate(-90)&quot; font-size=&quot;9.5&quot; font-weight=&quot;700&quot; fill=&quot;#c0392b&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;2&quot;&gt;NATIONAL SOVEREIGN BOUNDARY&lt;/text&gt;
+
+  &lt;!-- ══ CONTROL PLANE — BIDIRECTIONAL ENCRYPTED TUNNEL ══ --&gt;
+  &lt;!-- Background band --&gt;
+  &lt;rect x=&quot;138&quot; y=&quot;132&quot; width=&quot;444&quot; height=&quot;20&quot; rx=&quot;2&quot; fill=&quot;#fef0f0&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;5,3&quot;/&gt;
+  &lt;text x=&quot;360&quot; y=&quot;146&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#8b1a1a&quot; text-anchor=&quot;middle&quot; letter-spacing=&quot;0.5&quot;&gt;
+    Bidirectional Encrypted Control Tunnel (ICG Agent ⇄ ICG PoP)
+  &lt;/text&gt;
+  &lt;!-- Forward arrow --&gt;
+  &lt;line x1=&quot;222&quot; y1=&quot;140&quot; x2=&quot;498&quot; y2=&quot;140&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6,3&quot; marker-end=&quot;url(#arrow-ctrl)&quot;/&gt;
+  &lt;!-- Return arrow --&gt;
+  &lt;line x1=&quot;498&quot; y1=&quot;146&quot; x2=&quot;222&quot; y2=&quot;146&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6,3&quot; marker-end=&quot;url(#arrow-ctrl-r)&quot;/&gt;
+  &lt;!-- Drop legs --&gt;
+  &lt;line x1=&quot;178&quot; y1=&quot;148&quot; x2=&quot;178&quot; y2=&quot;164&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;4,2&quot;/&gt;
+  &lt;line x1=&quot;560&quot; y1=&quot;148&quot; x2=&quot;560&quot; y2=&quot;170&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;4,2&quot;/&gt;
+
+  &lt;!-- ══ NON-SOVEREIGN CAPTION BANNER ══ --&gt;
+  &lt;rect x=&quot;248&quot; y=&quot;113&quot; width=&quot;218&quot; height=&quot;26&quot; rx=&quot;2&quot; fill=&quot;#f5e4bb&quot; stroke=&quot;#a08040&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;text x=&quot;357&quot; y=&quot;126&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#6b4a00&quot; text-anchor=&quot;middle&quot;&gt;Non-Sovereign Transport Layer&lt;/text&gt;
+  &lt;text x=&quot;357&quot; y=&quot;137&quot; font-size=&quot;7.5&quot; fill=&quot;#8a6020&quot; text-anchor=&quot;middle&quot;&gt;(Out-of-Country Infrastructure)&lt;/text&gt;
+
+  &lt;!-- ══ NODES ══ --&gt;
+
+  &lt;!-- Enterprise LAN --&gt;
+  &lt;rect x=&quot;26&quot;  y=&quot;182&quot; width=&quot;76&quot; height=&quot;50&quot; rx=&quot;2&quot; fill=&quot;#ffffff&quot; stroke=&quot;#5a7fa8&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;text x=&quot;64&quot;  y=&quot;204&quot; font-size=&quot;10&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;Enterprise&lt;/text&gt;
+  &lt;text x=&quot;64&quot;  y=&quot;218&quot; font-size=&quot;10&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;LAN&lt;/text&gt;
+
+  &lt;!-- ICG Agent --&gt;
+  &lt;rect x=&quot;134&quot; y=&quot;164&quot; width=&quot;88&quot; height=&quot;64&quot; rx=&quot;2&quot; fill=&quot;#1a3a5c&quot; stroke=&quot;#0d2240&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;text x=&quot;178&quot; y=&quot;190&quot; font-size=&quot;12&quot; font-weight=&quot;700&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;ICG&lt;/text&gt;
+  &lt;text x=&quot;178&quot; y=&quot;206&quot; font-size=&quot;12&quot; font-weight=&quot;700&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;Agent&lt;/text&gt;
+  &lt;circle cx=&quot;178&quot; cy=&quot;220&quot; r=&quot;4&quot; fill=&quot;#5ab4e4&quot;/&gt;
+  &lt;!-- Agent sub-labels --&gt;
+  &lt;text x=&quot;30&quot;  y=&quot;258&quot; font-size=&quot;8.5&quot; fill=&quot;#2a4a6a&quot;&gt;― Policy Enforcement Agent&lt;/text&gt;
+  &lt;text x=&quot;30&quot;  y=&quot;272&quot; font-size=&quot;8.5&quot; fill=&quot;#2a4a6a&quot;&gt;― Telemetric / NetFlow / IPFIX&lt;/text&gt;
+  &lt;text x=&quot;40&quot;  y=&quot;284&quot; font-size=&quot;8.5&quot; fill=&quot;#2a4a6a&quot;&gt;   Anchor Point&lt;/text&gt;
+  &lt;text x=&quot;30&quot;  y=&quot;298&quot; font-size=&quot;8.5&quot; fill=&quot;#2a4a6a&quot;&gt;― Tunnel Endpoint (Control Plane)&lt;/text&gt;
+
+  &lt;!-- LEO CPE --&gt;
+  &lt;rect x=&quot;250&quot; y=&quot;172&quot; width=&quot;92&quot; height=&quot;50&quot; rx=&quot;2&quot; fill=&quot;#ffffff&quot; stroke=&quot;#a08040&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;text x=&quot;296&quot; y=&quot;194&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;LEO Satellite&lt;/text&gt;
+  &lt;text x=&quot;296&quot; y=&quot;208&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;CPE&lt;/text&gt;
+
+  &lt;!-- LEO Gateway --&gt;
+  &lt;rect x=&quot;372&quot; y=&quot;172&quot; width=&quot;92&quot; height=&quot;50&quot; rx=&quot;2&quot; fill=&quot;#ffffff&quot; stroke=&quot;#a08040&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;text x=&quot;418&quot; y=&quot;194&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;LEO Satellite&lt;/text&gt;
+  &lt;text x=&quot;418&quot; y=&quot;208&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;Gateway&lt;/text&gt;
+
+  &lt;!-- Satellite Access label box --&gt;
+  &lt;rect x=&quot;250&quot; y=&quot;244&quot; width=&quot;214&quot; height=&quot;34&quot; rx=&quot;2&quot; fill=&quot;#f5e4bb&quot; stroke=&quot;#c0a060&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;4,2&quot;/&gt;
+  &lt;text x=&quot;357&quot; y=&quot;260&quot; font-size=&quot;8.5&quot; fill=&quot;#6b4a00&quot; text-anchor=&quot;middle&quot; font-style=&quot;italic&quot;&gt;Satellite Access Network&lt;/text&gt;
+  &lt;text x=&quot;357&quot; y=&quot;272&quot; font-size=&quot;8&quot;   fill=&quot;#8a6020&quot; text-anchor=&quot;middle&quot;&gt;(Non-Sovereign Transport Layer)&lt;/text&gt;
+
+  &lt;!-- Address Space info --&gt;
+  &lt;rect x=&quot;514&quot; y=&quot;112&quot; width=&quot;176&quot; height=&quot;44&quot; rx=&quot;2&quot; fill=&quot;#d4ecd4&quot; stroke=&quot;#4a8a4a&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;text x=&quot;602&quot; y=&quot;127&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#1a4a1a&quot; text-anchor=&quot;middle&quot;&gt;Domestic Address Space&lt;/text&gt;
+  &lt;text x=&quot;602&quot; y=&quot;139&quot; font-size=&quot;8&quot;   fill=&quot;#2a5a2a&quot; text-anchor=&quot;middle&quot;&gt;AFRINIC Allocation (Masked)&lt;/text&gt;
+  &lt;text x=&quot;602&quot; y=&quot;151&quot; font-size=&quot;8&quot;   fill=&quot;#2a5a2a&quot; text-anchor=&quot;middle&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;IP Block: 41.x.x.x /16&lt;/text&gt;
+
+  &lt;!-- ICG PoP --&gt;
+  &lt;rect x=&quot;516&quot; y=&quot;170&quot; width=&quot;88&quot; height=&quot;64&quot; rx=&quot;2&quot; fill=&quot;#1a3a5c&quot; stroke=&quot;#0d2240&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;text x=&quot;560&quot; y=&quot;196&quot; font-size=&quot;12&quot; font-weight=&quot;700&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;ICG&lt;/text&gt;
+  &lt;text x=&quot;560&quot; y=&quot;212&quot; font-size=&quot;12&quot; font-weight=&quot;700&quot; fill=&quot;#ffffff&quot; text-anchor=&quot;middle&quot;&gt;PoP&lt;/text&gt;
+  &lt;circle cx=&quot;560&quot; cy=&quot;226&quot; r=&quot;4&quot; fill=&quot;#4ad44a&quot;/&gt;
+  &lt;!-- PoP sub-labels --&gt;
+  &lt;text x=&quot;514&quot; y=&quot;258&quot; font-size=&quot;8.5&quot; fill=&quot;#1a4a1a&quot;&gt;― NAT / Address Localization&lt;/text&gt;
+  &lt;text x=&quot;514&quot; y=&quot;272&quot; font-size=&quot;8.5&quot; fill=&quot;#1a4a1a&quot;&gt;― National Traffic Anchoring Point&lt;/text&gt;
+  &lt;text x=&quot;514&quot; y=&quot;286&quot; font-size=&quot;8.5&quot; fill=&quot;#1a4a1a&quot;&gt;― Policy Enforcement Point (PEP)&lt;/text&gt;
+  &lt;text x=&quot;514&quot; y=&quot;300&quot; font-size=&quot;8.5&quot; fill=&quot;#1a4a1a&quot;&gt;― Sovereign Exit Control&lt;/text&gt;
+
+  &lt;!-- ISP Edge --&gt;
+  &lt;rect x=&quot;644&quot; y=&quot;170&quot; width=&quot;132&quot; height=&quot;64&quot; rx=&quot;2&quot; fill=&quot;#ffffff&quot; stroke=&quot;#2a7a2a&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;text x=&quot;710&quot; y=&quot;192&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;ISP Edge —&lt;/text&gt;
+  &lt;text x=&quot;710&quot; y=&quot;206&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;External Peering /&lt;/text&gt;
+  &lt;text x=&quot;710&quot; y=&quot;220&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#1a2a3a&quot; text-anchor=&quot;middle&quot;&gt;Transit (BGP)&lt;/text&gt;
+
+  &lt;!-- LI Shield icon (inside Compliance domain) --&gt;
+  &lt;g transform=&quot;translate(600,318)&quot;&gt;
+    &lt;path d=&quot;M32,0 L64,14 L64,40 C64,57 32,70 32,70 C32,70 0,57 0,40 L0,14 Z&quot; fill=&quot;#1a3a5c&quot; stroke=&quot;#0d2240&quot; stroke-width=&quot;1.5&quot;/&gt;
+    &lt;path d=&quot;M32,9 L55,20 L55,40 C55,53 32,63 32,63 C32,63 9,53 9,40 L9,20 Z&quot; fill=&quot;#2a5a8a&quot;/&gt;
+    &lt;!-- checkmark --&gt;
+    &lt;polyline points=&quot;19,42 28,52 46,30&quot; fill=&quot;none&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;4&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;/g&gt;
+  &lt;!-- LI label --&gt;
+  &lt;rect x=&quot;515&quot; y=&quot;396&quot; width=&quot;266&quot; height=&quot;34&quot; rx=&quot;2&quot; fill=&quot;#d4ecd4&quot; stroke=&quot;#2a7a2a&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;text x=&quot;648&quot; y=&quot;411&quot; font-size=&quot;8.5&quot; font-weight=&quot;700&quot; fill=&quot;#1a4a1a&quot; text-anchor=&quot;middle&quot;&gt;Authorized Lawful Intercept Interface&lt;/text&gt;
+  &lt;text x=&quot;648&quot; y=&quot;424&quot; font-size=&quot;8&quot;   fill=&quot;#2a5a2a&quot; text-anchor=&quot;middle&quot;&gt;National Jurisdiction&lt;/text&gt;
+
+  &lt;!-- Globe / External Networks --&gt;
+  &lt;circle cx=&quot;940&quot; cy=&quot;215&quot; r=&quot;54&quot; fill=&quot;#ffffff&quot; stroke=&quot;#909090&quot; stroke-width=&quot;1.5&quot; filter=&quot;url(#sh)&quot;/&gt;
+  &lt;!-- Globe grid lines --&gt;
+  &lt;ellipse cx=&quot;940&quot; cy=&quot;215&quot; rx=&quot;32&quot; ry=&quot;54&quot; fill=&quot;none&quot; stroke=&quot;#c0c0c0&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;line   x1=&quot;886&quot; y1=&quot;215&quot; x2=&quot;994&quot; y2=&quot;215&quot; stroke=&quot;#c0c0c0&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;ellipse cx=&quot;940&quot; cy=&quot;215&quot; rx=&quot;54&quot; ry=&quot;20&quot; fill=&quot;none&quot; stroke=&quot;#c0c0c0&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;ellipse cx=&quot;940&quot; cy=&quot;215&quot; rx=&quot;54&quot; ry=&quot;40&quot; fill=&quot;none&quot; stroke=&quot;#e0e0e0&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;!-- outer ring again on top --&gt;
+  &lt;circle cx=&quot;940&quot; cy=&quot;215&quot; r=&quot;54&quot; fill=&quot;none&quot; stroke=&quot;#909090&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;940&quot; y=&quot;285&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#555&quot; text-anchor=&quot;middle&quot;&gt;External Networks /&lt;/text&gt;
+  &lt;text x=&quot;940&quot; y=&quot;299&quot; font-size=&quot;9.5&quot; font-weight=&quot;600&quot; fill=&quot;#555&quot; text-anchor=&quot;middle&quot;&gt;Global Internet&lt;/text&gt;
+
+  &lt;!-- ══ DATA PLANE ARROWS ══ --&gt;
+  &lt;!-- LAN → Agent --&gt;
+  &lt;line x1=&quot;102&quot; y1=&quot;207&quot; x2=&quot;131&quot; y2=&quot;200&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+  &lt;!-- Agent → LEO CPE --&gt;
+  &lt;line x1=&quot;222&quot; y1=&quot;197&quot; x2=&quot;248&quot; y2=&quot;197&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+  &lt;!-- LEO CPE → LEO GW --&gt;
+  &lt;line x1=&quot;342&quot; y1=&quot;197&quot; x2=&quot;370&quot; y2=&quot;197&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+  &lt;!-- LEO GW → ICG PoP (crosses boundary) --&gt;
+  &lt;line x1=&quot;464&quot; y1=&quot;197&quot; x2=&quot;514&quot; y2=&quot;197&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+  &lt;!-- ICG PoP → ISP Edge --&gt;
+  &lt;line x1=&quot;604&quot; y1=&quot;202&quot; x2=&quot;642&quot; y2=&quot;202&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+  &lt;!-- ISP Edge → External --&gt;
+  &lt;line x1=&quot;776&quot; y1=&quot;202&quot; x2=&quot;882&quot; y2=&quot;202&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+
+  &lt;!-- ══ KEY / LEGEND ══ --&gt;
+  &lt;rect x=&quot;16&quot; y=&quot;504&quot; width=&quot;1068&quot; height=&quot;126&quot; rx=&quot;2&quot; fill=&quot;#f0f4f8&quot; stroke=&quot;#c8cbd0&quot; stroke-width=&quot;1&quot;/&gt;
+
+  &lt;!-- KEY title --&gt;
+  &lt;text x=&quot;36&quot; y=&quot;524&quot; font-size=&quot;11&quot; font-weight=&quot;700&quot; fill=&quot;#1a3a5c&quot;&gt;KEY:&lt;/text&gt;
+
+  &lt;!-- Row 1: Sovereign boundary --&gt;
+  &lt;line x1=&quot;36&quot; y1=&quot;542&quot; x2=&quot;94&quot; y2=&quot;542&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;2.5&quot; stroke-dasharray=&quot;8,4&quot;/&gt;
+  &lt;text x=&quot;102&quot; y=&quot;546&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;National Sovereign Boundary (jurisdictional delimiter)&lt;/text&gt;
+
+  &lt;!-- Row 2: Control plane --&gt;
+  &lt;line x1=&quot;36&quot; y1=&quot;563&quot; x2=&quot;82&quot; y2=&quot;563&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;5,3&quot; marker-end=&quot;url(#arrow-ctrl)&quot;/&gt;
+  &lt;line x1=&quot;82&quot; y1=&quot;568&quot; x2=&quot;36&quot; y2=&quot;568&quot; stroke=&quot;#c0392b&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;5,3&quot; marker-end=&quot;url(#arrow-ctrl-r)&quot;/&gt;
+  &lt;text x=&quot;102&quot; y=&quot;568&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;Bidirectional Encrypted Control Plane (ICG Agent ⇄ ICG PoP) — not visible in traceroute / data plane&lt;/text&gt;
+
+  &lt;!-- Row 3: Data plane --&gt;
+  &lt;line x1=&quot;36&quot; y1=&quot;590&quot; x2=&quot;90&quot; y2=&quot;590&quot; stroke=&quot;#1a3a5c&quot; stroke-width=&quot;2&quot; marker-end=&quot;url(#arrow-solid)&quot;/&gt;
+  &lt;text x=&quot;102&quot; y=&quot;594&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;Data Plane — User Traffic&lt;/text&gt;
+
+  &lt;!-- Row 4: LI --&gt;
+  &lt;g transform=&quot;translate(36,600) scale(0.38)&quot;&gt;
+    &lt;path d=&quot;M32,0 L64,14 L64,40 C64,57 32,70 32,70 C32,70 0,57 0,40 L0,14 Z&quot; fill=&quot;#1a3a5c&quot;/&gt;
+    &lt;polyline points=&quot;19,42 28,52 46,30&quot; fill=&quot;none&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;/&gt;
+  &lt;/g&gt;
+  &lt;text x=&quot;64&quot; y=&quot;617&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;Authorized Lawful Intercept (LI) Interface — National Jurisdiction&lt;/text&gt;
+
+  &lt;!-- Col 2 --&gt;
+  &lt;rect x=&quot;520&quot; y=&quot;528&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;1&quot; fill=&quot;#f5e4bb&quot; stroke=&quot;#a08040&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;3,2&quot;/&gt;
+  &lt;text x=&quot;540&quot; y=&quot;539&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;Non-Sovereign Transport Layer (out-of-country infrastructure — encapsulated)&lt;/text&gt;
+
+  &lt;rect x=&quot;520&quot; y=&quot;550&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;1&quot; fill=&quot;#1a3a5c&quot;/&gt;
+  &lt;text x=&quot;540&quot; y=&quot;561&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;Policy Enforcement Point (PEP) — ICG Agent &amp;amp; ICG PoP&lt;/text&gt;
+
+  &lt;rect x=&quot;520&quot; y=&quot;572&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;1&quot; fill=&quot;#d4ecd4&quot; stroke=&quot;#4a8a4a&quot; stroke-width=&quot;1&quot;/&gt;
+  &lt;text x=&quot;540&quot; y=&quot;583&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;Domestic Address Space — AFRINIC Allocation (Masked) — 41.x.x.x/16&lt;/text&gt;
+
+  &lt;rect x=&quot;520&quot; y=&quot;594&quot; width=&quot;12&quot; height=&quot;12&quot; rx=&quot;1&quot; fill=&quot;#ffffff&quot; stroke=&quot;#2a7a2a&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;540&quot; y=&quot;605&quot; font-size=&quot;9.5&quot; fill=&quot;#333&quot;&gt;ISP Edge — External Peering / Transit (BGP)&lt;/text&gt;
+
+  &lt;!-- ══ FOOTER ══ --&gt;
+  &lt;rect x=&quot;0&quot; y=&quot;640&quot; width=&quot;1100&quot; height=&quot;80&quot; fill=&quot;#1a3a5c&quot;/&gt;
+  &lt;line x1=&quot;0&quot; y1=&quot;640&quot; x2=&quot;1100&quot; y2=&quot;640&quot; stroke=&quot;#2a5a8a&quot; stroke-width=&quot;1.5&quot;/&gt;
+  &lt;text x=&quot;24&quot; y=&quot;660&quot; font-size=&quot;9&quot;   fill=&quot;#8ab4d4&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;INTELLILINK COMPLIANCE GATEWAY (ICG) — REFERENCE ARCHITECTURE  |  TECHNICAL PROOF BRIEF&lt;/text&gt;
+  &lt;text x=&quot;24&quot; y=&quot;676&quot; font-size=&quot;8.5&quot; fill=&quot;#8ab4d4&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;Figure 3  |  Use Case: Domestic Traffic Anchoring — Satellite Broadband Networks  |  Rev. 3.0  |  February 2026&lt;/text&gt;
+  &lt;text x=&quot;24&quot; y=&quot;692&quot; font-size=&quot;8&quot;   fill=&quot;#6a8aaa&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;All IP addresses masked for anonymity. No real infrastructure addresses disclosed. No vendor branding. Neutral, standards-based telecommunications terminology.&lt;/text&gt;
+  &lt;text x=&quot;1078&quot; y=&quot;692&quot; font-size=&quot;9&quot; fill=&quot;#8ab4d4&quot; text-anchor=&quot;end&quot; font-family=&quot;&#x27;IBM Plex Mono&#x27;,monospace&quot;&gt;Page 1 of 1&lt;/text&gt;
+&lt;/svg&gt;
+&lt;div class=&quot;export-note&quot;&gt;To export as PDF: File → Print → Save as PDF (landscape, no margins) in your browser.&lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" style="height:760px;"></iframe>
+        <div class="figure-caption-bar">
+          <span class="fig-num">Figure 1</span>
+          <span class="fig-caption">Intellilink Gateway™ Technical Architecture — The architecture introduces a governance control plane that anchors satellite-originated enterprise traffic within a domestic ISP Point of Presence while preserving satellite access performance.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="section">
+      <div class="section-num">Section 03</div>
+      <h2>Validation Scope</h2>
+
+      <h3>3.1 Laboratory Validation (Completed)</h3>
+      <p>The following capabilities were validated in a controlled laboratory environment:</p>
+      <ul class="doc-list">
+        <li>Secure tunnel establishment between Gateway and ISP PoP</li>
+        <li>Local IP address assignment under ISP-controlled address space</li>
+        <li>Traffic forwarding consistency under tunneled operation</li>
+        <li>NAT and routing behavior aligned with traditional ISP models</li>
+        <li>Separation of management and traffic planes</li>
+      </ul>
+
+      <h3>3.2 Field Validation (Completed)</h3>
+      <p>The architecture was deployed and tested in a live production environment with anonymization applied. Deployment components included:</p>
+      <ul class="doc-list">
+        <li>One domestic ISP Point of Presence (identity withheld)</li>
+        <li>One enterprise network site</li>
+        <li>Active satellite connectivity using Starlink</li>
+        <li>Real enterprise traffic traversing the governance control plane</li>
+      </ul>
+      <p>Field validation confirmed:</p>
+      <ul class="doc-list">
+        <li>Stable tunnel operation</li>
+        <li>Correct traffic anchoring at the ISP PoP</li>
+        <li>Transparent application behavior for enterprise users</li>
+        <li>No material performance degradation attributable to the control layer</li>
+      </ul>
+
+      <!-- FIGURE 2 -->
+      <div class="figure-block">
+        <iframe class="figure-frame figure-inner" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;ICG Traffic Anchoring — Regulatory Technical Brief&lt;/title&gt;
+&lt;style&gt;
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap&#x27;);
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #e8eaed;
+    font-family: &#x27;IBM Plex Sans&#x27;, sans-serif;
+    color: #111;
+    padding: 24px;
+    font-size: 12px;
+  }
+
+  .page {
+    max-width: 1340px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1.5px solid #999;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  }
+
+  /* ── Document Header ── */
+  .doc-header {
+    background: #1a3a5c;
+    color: #fff;
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .doc-header-left .use-case-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #8ab4d4;
+    margin-bottom: 6px;
+  }
+  .doc-header-left .doc-title {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+  }
+  .doc-header-left .doc-subtitle {
+    font-size: 11px;
+    color: #a8c4dc;
+    margin-top: 5px;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+  }
+  .doc-header-right {
+    text-align: right;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 10px;
+    color: #8ab4d4;
+    line-height: 1.9;
+    flex-shrink: 0;
+    margin-left: 24px;
+  }
+  .doc-header-right .class-label {
+    background: #c0392b;
+    color: #fff;
+    padding: 2px 8px;
+    font-weight: 700;
+    font-size: 9.5px;
+    letter-spacing: 0.08em;
+    display: inline-block;
+    margin-bottom: 6px;
+  }
+
+  /* ── Use Case Caption Bar ── */
+  .use-case-bar {
+    background: #f0f4f8;
+    border-bottom: 2px solid #1a3a5c;
+    padding: 10px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .use-case-bar .caption {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1a3a5c;
+    letter-spacing: 0.02em;
+  }
+  .use-case-bar .caption span {
+    font-weight: 400;
+    color: #555;
+    margin-left: 8px;
+    font-size: 11px;
+  }
+  .latency-summary {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+    flex-shrink: 0;
+  }
+  .lat-block {
+    border: 1px solid;
+    padding: 6px 14px;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.7;
+  }
+  .lat-block.before { border-color: #c0392b; background: #fdf4f4; }
+  .lat-block.after  { border-color: #2a7a2a; background: #f2faf2; }
+  .lat-block .lat-label { font-weight: 700; letter-spacing: 0.06em; font-size: 9.5px; text-transform: uppercase; }
+  .lat-block.before .lat-label { color: #c0392b; }
+  .lat-block.after  .lat-label { color: #2a7a2a; }
+  .lat-block .lat-val { font-size: 13px; font-weight: 700; }
+  .lat-block.before .lat-val { color: #8a1a1a; }
+  .lat-block.after  .lat-val { color: #1a5a1a; }
+  .lat-note {
+    font-size: 10px;
+    color: #555;
+    font-style: italic;
+    max-width: 260px;
+    line-height: 1.4;
+    border-left: 2px solid #888;
+    padding-left: 8px;
+  }
+
+  /* ── Legend ── */
+  .legend-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid #ccc;
+    background: #f8f9fa;
+    padding: 8px 32px;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+  }
+  .legend-title { font-size: 10px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.07em; margin-right: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 10.5px; color: #444; }
+  .ll-solid { width: 32px; height: 2px; background: #1a3a5c; }
+  .ll-dashed { width: 32px; height: 0; border-top: 2px dashed #1a3a5c; }
+  .ll-ctrl   { width: 32px; height: 0; border-top: 2px dashed #c0392b; }
+  .ll-dot { width: 11px; height: 11px; border-radius: 2px; }
+  .ll-arrow-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    width: 32px;
+  }
+  .ll-arrow-pair div { width: 32px; height: 0; border-top: 1.5px solid #1a3a5c; }
+
+  /* ── Main Grid ── */
+  .main-body {
+    padding: 20px 24px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* Panel */
+  .panel { display: flex; flex-direction: column; }
+
+  .panel-header {
+    padding: 9px 16px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1.5px solid;
+    border-bottom: none;
+  }
+  .panel-header.before {
+    background: #fdf4f4;
+    border-color: #c0392b;
+    color: #8a1a1a;
+  }
+  .panel-header.after {
+    background: #f2faf2;
+    border-color: #2a7a2a;
+    color: #1a4a1a;
+  }
+
+  .panel-inner {
+    border: 1.5px solid;
+    border-top: none;
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    gap: 14px;
+  }
+  .panel-inner.before { border-color: #c0392b; }
+  .panel-inner.after  { border-color: #2a7a2a; }
+
+  /* ── Architecture column ── */
+  .arch-col {
+    flex: 0 0 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* Data plane origin/destination markers */
+  .dp-marker {
+    width: 100%;
+    padding: 5px 8px;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border: 2px solid #1a3a5c;
+    background: #d8e8f5;
+    color: #1a3a5c;
+    position: relative;
+  }
+  .dp-marker::before {
+    content: attr(data-role);
+    display: block;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #5a7fa8;
+    letter-spacing: 0.1em;
+    margin-bottom: 2px;
+  }
+  .dp-marker.destination {
+    background: #d5e8d5;
+    border-color: #2a7a2a;
+    color: #1a4a1a;
+  }
+  .dp-marker.destination::before { color: #5a8a5a; }
+
+  /* Domain blocks */
+  .domain {
+    width: 100%;
+    border: 1.5px solid;
+    border-radius: 0;
+    margin: 3px 0;
+  }
+  .domain-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-bottom: 1px solid;
+  }
+  .domain-content {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .d-enterprise { border-color: #5a7fa8; }
+  .d-enterprise .domain-label { background: #dce8f4; border-color: #5a7fa8; color: #1a3a5c; }
+
+  .d-satellite { border-color: #a08040; }
+  .d-satellite .domain-label { background: #f5e8cc; border-color: #a08040; color: #6b4a00; }
+
+  .d-compliance { border-color: #4a8a4a; }
+  .d-compliance .domain-label { background: #d4ecd4; border-color: #4a8a4a; color: #1a4a1a; }
+
+  .d-external { border-color: #888; }
+  .d-external .domain-label { background: #e8e8e8; border-color: #888; color: #444; }
+
+  /* Nodes */
+  .node {
+    background: #fff;
+    border: 1px solid #8a9ab0;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    color: #1a2a3a;
+    width: 100%;
+  }
+  .node-sub { font-size: 9px; font-weight: 400; color: #666; margin-top: 1px; }
+  .node.warn { border-color: #c0392b; background: #fde8e8; color: #7a1a1a; }
+  .node.ok { border-color: #2a7a2a; background: #dff0df; color: #1a4a1a; }
+  .node.primary { border-color: #1a3a5c; background: #d8e8f5; }
+
+  /* Badges */
+  .badges { display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; margin-top: 3px; }
+  .badge {
+    font-size: 8.5px; font-weight: 700; padding: 1px 5px;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .b-pep  { background: #1a3a5c; color: #fff; }
+  .b-nat  { background: #2a6a2a; color: #fff; }
+  .b-li   { background: #6a2020; color: #fff; }
+  .b-tun  { background: #5a3a8a; color: #fff; }
+  .b-asc  { background: #7a5a00; color: #fff; }
+
+  /* Arrows */
+  .arr { display: flex; flex-direction: column; align-items: center; margin: 1px 0; }
+  .arr-line {
+    width: 1.5px;
+    height: 14px;
+    background: #1a3a5c;
+    position: relative;
+  }
+  .arr-line::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    bottom: -5px;
+    left: -4px;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+    border-top: 6px solid #1a3a5c;
+  }
+  .arr-line.dashed-blue {
+    background: none;
+    border-left: 1.5px dashed #5a7fa8;
+    width: 0;
+  }
+  .arr-line.dashed-blue::after { border-top-color: #5a7fa8; }
+  .arr-label { font-size: 8.5px; color: #666; margin-top: 6px; font-style: italic; text-align: center; }
+
+  /* Jurisdiction boundary */
+  .jbound {
+    width: 100%;
+    margin: 5px 0;
+    position: relative;
+    height: 18px;
+    display: flex;
+    align-items: center;
+  }
+  .jbound-line {
+    position: absolute;
+    width: 100%;
+    border-top: 2px dashed;
+  }
+  .jbound-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    padding: 0 6px;
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .jbound.violation .jbound-line { border-color: #c0392b; }
+  .jbound.violation .jbound-text { color: #c0392b; }
+  .jbound.anchored .jbound-line { border-color: #2a7a2a; }
+  .jbound.anchored .jbound-text { color: #2a7a2a; }
+
+  /* Control plane band */
+  .ctrl-band {
+    width: 100%;
+    border: 1.5px dashed #c0392b;
+    padding: 4px 8px;
+    font-size: 9px;
+    color: #7a1a1a;
+    background: #fef7f7;
+    text-align: center;
+    margin: 3px 0;
+    line-height: 1.5;
+  }
+  .ctrl-band strong { color: #c0392b; }
+
+  /* ── Trace column ── */
+  .trace-col { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+  .trace-box {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    padding: 10px 12px;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 10px;
+    color: #c9d1d9;
+    line-height: 1.75;
+    flex: 1;
+  }
+  .trace-hdr {
+    color: #8b949e;
+    font-size: 9px;
+    margin-bottom: 5px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #21262d;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .th { display: flex; gap: 6px; }
+  .th-n { color: #6e7681; min-width: 18px; }
+  .th-ip { min-width: 138px; }
+  .th-ms { color: #d29922; min-width: 72px; }
+  .th-note { color: #8b949e; font-size: 9px; }
+  .th.f .th-ip { color: #f85149; }
+  .th.d .th-ip { color: #3fb950; }
+  .th.x .th-ip { color: #6e7681; }
+  .th.enc .th-ip { color: #a371f7; }
+  .seg-label {
+    font-size: 9px;
+    margin: 3px 0 1px;
+    padding: 1px 0;
+    border-top: 1px dashed;
+  }
+  .seg-label.foreign { color: #f85149; border-color: #f85149; }
+  .seg-label.domestic { color: #3fb950; border-color: #3fb950; }
+  .seg-label.enc { color: #a371f7; border-color: #a371f7; }
+
+  /* Assessment box */
+  .assess-box {
+    border: 1px solid;
+    padding: 8px 10px;
+    font-size: 10px;
+    line-height: 1.6;
+    background: #fafafa;
+  }
+  .assess-box.before { border-color: #c0392b; }
+  .assess-box.after  { border-color: #2a7a2a; }
+  .assess-box .assess-title {
+    font-weight: 700;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 4px;
+  }
+  .assess-box.before .assess-title { color: #c0392b; }
+  .assess-box.after  .assess-title { color: #2a7a2a; }
+  .assess-row { display: flex; gap: 6px; align-items: flex-start; font-size: 10px; }
+  .assess-row .icon { flex-shrink: 0; font-size: 11px; }
+  .assess-row.bad .icon { color: #c0392b; }
+  .assess-row.good .icon { color: #2a7a2a; }
+
+  /* Compliance verdict */
+  .verdict {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    font-size: 9.5px;
+    padding: 8px;
+    border: 1px solid;
+    background: #f0f8f0;
+    border-color: #2a7a2a;
+    margin-top: auto;
+  }
+  .verdict-title {
+    grid-column: 1/-1;
+    font-weight: 700;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #1a4a1a;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #aacfaa;
+    padding-bottom: 3px;
+  }
+  .v-item { display: flex; gap: 4px; align-items: center; color: #1a4a1a; }
+  .v-item .vc { color: #2a8a2a; font-size: 12px; }
+
+  /* ── Bottom bar ── */
+  .bottom-bar {
+    margin-top: 20px;
+    border-top: 2px solid #1a3a5c;
+    padding: 12px 32px;
+    background: #f0f4f8;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .note-block {
+    flex: 1;
+    border-left: 3px solid;
+    padding: 6px 10px;
+    font-size: 10.5px;
+    line-height: 1.6;
+  }
+  .note-block.nb-latency { border-color: #d29922; background: #fdfaf0; }
+  .note-block.nb-ctrl    { border-color: #c0392b; background: #fdf8f8; }
+  .note-block.nb-li      { border-color: #2a6a8a; background: #f0f6fa; }
+  .note-block .note-title {
+    font-weight: 700;
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 3px;
+  }
+  .note-block.nb-latency .note-title { color: #7a5a00; }
+  .note-block.nb-ctrl    .note-title { color: #8a1a1a; }
+  .note-block.nb-li      .note-title { color: #1a4a6a; }
+
+  /* ── Document footer ── */
+  .doc-footer {
+    background: #1a3a5c;
+    color: #8ab4d4;
+    padding: 8px 32px;
+    display: flex;
+    justify-content: space-between;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 9.5px;
+  }
+
+
+  /* ── PAGE FIT ZOOM ── */
+  html, body {
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: unset !important;
+    display: block !important;
+    background: #ffffff !important;
+    zoom: 0.8209;
+  }
+  .page {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+  }
+  
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;
+
+  &lt;!-- ══ Document Header ══ --&gt;
+  &lt;div class=&quot;doc-header&quot;&gt;
+    &lt;div class=&quot;doc-header-left&quot;&gt;
+      &lt;div class=&quot;use-case-tag&quot;&gt;Use Case: Domestic Traffic Anchoring for Satellite Broadband Networks&lt;/div&gt;
+      &lt;div class=&quot;doc-title&quot;&gt;Intellilink Compliance Gateway (ICG)&lt;br&gt;Traffic Anchoring — Before / After Routing Comparison&lt;/div&gt;
+      &lt;div class=&quot;doc-subtitle&quot;&gt;Figure 2 — Traceroute-Based Routing Validation | Source: Enterprise LAN (192.168.x.x, Lusaka) → Destination: speedtest.mtn.zm (41.223.117.81)&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;doc-header-right&quot;&gt;
+      &lt;div class=&quot;class-label&quot;&gt;For Regulatory Review&lt;/div&gt;&lt;br&gt;
+      Document Type: Technical Proof Brief&lt;br&gt;
+      Revision: 2.0 &amp;nbsp;|&amp;nbsp; Date: February 2026&lt;br&gt;
+      Prepared For: Telecommunications Regulator&lt;br&gt;
+      Originator: Intellilink / ICG Architecture Team
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ══ Use Case + Latency Summary Bar ══ --&gt;
+  &lt;div class=&quot;use-case-bar&quot;&gt;
+    &lt;div class=&quot;caption&quot;&gt;
+      Routing Behaviour Comparison
+      &lt;span&gt;Demonstrates how ICG deployment anchors enterprise satellite traffic within national legal jurisdiction, restoring domestic policy enforcement and lawful intercept capability.&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;latency-summary&quot;&gt;
+      &lt;div class=&quot;lat-block before&quot;&gt;
+        &lt;div class=&quot;lat-label&quot;&gt;⚠ Before ICG&lt;/div&gt;
+        &lt;div class=&quot;lat-val&quot;&gt;17 hops / 242 ms&lt;/div&gt;
+        &lt;div&gt;8 foreign ASN hops &amp;nbsp;|&amp;nbsp; No LI capability&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;lat-block after&quot;&gt;
+        &lt;div class=&quot;lat-label&quot;&gt;✔ After ICG&lt;/div&gt;
+        &lt;div class=&quot;lat-val&quot;&gt;7 hops / 302 ms&lt;/div&gt;
+        &lt;div&gt;0 foreign ASN hops &amp;nbsp;|&amp;nbsp; Full LI capability&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;lat-note&quot;&gt;
+        &lt;strong&gt;Note on latency delta (+60 ms):&lt;/strong&gt; Increased latency reflects the overhead of domestic traffic anchoring, NAT processing, and compliance enforcement at the ICG PoP. This is consistent with the security and regulatory objectives of the deployment.
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ══ Legend ══ --&gt;
+  &lt;div class=&quot;legend-bar&quot;&gt;
+    &lt;span class=&quot;legend-title&quot;&gt;Legend&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span class=&quot;ll-solid&quot;&gt;&lt;/span&gt; Data Plane (User Traffic)&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span class=&quot;ll-dashed&quot;&gt;&lt;/span&gt; Encapsulated Tunnel (Data Plane)&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span class=&quot;ll-ctrl&quot;&gt;&lt;/span&gt; Control Plane (Encrypted — not traceroute-visible)&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span class=&quot;ll-dot&quot; style=&quot;background:#f85149&quot;&gt;&lt;/span&gt; Foreign / Non-Sovereign ASN&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span class=&quot;ll-dot&quot; style=&quot;background:#3fb950&quot;&gt;&lt;/span&gt; Domestic ASN (Zambia)&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span class=&quot;ll-dot&quot; style=&quot;background:#a371f7&quot;&gt;&lt;/span&gt; Encapsulated Hop (not data-plane visible)&lt;/span&gt;
+    &lt;span class=&quot;legend-item&quot;&gt;&lt;span style=&quot;border:1.5px dashed #c0392b;width:22px;height:14px;display:inline-block&quot;&gt;&lt;/span&gt; Sovereign Network Boundary&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ══ Main Body ══ --&gt;
+  &lt;div class=&quot;main-body&quot;&gt;
+
+    &lt;!-- ══════════ BEFORE PANEL ══════════ --&gt;
+    &lt;div class=&quot;panel&quot;&gt;
+      &lt;div class=&quot;panel-header before&quot;&gt;⚠  Before ICG Deployment — Non-Sovereign Routing (Non-Compliant)&lt;/div&gt;
+      &lt;div class=&quot;panel-inner before&quot;&gt;
+
+        &lt;!-- Architecture Column --&gt;
+        &lt;div class=&quot;arch-col&quot;&gt;
+
+          &lt;!-- Data Plane Origin --&gt;
+          &lt;div class=&quot;dp-marker&quot; data-role=&quot;Data Plane Origin&quot;&gt;
+            Enterprise LAN&lt;br&gt;
+            &lt;span style=&quot;font-size:9px;font-weight:400;color:#2a4a6a&quot;&gt;192.168.1.79 — Lusaka, Zambia&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+          &lt;!-- Enterprise domain --&gt;
+          &lt;div class=&quot;domain d-enterprise&quot;&gt;
+            &lt;div class=&quot;domain-label&quot;&gt;Enterprise Domain&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node warn&quot;&gt;No Compliance Gateway&lt;div class=&quot;node-sub&quot;&gt;Traffic exits unencapsulated&lt;/div&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+          &lt;!-- Satellite domain --&gt;
+          &lt;div class=&quot;domain d-satellite&quot;&gt;
+            &lt;div class=&quot;domain-label&quot;&gt;Satellite Access Domain — Non-Sovereign Transport&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node&quot;&gt;LEO Satellite CPE&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;Satellite Provider Network&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node warn&quot;&gt;LEO Satellite Gateway&lt;div class=&quot;node-sub&quot;&gt;Foreign egress — jurisdiction exit&lt;/div&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Jurisdiction boundary — CROSSED --&gt;
+          &lt;div class=&quot;jbound violation&quot;&gt;
+            &lt;div class=&quot;jbound-line&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;jbound-text&quot;&gt;⚠ Sovereign Network Boundary — TRAVERSED WITHOUT CONTROL&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- External / Foreign --&gt;
+          &lt;div class=&quot;domain d-external&quot;&gt;
+            &lt;div class=&quot;domain-label&quot;&gt;External Networks — International Transit (Foreign ASNs)&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node warn&quot;&gt;Foreign ASN Transit&lt;div class=&quot;node-sub&quot;&gt;206.224.73.x / 154.66.247.x / 149.6.x.x&lt;/div&gt;&lt;/div&gt;
+              &lt;div style=&quot;font-size:9px;color:#c0392b;text-align:center;margin-top:2px;font-weight:600&quot;&gt;No lawful intercept · No domestic policy enforcement&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;jbound violation&quot; style=&quot;margin-top:4px&quot;&gt;
+            &lt;div class=&quot;jbound-line&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;jbound-text&quot;&gt;↩ Re-entry into national jurisdiction&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- ISP --&gt;
+          &lt;div class=&quot;domain d-compliance&quot; style=&quot;border-color:#6a6a6a&quot;&gt;
+            &lt;div class=&quot;domain-label&quot; style=&quot;background:#e8e8e8;border-color:#6a6a6a;color:#444&quot;&gt;Domestic ISP Domain (Re-entry — Zambia ASN)&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node&quot;&gt;Carrier / ISP Edge&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;ISP Edge&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+          &lt;!-- Destination --&gt;
+          &lt;div class=&quot;dp-marker destination&quot; data-role=&quot;Data Plane Destination&quot;&gt;
+            speedtest.mtn.zm&lt;br&gt;
+            &lt;span style=&quot;font-size:9px;font-weight:400;color:#2a5a2a&quot;&gt;41.223.117.81 — MTN Zambia&lt;/span&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt;&lt;!-- arch-col --&gt;
+
+        &lt;!-- Trace Column --&gt;
+        &lt;div class=&quot;trace-col&quot;&gt;
+          &lt;div class=&quot;trace-box&quot;&gt;
+            &lt;div class=&quot;trace-hdr&quot;&gt;Traceroute — Before ICG &amp;nbsp;|&amp;nbsp; Enterprise LAN → 41.223.117.81&lt;/div&gt;
+
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;192.168.1.1&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;112.817 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;LAN Default GW&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;100.64.0.1&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;171.163 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;CGNAT (Sat. CPE)&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;172.16.250.86&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;170.346 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Satellite Provider PoP&lt;/span&gt;&lt;/div&gt;
+
+            &lt;div class=&quot;seg-label foreign&quot;&gt;⚠ Sovereign Network Boundary crossed — foreign ASN transit begins&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;206.224.73.68&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;170.073 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign ASN&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;206.224.73.52&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;170.196 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign ASN&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;102.68.115.226&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;170.877 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign ASN&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;154.66.247.66&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;204.070 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign transit&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;154.66.247.106&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;62.200 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign transit&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;154.66.247.99&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;203.870 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign transit&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th x&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;* * *&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;No response (filtered)&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th f&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;149.6.144.125&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;216.014 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Foreign transit&lt;/span&gt;&lt;/div&gt;
+
+            &lt;div class=&quot;seg-label domestic&quot;&gt;↩ Re-entry into Zambia domestic ASN&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.181.105.163&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;215.952 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Carrier Edge&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.181.244.162&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;339.148 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;ISP Core&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.181.244.205&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;201.123 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;ISP Core&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.181.190.133&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;193.452 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;ISP Distribution&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.223.119.202&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;238.447 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;MTN Edge&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.223.117.81&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;242.281 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;DESTINATION ✓&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;assess-box before&quot;&gt;
+            &lt;div class=&quot;assess-title&quot;&gt;Compliance Assessment — Non-Compliant&lt;/div&gt;
+            &lt;div class=&quot;assess-row bad&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✗&lt;/span&gt;&lt;span&gt;8 hops through foreign ASN infrastructure (hops 4–11); traffic exits national legal jurisdiction.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row bad&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✗&lt;/span&gt;&lt;span&gt;No domestic address localization — source IP is not anchored to a national ASN at egress.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row bad&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✗&lt;/span&gt;&lt;span&gt;No lawful intercept capability during foreign ASN transit segment.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row bad&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✗&lt;/span&gt;&lt;span&gt;No policy enforcement point present in path before international egress.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row bad&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✗&lt;/span&gt;&lt;span&gt;Traffic re-enters domestic jurisdiction only at hop 12, without any compliance validation.&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;&lt;!-- trace-col --&gt;
+
+      &lt;/div&gt;&lt;!-- panel-inner --&gt;
+    &lt;/div&gt;&lt;!-- BEFORE PANEL --&gt;
+
+    &lt;!-- ══════════ AFTER PANEL ══════════ --&gt;
+    &lt;div class=&quot;panel&quot;&gt;
+      &lt;div class=&quot;panel-header after&quot;&gt;✔  After ICG Deployment — Domestically Anchored Routing (Compliant)&lt;/div&gt;
+      &lt;div class=&quot;panel-inner after&quot;&gt;
+
+        &lt;!-- Architecture Column --&gt;
+        &lt;div class=&quot;arch-col&quot;&gt;
+
+          &lt;!-- Data Plane Origin --&gt;
+          &lt;div class=&quot;dp-marker&quot; data-role=&quot;Data Plane Origin&quot;&gt;
+            Enterprise LAN&lt;br&gt;
+            &lt;span style=&quot;font-size:9px;font-weight:400;color:#2a4a6a&quot;&gt;192.168.101.5 — Lusaka, Zambia&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+          &lt;!-- Enterprise domain --&gt;
+          &lt;div class=&quot;domain d-enterprise&quot;&gt;
+            &lt;div class=&quot;domain-label&quot;&gt;Enterprise Domain&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node primary&quot;&gt;
+                ICG Agent (Compliance Gateway)&lt;br&gt;
+                &lt;div class=&quot;badges&quot;&gt;
+                  &lt;span class=&quot;badge b-pep&quot;&gt;PEP&lt;/span&gt;
+                  &lt;span class=&quot;badge b-tun&quot;&gt;Tunnel Endpoint&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;node-sub&quot;&gt;Policy enforcement · Telemetry · Routing control&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Control Plane band --&gt;
+          &lt;div class=&quot;ctrl-band&quot;&gt;
+            &lt;strong&gt;Control Plane (Encrypted)&lt;/strong&gt; — ICG Agent ⇄ ICG PoP&lt;br&gt;
+            &lt;span style=&quot;font-size:8.5px&quot;&gt;Tunnel management · Policy updates · Telemetry&lt;br&gt;Not visible in traceroute output&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Satellite domain — encapsulated --&gt;
+          &lt;div class=&quot;domain d-satellite&quot;&gt;
+            &lt;div class=&quot;domain-label&quot;&gt;Satellite Access Domain — Non-Sovereign Transport (Tunnel-Encapsulated)&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node&quot;&gt;LEO Satellite CPE&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line dashed-blue&quot;&gt;&lt;/div&gt;&lt;div class=&quot;arr-label&quot;&gt;Encapsulated tunnel&lt;br&gt;(data plane not exposed)&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;Satellite Provider Network&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line dashed-blue&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;LEO Satellite Gateway&lt;br&gt;&lt;div class=&quot;node-sub&quot;&gt;Transit only — payload opaque to provider&lt;/div&gt;&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Jurisdiction boundary — ENFORCED --&gt;
+          &lt;div class=&quot;jbound anchored&quot;&gt;
+            &lt;div class=&quot;jbound-line&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;jbound-text&quot;&gt;✔ Sovereign Network Boundary — TRAFFIC ANCHORED DOMESTICALLY&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Compliance domain --&gt;
+          &lt;div class=&quot;domain d-compliance&quot;&gt;
+            &lt;div class=&quot;domain-label&quot;&gt;Compliance / ISP Domain — National Policy Enforcement Zone&lt;/div&gt;
+            &lt;div class=&quot;domain-content&quot;&gt;
+              &lt;div class=&quot;node ok&quot;&gt;
+                ICG PoP — Domestic Anchor Point&lt;br&gt;
+                &lt;div class=&quot;badges&quot;&gt;
+                  &lt;span class=&quot;badge b-nat&quot;&gt;NAT / Address Localization&lt;/span&gt;
+                  &lt;span class=&quot;badge b-pep&quot;&gt;PEP&lt;/span&gt;
+                  &lt;span class=&quot;badge b-li&quot;&gt;Lawful Intercept&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class=&quot;node-sub&quot;&gt;National ASN egress · Zambia legal jurisdiction · AFRINIC address space&lt;/div&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;ISP Edge — National ASN (Lusaka)&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;Local IXP (Domestic Peering)&lt;/div&gt;
+              &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+              &lt;div class=&quot;node&quot;&gt;MTN Edge&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;arr&quot;&gt;&lt;div class=&quot;arr-line&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+
+          &lt;!-- Destination --&gt;
+          &lt;div class=&quot;dp-marker destination&quot; data-role=&quot;Data Plane Destination&quot;&gt;
+            speedtest.mtn.zm&lt;br&gt;
+            &lt;span style=&quot;font-size:9px;font-weight:400;color:#2a5a2a&quot;&gt;41.223.117.81 — MTN Zambia&lt;/span&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt;&lt;!-- arch-col --&gt;
+
+        &lt;!-- Trace Column --&gt;
+        &lt;div class=&quot;trace-col&quot;&gt;
+          &lt;div class=&quot;trace-box&quot;&gt;
+            &lt;div class=&quot;trace-hdr&quot;&gt;Traceroute — After ICG &amp;nbsp;|&amp;nbsp; Enterprise LAN → 41.223.117.81&lt;/div&gt;
+
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;192.168.101.1&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;2.020 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;ICG Agent — LAN GW&lt;/span&gt;&lt;/div&gt;
+
+            &lt;div class=&quot;seg-label enc&quot;&gt;→ Satellite segment (encapsulated tunnel — hops not data-plane visible)&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;172.16.10.1&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;246.031 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;ICG PoP ingress — tunnel decap&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.x.x.x&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;243.932 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;NAT egress — Local ISP ASN (masked)&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th x&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;* * *&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;No response (ICMP filtered)&lt;/span&gt;&lt;/div&gt;
+
+            &lt;div class=&quot;seg-label domestic&quot;&gt;→ Local IXP / MTN domestic transit&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;192.32.209.224&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;291.902 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;Local IXP&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.223.119.202&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;269.292 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;MTN Edge&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;th d&quot;&gt;&lt;span class=&quot;th-n&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;th-ip&quot;&gt;41.223.117.81&lt;/span&gt;&lt;span class=&quot;th-ms&quot;&gt;302.121 ms&lt;/span&gt;&lt;span class=&quot;th-note&quot;&gt;DESTINATION ✓&lt;/span&gt;&lt;/div&gt;
+
+            &lt;div style=&quot;margin-top:8px;padding-top:6px;border-top:1px dashed #21262d;font-size:9px;color:#8b949e;line-height:1.6&quot;&gt;
+              &lt;span style=&quot;color:#a371f7&quot;&gt;■&lt;/span&gt; Satellite transit hops are encapsulated within the ICG tunnel and are not visible as individual traceroute hops. This is expected behaviour and does not indicate routing anomalies.
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;assess-box after&quot;&gt;
+            &lt;div class=&quot;assess-title&quot;&gt;Compliance Assessment — Compliant&lt;/div&gt;
+            &lt;div class=&quot;assess-row good&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✔&lt;/span&gt;&lt;span&gt;Zero foreign ASN hops observed in traceroute. All intermediate addresses within domestic ASN space.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row good&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✔&lt;/span&gt;&lt;span&gt;Address localization enforced at ICG PoP via NAT; public egress uses domestic ASN address space.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row good&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✔&lt;/span&gt;&lt;span&gt;Lawful intercept capability present at ICG PoP, within national legal jurisdiction.&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row good&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✔&lt;/span&gt;&lt;span&gt;Policy Enforcement Point (PEP) active at both ICG Agent (enterprise) and ICG PoP (compliance domain).&lt;/span&gt;&lt;/div&gt;
+            &lt;div class=&quot;assess-row good&quot;&gt;&lt;span class=&quot;icon&quot;&gt;✔&lt;/span&gt;&lt;span&gt;Satellite segment traffic is encapsulated — provider has no access to payload data plane.&lt;/span&gt;&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;verdict&quot;&gt;
+            &lt;div class=&quot;verdict-title&quot;&gt;Policy Compliance Outcomes — ICG Deployment&lt;/div&gt;
+            &lt;div class=&quot;v-item&quot;&gt;&lt;span class=&quot;vc&quot;&gt;✔&lt;/span&gt; Domestic traffic anchoring&lt;/div&gt;
+            &lt;div class=&quot;v-item&quot;&gt;&lt;span class=&quot;vc&quot;&gt;✔&lt;/span&gt; National jurisdiction enforced&lt;/div&gt;
+            &lt;div class=&quot;v-item&quot;&gt;&lt;span class=&quot;vc&quot;&gt;✔&lt;/span&gt; Lawful intercept capability&lt;/div&gt;
+            &lt;div class=&quot;v-item&quot;&gt;&lt;span class=&quot;vc&quot;&gt;✔&lt;/span&gt; Address localization (NAT)&lt;/div&gt;
+            &lt;div class=&quot;v-item&quot;&gt;&lt;span class=&quot;vc&quot;&gt;✔&lt;/span&gt; Domestic ASN public egress&lt;/div&gt;
+            &lt;div class=&quot;v-item&quot;&gt;&lt;span class=&quot;vc&quot;&gt;✔&lt;/span&gt; Authority visibility restored&lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;&lt;!-- trace-col --&gt;
+
+      &lt;/div&gt;&lt;!-- panel-inner --&gt;
+    &lt;/div&gt;&lt;!-- AFTER PANEL --&gt;
+
+  &lt;/div&gt;&lt;!-- main-body --&gt;
+
+  &lt;!-- ══ Bottom Notes Bar ══ --&gt;
+  &lt;div class=&quot;bottom-bar&quot;&gt;
+    &lt;div class=&quot;note-block nb-latency&quot;&gt;
+      &lt;div class=&quot;note-title&quot;&gt;Latency Note — Before vs. After&lt;/div&gt;
+      The observed increase in end-to-end latency (+60 ms; 242 ms → 302 ms) is attributable to the domestic anchoring path via the ICG PoP, including tunnel decapsulation, NAT processing, and local IXP peering. This latency overhead is an inherent and expected consequence of compliance enforcement and is consistent with domestic traffic anchoring obligations.
+    &lt;/div&gt;
+    &lt;div class=&quot;note-block nb-ctrl&quot;&gt;
+      &lt;div class=&quot;note-title&quot;&gt;Control Plane — Traceroute Invisibility&lt;/div&gt;
+      The encrypted control plane tunnel between the ICG Agent and ICG PoP operates independently of the data plane and is not reflected in traceroute output. The satellite transit segment appears compressed to a single logical hop (hop 1 → hop 2) due to tunnel encapsulation. This is expected and does not indicate missing hops or routing anomalies.
+    &lt;/div&gt;
+    &lt;div class=&quot;note-block nb-li&quot;&gt;
+      &lt;div class=&quot;note-title&quot;&gt;Lawful Intercept — Regulatory Note&lt;/div&gt;
+      Lawful intercept (LI) capability is implemented at the ICG PoP, within the national legal jurisdiction. LI interfaces comply with applicable national telecommunications regulations. No interception capability is delegated to the satellite provider or foreign ASN infrastructure.
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- ══ Document Footer ══ --&gt;
+  &lt;div class=&quot;doc-footer&quot;&gt;
+    &lt;span&gt;INTELLILINK COMPLIANCE GATEWAY (ICG) — TECHNICAL PROOF BRIEF&lt;/span&gt;
+    &lt;span&gt;Figure 2 — Traceroute Routing Validation | Use Case: Domestic Traffic Anchoring — Satellite Broadband&lt;/span&gt;
+    &lt;span&gt;Rev. 2.0 | February 2026 | For Regulatory Review&lt;/span&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;!-- page --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" scrolling="no" style="width:100%;height:847px;border:none;display:block;overflow:hidden;max-width:100%;"></iframe>
+        <div class="figure-caption-bar">
+          <span class="fig-num">Figure 2</span>
+          <span class="fig-caption">Routing Behavior Comparison Before and After Governance Anchoring — The diagram illustrates how enterprise traffic that previously exited the satellite network through external upstream paths becomes anchored within a domestic ISP governance domain after deployment of the Intellilink Gateway™ control plane.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="section">
+      <div class="section-num">Section 04</div>
+      <h2>Field Environment (Anonymized)</h2>
+      <table class="dc-table" style="margin-bottom:16px;">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Satellite Underlay</td><td>LEO satellite service (Starlink)</td></tr>
+          <tr><td>ISP Role</td><td>Governance anchor and PoP termination</td></tr>
+          <tr><td>Enterprise Role</td><td>Traffic source and destination</td></tr>
+          <tr><td>Gateway Role</td><td>Control-plane enforcement node</td></tr>
+        </tbody>
+      </table>
+      <div class="note-box">
+        <strong>Anonymization Notice</strong>
+        All participating entities are anonymized. No enterprise customer data was retained beyond transient packet forwarding requirements.
+      </div>
+
+      <!-- FIGURE 3 -->
+      <div class="figure-block">
+        <iframe class="figure-frame figure-inner" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Figure 3 — Anonymized Field Deployment Topology&lt;/title&gt;
+&lt;style&gt;
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap&#x27;);
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: &#x27;IBM Plex Sans&#x27;, sans-serif;
+    background: #f4f5f7;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  .page {
+    width: 1280px;
+    background: #ffffff;
+    border: 1px solid #c8cdd6;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: #1a2333;
+    color: #fff;
+    padding: 22px 36px 18px;
+    border-bottom: 3px solid #2e5fa3;
+  }
+  .header-badge {
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #7fa8d8;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #e8edf4;
+    margin-bottom: 5px;
+  }
+  .header p {
+    font-size: 12.5px;
+    color: #8fa9c8;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* ── DIAGRAM AREA ── */
+  .diagram-wrap {
+    padding: 24px 28px 16px;
+    background: #f8f9fb;
+  }
+
+  .domains-row {
+    display: grid;
+    grid-template-columns: 220px 160px 1fr 140px;
+    gap: 0;
+    border: 1.5px solid #b0b8c6;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+    min-height: 620px;
+    position: relative;
+  }
+
+  /* ── DOMAIN COLUMNS ── */
+  .domain {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: relative;
+    border-right: 2px dashed #a0aab8;
+  }
+  .domain:last-child { border-right: none; }
+
+  .domain-title {
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    padding: 9px 12px 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.10);
+    text-align: center;
+  }
+
+  /* Domain colours */
+  .domain-enterprise { background: #eef3fb; }
+  .domain-enterprise .domain-title { background: #d4e2f5; color: #1a3a6e; }
+
+  .domain-satellite { background: #edf7f2; }
+  .domain-satellite .domain-title { background: #c4e8d4; color: #1a4e30; }
+
+  .domain-isp { background: #fdf6ec; position: relative; }
+  .domain-isp .domain-title { background: #f5deb8; color: #5a3200; }
+
+  .domain-external { background: #f0f4ff; }
+  .domain-external .domain-title { background: #d0d9f5; color: #1a2a6e; }
+
+  .domain-body {
+    padding: 14px 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 14px;
+    position: relative;
+  }
+
+  /* ── COMPONENT BLOCKS ── */
+  .component {
+    width: 100%;
+    border-radius: 4px;
+    border: 1.5px solid;
+    padding: 9px 10px 8px;
+    position: relative;
+  }
+
+  .comp-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+  .comp-brand {
+    font-size: 9px;
+    font-style: italic;
+    opacity: 0.75;
+    margin-bottom: 4px;
+  }
+  .comp-functions {
+    list-style: none;
+    padding: 0;
+    margin-top: 4px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding-top: 4px;
+  }
+  .comp-functions li {
+    font-size: 9px;
+    color: #444;
+    padding: 1px 0;
+    padding-left: 10px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .comp-functions li::before {
+    content: &quot;▸&quot;;
+    position: absolute;
+    left: 0;
+    color: #888;
+    font-size: 8px;
+    top: 1px;
+  }
+
+  /* Enterprise components */
+  .comp-lan { background: #dce9fb; border-color: #4a7ecc; }
+  .comp-lan .comp-title { color: #1a3a7a; }
+
+  .comp-gateway {
+    background: #fff;
+    border: 2px solid #2055a8;
+    box-shadow: 0 0 0 3px rgba(32,85,168,0.10);
+  }
+  .comp-gateway .comp-title { color: #1a3a7a; }
+  .comp-gateway-badge {
+    display: inline-block;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 7.5px;
+    background: #2055a8;
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-bottom: 5px;
+    letter-spacing: 0.5px;
+  }
+
+  .comp-starlink { background: #e8f5ee; border-color: #2e7d4f; }
+  .comp-starlink .comp-title { color: #1a4e30; }
+
+  /* Satellite cloud */
+  .cloud-box {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .cloud-shape {
+    background: #d4eede;
+    border: 2px dashed #3a9e62;
+    border-radius: 40px;
+    padding: 22px 14px;
+    text-align: center;
+    width: 100%;
+  }
+  .cloud-shape svg { margin-bottom: 8px; }
+  .cloud-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #1a4e30;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
+  }
+  .cloud-sub {
+    font-size: 8.5px;
+    color: #3a6e4e;
+    margin-top: 3px;
+    font-style: italic;
+  }
+
+  /* ISP / Compliance block */
+  .isp-pop-wrapper {
+    width: 100%;
+    flex: 1;
+    background: #fffbf3;
+    border: 2px solid #c8860a;
+    border-radius: 4px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+  .isp-pop-label {
+    font-size: 9px;
+    font-weight: 700;
+    color: #6b3d00;
+    text-align: center;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 1px dashed #c8860a;
+    padding-bottom: 6px;
+    margin-bottom: 2px;
+  }
+
+  .comp-icgpop {
+    background: #ffefd4;
+    border: 2px solid #d4700a;
+    position: relative;
+  }
+  .comp-icgpop .comp-title { color: #7a3a00; }
+
+  .shield-anchor {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    opacity: 0.85;
+  }
+
+  .comp-pep {
+    background: #ece8f8;
+    border-color: #7752c8;
+  }
+  .comp-pep .comp-title { color: #3a1a7a; }
+
+  .comp-logging {
+    background: #e8f0f8;
+    border-color: #3a72b8;
+  }
+  .comp-logging .comp-title { color: #1a3460; }
+
+  .comp-asbr {
+    background: #e8f0f5;
+    border-color: #3a6e9e;
+    border-style: dashed;
+  }
+  .comp-asbr .comp-title { color: #1a3a5a; }
+
+  /* External cloud */
+  .ext-cloud-shape {
+    background: #dce2f8;
+    border: 2px dashed #3a52b8;
+    border-radius: 40px;
+    padding: 22px 10px;
+    text-align: center;
+    width: 100%;
+  }
+  .ext-cloud-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #1a2a7a;
+    line-height: 1.4;
+  }
+  .ext-cloud-sub {
+    font-size: 8px;
+    color: #3a4a9e;
+    margin-top: 3px;
+  }
+
+  /* ── FLOW ARROWS SECTION ── */
+  .flows-section {
+    padding: 10px 28px 4px;
+  }
+
+  .flow-diagram {
+    position: relative;
+    background: #f4f6fa;
+    border: 1px solid #c8cdd6;
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+
+  .flow-title {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #2a3a5a;
+    margin-bottom: 10px;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+  }
+
+  .flow-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+
+  .flow-label {
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #fff;
+    background: #2a3a5a;
+    padding: 2px 8px;
+    border-radius: 2px;
+    margin-right: 8px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  .flow-label.data { background: #1a5a30; }
+  .flow-label.tunnel { background: #1a3a7a; }
+  .flow-label.underlay { background: #555; }
+
+  .flow-node {
+    font-size: 9px;
+    font-weight: 600;
+    background: #fff;
+    border: 1px solid #aab4c4;
+    border-radius: 3px;
+    padding: 2px 7px;
+    color: #2a3a5a;
+    white-space: nowrap;
+  }
+
+  .flow-arrow-solid {
+    font-size: 13px;
+    color: #1a5a30;
+    margin: 0 2px;
+    font-weight: 700;
+  }
+  .flow-arrow-dashed {
+    font-size: 11px;
+    color: #1a3a7a;
+    margin: 0 2px;
+    letter-spacing: -1px;
+  }
+  .flow-arrow-grey {
+    font-size: 11px;
+    color: #888;
+    margin: 0 2px;
+  }
+
+  .tunnel-line-demo {
+    display: inline-block;
+    width: 40px;
+    height: 0;
+    border-top: 3px dashed #1a3a7a;
+    vertical-align: middle;
+    margin: 0 4px;
+    position: relative;
+  }
+  .tunnel-line-demo::before, .tunnel-line-demo::after {
+    content: &quot;◀&quot;;
+    font-size: 9px;
+    color: #1a3a7a;
+    position: absolute;
+    top: -8px;
+  }
+  .tunnel-line-demo::before { left: -6px; }
+  .tunnel-line-demo::after { content: &quot;▶&quot;; right: -6px; }
+
+  .tunnel-label-small {
+    font-size: 8px;
+    color: #1a3a7a;
+    font-style: italic;
+    margin-left: 4px;
+  }
+
+  /* ── LEGEND ── */
+  .bottom-row {
+    display: flex;
+    gap: 0;
+    padding: 0 28px 16px;
+  }
+  .legend-box {
+    flex: 1;
+    border: 1.5px solid #b0b8c6;
+    border-radius: 4px;
+    padding: 10px 14px;
+    background: #fff;
+    margin-top: 10px;
+  }
+  .legend-title {
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #2a3a5a;
+    margin-bottom: 8px;
+  }
+  .legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 9.5px;
+    color: #333;
+  }
+  .legend-arrow-solid {
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: #1a5a30;
+    position: relative;
+  }
+  .legend-arrow-solid::after {
+    content: &quot;▶&quot;;
+    font-size: 8px;
+    color: #1a5a30;
+    position: absolute;
+    right: -7px;
+    top: -6px;
+  }
+  .legend-arrow-dashed {
+    display: inline-block;
+    width: 28px;
+    height: 0;
+    border-top: 2.5px dashed #1a3a7a;
+    position: relative;
+  }
+  .legend-arrow-dashed::before {
+    content: &quot;◀&quot;;
+    font-size: 7px;
+    color: #1a3a7a;
+    position: absolute;
+    left: -7px;
+    top: -7px;
+  }
+  .legend-arrow-dashed::after {
+    content: &quot;▶&quot;;
+    font-size: 7px;
+    color: #1a3a7a;
+    position: absolute;
+    right: -7px;
+    top: -7px;
+  }
+  .legend-arrow-grey {
+    display: inline-block;
+    width: 28px;
+    height: 0;
+    border-top: 1.5px dashed #888;
+    position: relative;
+  }
+  .legend-arrow-grey::after {
+    content: &quot;▶&quot;;
+    font-size: 8px;
+    color: #888;
+    position: absolute;
+    right: -7px;
+    top: -6px;
+  }
+  .legend-grey-box {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: #ddd;
+    border: 1.5px solid #999;
+    border-radius: 2px;
+  }
+  .legend-shield-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: #1a2333;
+    color: #7fa8d8;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 9px 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid #2e5fa3;
+  }
+  .footer-right { color: #4a6a8a; font-size: 8px; }
+
+  /* ── JURISDICTION BOUNDARY ── */
+  .jurisdiction-boundary {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    border-left: 2.5px dashed #b03030;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .jurisdiction-label {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: left center;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 8px;
+    font-weight: 700;
+    color: #b03030;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    background: rgba(255,255,255,0.9);
+    padding: 2px 5px;
+    border: 1px solid #b03030;
+    border-radius: 2px;
+  }
+  /* governance highlight */
+  .governance-tag {
+    display: inline-block;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 7px;
+    background: #6b3d00;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .governance-tag {
+    display: inline-block;
+    font-family: &#x27;IBM Plex Mono&#x27;, monospace;
+    font-size: 7px;
+    background: #6b3d00;
+    color: #fff;
+    padding: 1px 5px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  /* ── PAGE FIT ZOOM ── */
+  html, body {
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: unset !important;
+    display: block !important;
+    background: #ffffff !important;
+    zoom: 0.8594;
+  }
+  .page {
+    max-width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+  }
+  .page { width: 1280px !important; min-height: unset !important; }
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;
+
+  &lt;!-- HEADER --&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header-badge&quot;&gt;Technical Architecture Reference · Validation Test Window&lt;/div&gt;
+    &lt;h1&gt;Figure 3 — Anonymized Field Deployment Topology (Validation Test Window)&lt;/h1&gt;
+    &lt;p&gt;Enterprise satellite connectivity anchored through a domestic ISP compliance point to restore governance, visibility, and accountability.&lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;!-- DOMAIN DIAGRAM --&gt;
+  &lt;div class=&quot;diagram-wrap&quot;&gt;
+    &lt;div class=&quot;domains-row&quot;&gt;
+
+      &lt;!-- DOMAIN 1: ENTERPRISE --&gt;
+      &lt;div class=&quot;domain domain-enterprise&quot;&gt;
+        &lt;div class=&quot;domain-title&quot;&gt;Enterprise Domain&lt;br&gt;&lt;span style=&quot;font-weight:400;font-size:8px;&quot;&gt;(Anonymized)&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;domain-body&quot;&gt;
+
+          &lt;!-- Enterprise LAN --&gt;
+          &lt;div class=&quot;component comp-lan&quot;&gt;
+            &lt;div class=&quot;comp-title&quot;&gt;Enterprise LAN / Applications&lt;/div&gt;
+            &lt;ul class=&quot;comp-functions&quot;&gt;
+              &lt;li&gt;Enterprise Users&lt;/li&gt;
+              &lt;li&gt;Workstations&lt;/li&gt;
+              &lt;li&gt;Mobile / IoT Devices&lt;/li&gt;
+              &lt;li&gt;Internal Applications&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Arrow down --&gt;
+          &lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 18 18&quot;&gt;&lt;line x1=&quot;9&quot; y1=&quot;0&quot; x2=&quot;9&quot; y2=&quot;14&quot; stroke=&quot;#1a5a30&quot; stroke-width=&quot;2&quot;/&gt;&lt;polygon points=&quot;9,18 5,12 13,12&quot; fill=&quot;#1a5a30&quot;/&gt;&lt;/svg&gt;
+
+          &lt;!-- Intellilink Gateway --&gt;
+          &lt;div class=&quot;component comp-gateway&quot;&gt;
+            &lt;div class=&quot;comp-gateway-badge&quot;&gt;INTELLILINK GATEWAY™&lt;/div&gt;
+            &lt;div class=&quot;comp-title&quot;&gt;Intellilink Gateway™ — Agent Node&lt;/div&gt;
+            &lt;div style=&quot;display:inline-block;font-family:&#x27;IBM Plex Mono&#x27;,monospace;font-size:7.5px;background:#e8f0fb;border:1px solid #2055a8;color:#1a3a7a;padding:2px 6px;border-radius:2px;margin-bottom:4px;letter-spacing:0.3px;&quot;&gt;⬡ Tunnel Endpoint (Initiator)&lt;/div&gt;
+            &lt;ul class=&quot;comp-functions&quot;&gt;
+              &lt;li&gt;Traffic Steering&lt;/li&gt;
+              &lt;li&gt;Policy Enforcement Agent&lt;/li&gt;
+              &lt;li&gt;Tunnel Origination&lt;/li&gt;
+              &lt;li&gt;Enterprise Edge Control&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Arrow down --&gt;
+          &lt;svg width=&quot;18&quot; height=&quot;18&quot; viewBox=&quot;0 0 18 18&quot;&gt;&lt;line x1=&quot;9&quot; y1=&quot;0&quot; x2=&quot;9&quot; y2=&quot;14&quot; stroke=&quot;#1a5a30&quot; stroke-width=&quot;2&quot;/&gt;&lt;polygon points=&quot;9,18 5,12 13,12&quot; fill=&quot;#1a5a30&quot;/&gt;&lt;/svg&gt;
+
+          &lt;!-- Starlink CPE --&gt;
+          &lt;div class=&quot;component comp-starlink&quot;&gt;
+            &lt;div class=&quot;comp-title&quot;&gt;LEO Satellite CPE (Starlink)&lt;/div&gt;
+            &lt;ul class=&quot;comp-functions&quot;&gt;
+              &lt;li&gt;Satellite Access Terminal&lt;/li&gt;
+              &lt;li&gt;LEO Transport Interface&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- DOMAIN 2: SATELLITE TRANSPORT --&gt;
+      &lt;div class=&quot;domain domain-satellite&quot;&gt;
+        &lt;div class=&quot;domain-title&quot;&gt;Satellite Transport Domain&lt;/div&gt;
+        &lt;div class=&quot;domain-body&quot; style=&quot;justify-content:center;padding-top:80px;&quot;&gt;
+          &lt;div class=&quot;cloud-box&quot;&gt;
+            &lt;div class=&quot;cloud-shape&quot;&gt;
+              &lt;svg width=&quot;44&quot; height=&quot;32&quot; viewBox=&quot;0 0 44 32&quot; fill=&quot;none&quot;&gt;
+                &lt;ellipse cx=&quot;12&quot; cy=&quot;22&quot; rx=&quot;10&quot; ry=&quot;8&quot; fill=&quot;#a8dbc0&quot; opacity=&quot;0.7&quot;/&gt;
+                &lt;ellipse cx=&quot;22&quot; cy=&quot;16&quot; rx=&quot;12&quot; ry=&quot;10&quot; fill=&quot;#a8dbc0&quot; opacity=&quot;0.8&quot;/&gt;
+                &lt;ellipse cx=&quot;34&quot; cy=&quot;22&quot; rx=&quot;9&quot; ry=&quot;7&quot; fill=&quot;#a8dbc0&quot; opacity=&quot;0.7&quot;/&gt;
+                &lt;ellipse cx=&quot;28&quot; cy=&quot;20&quot; rx=&quot;8&quot; ry=&quot;6&quot; fill=&quot;#c4ead4&quot; opacity=&quot;0.9&quot;/&gt;
+                &lt;rect x=&quot;5&quot; y=&quot;22&quot; width=&quot;34&quot; height=&quot;8&quot; rx=&quot;3&quot; fill=&quot;#c4ead4&quot; opacity=&quot;0.9&quot;/&gt;
+                &lt;!-- satellite dish icon --&gt;
+                &lt;circle cx=&quot;22&quot; cy=&quot;16&quot; r=&quot;5&quot; stroke=&quot;#2e7d4f&quot; stroke-width=&quot;1.5&quot; fill=&quot;none&quot;/&gt;
+                &lt;line x1=&quot;22&quot; y1=&quot;21&quot; x2=&quot;22&quot; y2=&quot;26&quot; stroke=&quot;#2e7d4f&quot; stroke-width=&quot;1.5&quot;/&gt;
+                &lt;line x1=&quot;18&quot; y1=&quot;14&quot; x2=&quot;14&quot; y2=&quot;10&quot; stroke=&quot;#2e7d4f&quot; stroke-width=&quot;1&quot;/&gt;
+                &lt;line x1=&quot;26&quot; y1=&quot;14&quot; x2=&quot;30&quot; y2=&quot;10&quot; stroke=&quot;#2e7d4f&quot; stroke-width=&quot;1&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;div class=&quot;cloud-label&quot;&gt;LEO Satellite&lt;br&gt;Transport Segment&lt;/div&gt;
+              &lt;div class=&quot;cloud-sub&quot;&gt;LEO Satellite Transport Underlay&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- DOMAIN 3: DOMESTIC ISP / COMPLIANCE --&gt;
+      &lt;div class=&quot;domain domain-isp&quot;&gt;
+        &lt;!-- National Jurisdiction Boundary indicator at left edge --&gt;
+        &lt;div class=&quot;jurisdiction-boundary&quot;&gt;
+          &lt;div class=&quot;jurisdiction-label&quot;&gt;National Jurisdiction Boundary&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;domain-title&quot;&gt;Domestic ISP / Compliance Domain&lt;br&gt;&lt;span style=&quot;font-weight:400;font-size:8px;&quot;&gt;(Anonymized)&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;domain-body&quot;&gt;
+
+          &lt;div class=&quot;isp-pop-wrapper&quot;&gt;
+            &lt;div class=&quot;isp-pop-label&quot;&gt;Domestic ISP Point of Presence (Anonymized)&lt;/div&gt;
+
+            &lt;!-- ICGPoP --&gt;
+            &lt;div class=&quot;component comp-icgpop&quot;&gt;
+              &lt;div class=&quot;governance-tag&quot;&gt;GOVERNANCE ANCHOR&lt;/div&gt;
+              &lt;!-- Shield icon --&gt;
+              &lt;div class=&quot;shield-anchor&quot;&gt;
+                &lt;svg class=&quot;legend-shield-icon&quot; width=&quot;20&quot; height=&quot;22&quot; viewBox=&quot;0 0 20 22&quot;&gt;
+                  &lt;path d=&quot;M10 1L2 4.5V10c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V4.5L10 1Z&quot; fill=&quot;#c8860a&quot; opacity=&quot;0.85&quot; stroke=&quot;#7a5000&quot; stroke-width=&quot;1.5&quot;/&gt;
+                  &lt;path d=&quot;M10 5L5 7.2V10c0 2.8 2 5.3 5 6.2 3-0.9 5-3.4 5-6.2V7.2L10 5Z&quot; fill=&quot;#ffd080&quot; opacity=&quot;0.7&quot;/&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;div class=&quot;comp-title&quot;&gt;Intellilink Compliance Gateway PoP (ICGPoP)&lt;/div&gt;
+              &lt;div style=&quot;display:inline-block;font-family:&#x27;IBM Plex Mono&#x27;,monospace;font-size:7.5px;background:#fff3e0;border:1px solid #d4700a;color:#7a3a00;padding:2px 6px;border-radius:2px;margin-bottom:4px;letter-spacing:0.3px;&quot;&gt;⬡ Tunnel Endpoint (Terminator)&lt;/div&gt;
+              &lt;ul class=&quot;comp-functions&quot;&gt;
+                &lt;li&gt;Tunnel Termination&lt;/li&gt;
+                &lt;li&gt;Traffic Decapsulation&lt;/li&gt;
+                &lt;li&gt;Identity Binding&lt;/li&gt;
+                &lt;li&gt;Certificate Validation&lt;/li&gt;
+                &lt;li&gt;Regulatory Anchor Point&lt;/li&gt;
+                &lt;li&gt;Traffic Re-Anchoring&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Arrow --&gt;
+            &lt;div style=&quot;text-align:center;&quot;&gt;
+              &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 14 14&quot;&gt;&lt;line x1=&quot;7&quot; y1=&quot;0&quot; x2=&quot;7&quot; y2=&quot;10&quot; stroke=&quot;#7752c8&quot; stroke-width=&quot;1.5&quot;/&gt;&lt;polygon points=&quot;7,14 4,9 10,9&quot; fill=&quot;#7752c8&quot;/&gt;&lt;/svg&gt;
+            &lt;/div&gt;
+
+            &lt;!-- PEP --&gt;
+            &lt;div class=&quot;component comp-pep&quot;&gt;
+              &lt;div class=&quot;comp-title&quot;&gt;Policy Enforcement Point&lt;/div&gt;
+              &lt;ul class=&quot;comp-functions&quot;&gt;
+                &lt;li&gt;Access Control&lt;/li&gt;
+                &lt;li&gt;Traffic Filtering&lt;/li&gt;
+                &lt;li&gt;QoS / Traffic Shaping&lt;/li&gt;
+                &lt;li&gt;Geofencing Controls&lt;/li&gt;
+                &lt;li&gt;Jurisdiction Enforcement&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Arrow --&gt;
+            &lt;div style=&quot;text-align:center;&quot;&gt;
+              &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 14 14&quot;&gt;&lt;line x1=&quot;7&quot; y1=&quot;0&quot; x2=&quot;7&quot; y2=&quot;10&quot; stroke=&quot;#3a72b8&quot; stroke-width=&quot;1.5&quot;/&gt;&lt;polygon points=&quot;7,14 4,9 10,9&quot; fill=&quot;#3a72b8&quot;/&gt;&lt;/svg&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Logging --&gt;
+            &lt;div class=&quot;component comp-logging&quot;&gt;
+              &lt;div class=&quot;comp-title&quot;&gt;Logging / Observability Platform&lt;/div&gt;
+              &lt;ul class=&quot;comp-functions&quot;&gt;
+                &lt;li&gt;NetFlow / IPFIX Export&lt;/li&gt;
+                &lt;li&gt;SIEM Integration&lt;/li&gt;
+                &lt;li&gt;Regulatory Reporting&lt;/li&gt;
+                &lt;li&gt;Immutable Audit Trail&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Arrow --&gt;
+            &lt;div style=&quot;text-align:center;&quot;&gt;
+              &lt;svg width=&quot;14&quot; height=&quot;14&quot; viewBox=&quot;0 0 14 14&quot;&gt;&lt;line x1=&quot;7&quot; y1=&quot;0&quot; x2=&quot;7&quot; y2=&quot;10&quot; stroke=&quot;#3a6e9e&quot; stroke-width=&quot;1.5&quot;/&gt;&lt;polygon points=&quot;7,14 4,9 10,9&quot; fill=&quot;#3a6e9e&quot;/&gt;&lt;/svg&gt;
+            &lt;/div&gt;
+
+            &lt;!-- ASBR — inside ISP domain --&gt;
+            &lt;div class=&quot;component comp-asbr&quot;&gt;
+              &lt;div class=&quot;comp-title&quot;&gt;ISP Edge Router / External Peering (ASBR)&lt;/div&gt;
+              &lt;ul class=&quot;comp-functions&quot;&gt;
+                &lt;li&gt;BGP Peering&lt;/li&gt;
+                &lt;li&gt;Transit / IX Connectivity&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- DOMAIN 4: EXTERNAL NETWORKS --&gt;
+      &lt;div class=&quot;domain domain-external&quot;&gt;
+        &lt;div class=&quot;domain-title&quot;&gt;External Networks&lt;/div&gt;
+        &lt;div class=&quot;domain-body&quot; style=&quot;justify-content:center;&quot;&gt;
+          &lt;div class=&quot;cloud-box&quot;&gt;
+            &lt;div class=&quot;ext-cloud-shape&quot;&gt;
+              &lt;svg width=&quot;52&quot; height=&quot;34&quot; viewBox=&quot;0 0 52 34&quot; fill=&quot;none&quot; style=&quot;display:block;margin:0 auto 8px;&quot;&gt;
+                &lt;ellipse cx=&quot;13&quot; cy=&quot;24&quot; rx=&quot;11&quot; ry=&quot;8&quot; fill=&quot;#b8c8f0&quot; opacity=&quot;0.7&quot;/&gt;
+                &lt;ellipse cx=&quot;26&quot; cy=&quot;17&quot; rx=&quot;14&quot; ry=&quot;11&quot; fill=&quot;#b8c8f0&quot; opacity=&quot;0.8&quot;/&gt;
+                &lt;ellipse cx=&quot;40&quot; cy=&quot;24&quot; rx=&quot;11&quot; ry=&quot;8&quot; fill=&quot;#b8c8f0&quot; opacity=&quot;0.7&quot;/&gt;
+                &lt;rect x=&quot;5&quot; y=&quot;24&quot; width=&quot;42&quot; height=&quot;8&quot; rx=&quot;3&quot; fill=&quot;#ccd8f8&quot; opacity=&quot;0.9&quot;/&gt;
+                &lt;!-- globe icon --&gt;
+                &lt;circle cx=&quot;26&quot; cy=&quot;17&quot; r=&quot;7&quot; stroke=&quot;#3a52b8&quot; stroke-width=&quot;1.5&quot; fill=&quot;none&quot;/&gt;
+                &lt;ellipse cx=&quot;26&quot; cy=&quot;17&quot; rx=&quot;4&quot; ry=&quot;7&quot; stroke=&quot;#3a52b8&quot; stroke-width=&quot;1&quot; fill=&quot;none&quot;/&gt;
+                &lt;line x1=&quot;19&quot; y1=&quot;17&quot; x2=&quot;33&quot; y2=&quot;17&quot; stroke=&quot;#3a52b8&quot; stroke-width=&quot;1&quot;/&gt;
+                &lt;line x1=&quot;20&quot; y1=&quot;12&quot; x2=&quot;32&quot; y2=&quot;12&quot; stroke=&quot;#3a52b8&quot; stroke-width=&quot;0.8&quot;/&gt;
+                &lt;line x1=&quot;20&quot; y1=&quot;22&quot; x2=&quot;32&quot; y2=&quot;22&quot; stroke=&quot;#3a52b8&quot; stroke-width=&quot;0.8&quot;/&gt;
+              &lt;/svg&gt;
+              &lt;div class=&quot;ext-cloud-label&quot;&gt;External Networks&lt;br&gt;— Global Internet&lt;/div&gt;
+              &lt;div class=&quot;ext-cloud-sub&quot;&gt;Public Routing&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;&lt;!-- end domains-row --&gt;
+  &lt;/div&gt;&lt;!-- end diagram-wrap --&gt;
+
+  &lt;!-- FLOWS SECTION --&gt;
+  &lt;div class=&quot;flows-section&quot;&gt;
+    &lt;div class=&quot;flow-diagram&quot;&gt;
+      &lt;div class=&quot;flow-title&quot;&gt;Traffic Flow Reference&lt;/div&gt;
+
+      &lt;!-- Data Plane --&gt;
+      &lt;div class=&quot;flow-row&quot;&gt;
+        &lt;span class=&quot;flow-label data&quot;&gt;DATA PLANE&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Enterprise LAN&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Intellilink Gateway™ Agent&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Starlink CPE&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Satellite Transport&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;ICGPoP&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Policy Enforcement Point&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;ISP Edge / ASBR&lt;/span&gt;
+        &lt;span class=&quot;flow-arrow-solid&quot;&gt;→&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Global Internet&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Encrypted Tunnel --&gt;
+      &lt;div class=&quot;flow-row&quot;&gt;
+        &lt;span class=&quot;flow-label tunnel&quot;&gt;ENCRYPTED TUNNEL&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Intellilink Gateway™ Agent&lt;/span&gt;
+        &lt;span style=&quot;display:inline-flex;align-items:center;margin:0 4px;&quot;&gt;
+          &lt;span style=&quot;font-size:9px;color:#1a3a7a;&quot;&gt;◀&lt;/span&gt;
+          &lt;span style=&quot;width:36px;border-top:2.5px dashed #1a3a7a;display:inline-block;vertical-align:middle;margin:0 1px;&quot;&gt;&lt;/span&gt;
+          &lt;span style=&quot;font-size:9px;color:#1a3a7a;&quot;&gt;▶&lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;ICGPoP (Tunnel Termination)&lt;/span&gt;
+        &lt;span style=&quot;font-size:8.5px;color:#1a3a7a;font-style:italic;margin-left:8px;&quot;&gt;Bidirectional Encrypted Tunnel (Overlay Control Plane)&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Satellite Underlay --&gt;
+      &lt;div class=&quot;flow-row&quot;&gt;
+        &lt;span class=&quot;flow-label underlay&quot;&gt;SATELLITE UNDERLAY&lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Starlink CPE&lt;/span&gt;
+        &lt;span style=&quot;display:inline-flex;align-items:center;margin:0 4px;&quot;&gt;
+          &lt;span style=&quot;width:28px;border-top:1.5px dashed #888;display:inline-block;vertical-align:middle;&quot;&gt;&lt;/span&gt;
+          &lt;span style=&quot;font-size:9px;color:#888;&quot;&gt;▶&lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;Satellite Transport&lt;/span&gt;
+        &lt;span style=&quot;display:inline-flex;align-items:center;margin:0 4px;&quot;&gt;
+          &lt;span style=&quot;width:28px;border-top:1.5px dashed #888;display:inline-block;vertical-align:middle;&quot;&gt;&lt;/span&gt;
+          &lt;span style=&quot;font-size:9px;color:#888;&quot;&gt;▶&lt;/span&gt;
+        &lt;/span&gt;
+        &lt;span class=&quot;flow-node&quot;&gt;ISP PoP&lt;/span&gt;
+        &lt;span style=&quot;font-size:8.5px;color:#888;font-style:italic;margin-left:8px;&quot;&gt;LEO Satellite Transport Underlay&lt;/span&gt;
+      &lt;/div&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- LEGEND + FOOTER --&gt;
+  &lt;div class=&quot;bottom-row&quot;&gt;
+    &lt;div class=&quot;legend-box&quot;&gt;
+      &lt;div class=&quot;legend-title&quot;&gt;Legend&lt;/div&gt;
+      &lt;div class=&quot;legend-items&quot;&gt;
+        &lt;div class=&quot;legend-item&quot;&gt;
+          &lt;span class=&quot;legend-arrow-solid&quot;&gt;&lt;/span&gt;
+          &lt;span&gt;Data Plane Traffic&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;legend-item&quot;&gt;
+          &lt;span class=&quot;legend-arrow-dashed&quot;&gt;&lt;/span&gt;
+          &lt;span&gt;Encrypted Tunnel (Overlay)&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;legend-item&quot;&gt;
+          &lt;span class=&quot;legend-arrow-grey&quot;&gt;&lt;/span&gt;
+          &lt;span&gt;Satellite Underlay&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;legend-item&quot;&gt;
+          &lt;span class=&quot;legend-grey-box&quot;&gt;&lt;/span&gt;
+          &lt;span&gt;Governance / Policy Enforcement Points&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;legend-item&quot;&gt;
+          &lt;svg width=&quot;16&quot; height=&quot;18&quot; viewBox=&quot;0 0 16 18&quot;&gt;
+            &lt;path d=&quot;M8 1L1 4V9c0 4 2.8 7.6 7 9 4.2-1.4 7-5 7-9V4L8 1Z&quot; fill=&quot;#c8860a&quot; opacity=&quot;0.9&quot; stroke=&quot;#7a5000&quot; stroke-width=&quot;1.2&quot;/&gt;
+            &lt;path d=&quot;M8 4.5L3.5 6.5V9c0 2.5 1.8 4.7 4.5 5.5 2.7-0.8 4.5-3 4.5-5.5V6.5L8 4.5Z&quot; fill=&quot;#ffd080&quot; opacity=&quot;0.7&quot;/&gt;
+          &lt;/svg&gt;
+          &lt;span&gt;Lawful Intercept Capability Anchor&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- FOOTER --&gt;
+  &lt;div class=&quot;footer&quot;&gt;
+    &lt;span&gt;PUBLIC — INSTITUTIONAL RELEASE (Anonymized)&lt;/span&gt;
+    &lt;span class=&quot;footer-right&quot;&gt;No ISP names, locations, or sensitive network identifiers are disclosed.&lt;/span&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" scrolling="no" style="width:100%;height:650px;border:none;display:block;overflow:hidden;max-width:100%;"></iframe>
+        <div class="figure-caption-bar">
+          <span class="fig-num">Figure 3</span>
+          <span class="fig-caption">Anonymized Field Deployment Topology (Validation Test Window) — Enterprise traffic originates within the enterprise LAN and is steered by the Intellilink Gateway™ Agent through an encrypted overlay tunnel terminating at the Intellilink Compliance Gateway PoP (ICGPoP) within the domestic ISP domain. Upon tunnel termination, traffic undergoes decapsulation, identity binding, and policy enforcement before entering the ISP routing environment.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="section">
+      <div class="section-num">Section 05</div>
+      <h2>Governance Capabilities Demonstrated</h2>
+      <p>During validation, the following governance capabilities were demonstrated:</p>
+      <ul class="doc-list">
+        <li><strong>Accountable upstream presence:</strong> enterprise traffic visibly enters an ISP PoP</li>
+        <li><strong>Address sovereignty:</strong> enterprise traffic appears under domestic IP addressing space</li>
+        <li><strong>Traffic observability:</strong> flow-level monitoring feasible at the PoP</li>
+        <li><strong>Policy insertion point:</strong> ISP-side controls possible without modification to satellite infrastructure</li>
+        <li><strong>Audit readiness:</strong> architecture supports integration with lawful intercept and logging systems where legally required</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 6 -->
+    <div class="section">
+      <div class="section-num">Section 06</div>
+      <h2>What Was Proven</h2>
+      <ul class="proven-list yes">
+        <li>Satellite connectivity can be governed without degrading performance</li>
+        <li>ISP accountability can be restored without owning the satellite access link</li>
+        <li>Enterprises can retain connectivity resilience while aligning with national frameworks</li>
+        <li>The model can be deployed using existing ISP infrastructure</li>
+      </ul>
+    </div>
+
+    <!-- SECTION 7 -->
+    <div class="section">
+      <div class="section-num">Section 07</div>
+      <h2>What Was Explicitly Not Proven</h2>
+      <ul class="proven-list no">
+        <li>Commercial scalability</li>
+        <li>Regulatory certification or approval</li>
+        <li>Lawful intercept system integration (jurisdiction dependent)</li>
+        <li>End-user billing or retail ISP functions</li>
+      </ul>
+      <div class="note-box">
+        <strong>Scope Note</strong>
+        These areas are intentionally outside the scope of this validation exercise.
+      </div>
+    </div>
+
+    <!-- SECTION 8 -->
+    <div class="section">
+      <div class="section-num">Section 08</div>
+      <h2>Limitations &amp; Next Validation Steps</h2>
+      <p>Future evaluation may include:</p>
+      <ul class="doc-list">
+        <li>Multi-site enterprise deployments</li>
+        <li>Formal lawful intercept integration (jurisdiction dependent)</li>
+        <li>Long-term performance analytics</li>
+        <li>Multi-satellite transport support</li>
+      </ul>
+    </div>
+
+    <!-- FIGURE 4 — Control vs Data Plane -->
+    <div class="section">
+      <div class="section-num">Section 08 — Supplementary Reference</div>
+      <h2>Control Plane vs Data Plane Separation</h2>
+      <p>The following diagram illustrates the architectural separation between the data plane (traffic flow) and the control plane (overlay governance), clarifying where each layer operates, where policy is enforced, and where national jurisdiction re-applies.</p>
+      <div class="figure-block">
+        <iframe class="figure-frame" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;Control Plane vs Data Plane Separation — Intellilink Gateway™ Architecture&lt;/title&gt;
+&lt;style&gt;
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;600&amp;family=Source+Sans+3:wght@300;400;600;700&amp;display=swap&#x27;);
+
+  :root {
+    --ink:        #111820;
+    --ink-mid:    #2e3d50;
+    --ink-light:  #5a6e84;
+    --rule:       #c4cdd8;
+    --page:       #ffffff;
+    --page-off:   #f5f7fa;
+
+    --data-bg:    #eaf2fb;
+    --data-strip: #1e4d8c;
+    --data-arrow: #1e4d8c;
+    --data-node:  #dce9f8;
+    --data-border:#3a6eb8;
+
+    --ctrl-bg:    #fdf6ec;
+    --ctrl-strip: #8c5a00;
+    --ctrl-arrow: #b87000;
+    --ctrl-node:  #fcecd4;
+    --ctrl-border:#c87a00;
+
+    --gov-bg:     #fff9f0;
+    --gov-border: #c87a00;
+
+    --accent-red: #b03030;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: &#x27;Source Sans 3&#x27;, sans-serif;
+    background: #e8ecf0;
+    display: flex;
+    justify-content: center;
+    padding: 32px 24px;
+    min-height: 100vh;
+  }
+
+  .page {
+    width: 1200px;
+    background: var(--page);
+    border: 1px solid #b0bac6;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink);
+    padding: 24px 40px 20px;
+    border-bottom: 4px solid var(--data-strip);
+    position: relative;
+    overflow: hidden;
+  }
+  .header::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 320px;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 12px,
+      rgba(255,255,255,0.025) 12px,
+      rgba(255,255,255,0.025) 13px
+    );
+  }
+  .header-eyebrow {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 9.5px;
+    letter-spacing: 2.5px;
+    color: #6a9ecf;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header h1 {
+    font-size: 19px;
+    font-weight: 700;
+    color: #e4ecf6;
+    letter-spacing: 0.2px;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+  .header-sub {
+    font-size: 12px;
+    color: #7a9ab8;
+    font-weight: 300;
+  }
+  .header-tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .htag {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 8px;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+  .htag-data { background: rgba(30,77,140,0.5); color: #a8ccf0; border: 1px solid rgba(30,77,140,0.6); }
+  .htag-ctrl { background: rgba(140,90,0,0.5); color: #f0c870; border: 1px solid rgba(140,90,0,0.6); }
+  .htag-reg  { background: rgba(80,80,80,0.4); color: #aab8c4; border: 1px solid rgba(80,80,80,0.5); }
+
+  /* ── BODY ── */
+  .body {
+    padding: 28px 36px 24px;
+    background: var(--page-off);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ── LAYER WRAPPER ── */
+  .layer {
+    border: 1.5px solid var(--rule);
+    border-radius: 5px;
+    overflow: visible;
+    position: relative;
+  }
+  .layer + .layer { margin-top: 18px; }
+
+  .layer-strip {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .layer-strip-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .layer-data .layer-strip { background: var(--data-strip); color: #c8dcf4; }
+  .layer-data .layer-strip-dot { background: #6aaaf0; }
+  .layer-data .layer-body { background: var(--data-bg); }
+
+  .layer-ctrl .layer-strip { background: var(--ctrl-strip); color: #f0dab0; }
+  .layer-ctrl .layer-strip-dot { background: #f0b050; }
+  .layer-ctrl .layer-body { background: var(--ctrl-bg); }
+
+  .layer-body {
+    padding: 22px 20px 20px;
+  }
+
+  /* ── NODE CHAIN ── */
+  .node-chain {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+
+  .node-cell {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    min-width: 0;
+  }
+  .node-cell:last-child .arrow-seg { display: none; }
+
+  .node-box {
+    flex: 1;
+    border-radius: 4px;
+    border: 1.5px solid;
+    padding: 10px 10px 9px;
+    min-width: 0;
+    position: relative;
+  }
+
+  /* data plane nodes */
+  .layer-data .node-box {
+    background: var(--page);
+    border-color: var(--data-border);
+  }
+  .node-box.node-gateway {
+    border-color: var(--data-strip);
+    border-width: 2px;
+    box-shadow: 0 0 0 3px rgba(30,77,140,0.10);
+  }
+  .node-box.node-icgpop {
+    border-color: var(--ctrl-strip);
+    border-width: 2px;
+    background: var(--gov-bg);
+  }
+  .node-box.node-cloud {
+    background: #f0f4fa;
+    border-style: dashed;
+  }
+  .node-box.node-internet {
+    background: #f0f4ff;
+    border-color: #5566bb;
+    border-style: dashed;
+  }
+
+  .node-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+  .node-sub {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 7.5px;
+    color: var(--ink-light);
+    line-height: 1.35;
+  }
+
+  /* governance functions list inside ICGPoP */
+  .gov-functions {
+    list-style: none;
+    margin-top: 5px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(140,90,0,0.2);
+  }
+  .gov-functions li {
+    font-size: 8px;
+    color: #6b3d00;
+    padding: 1px 0 1px 9px;
+    position: relative;
+    line-height: 1.4;
+  }
+  .gov-functions li::before {
+    content: &quot;▸&quot;;
+    position: absolute;
+    left: 0;
+    color: #c87a00;
+    font-size: 7px;
+    top: 2px;
+  }
+
+  /* badge */
+  .node-badge {
+    display: inline-block;
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 7px;
+    padding: 1px 5px;
+    border-radius: 2px;
+    margin-bottom: 3px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .badge-data  { background: var(--data-strip); color: #c8dcf4; }
+  .badge-gov   { background: var(--ctrl-strip); color: #f0dab0; }
+  .badge-infra { background: #3a6e40; color: #c0e8c8; }
+  .badge-ext   { background: #44558a; color: #c0ccee; }
+
+  /* ── ARROWS ── */
+  .arrow-seg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    position: relative;
+  }
+  .arrow-solid {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .arrow-solid-line {
+    flex: 1;
+    height: 2px;
+    background: var(--data-arrow);
+  }
+  .arrow-solid-head {
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid var(--data-arrow);
+    flex-shrink: 0;
+  }
+
+  /* ── CONTROL PLANE TUNNEL ── */
+  .ctrl-layer-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .tunnel-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .tunnel-endpoint {
+    border-radius: 4px;
+    border: 2px solid;
+    padding: 10px 12px 9px;
+    min-width: 180px;
+  }
+  .tunnel-endpoint.ep-initiator {
+    border-color: var(--data-strip);
+    background: var(--page);
+  }
+  .tunnel-endpoint.ep-terminator {
+    border-color: var(--ctrl-strip);
+    background: var(--gov-bg);
+    flex: 1;
+  }
+
+  .ep-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .ep-tag {
+    display: inline-block;
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 7px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+  .ep-tag-init { background: rgba(30,77,140,0.12); color: var(--data-strip); border: 1px solid rgba(30,77,140,0.25); }
+  .ep-tag-term { background: rgba(140,90,0,0.12); color: var(--ctrl-strip); border: 1px solid rgba(140,90,0,0.25); }
+
+  .tunnel-line-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 0 8px;
+    position: relative;
+  }
+  .tunnel-line {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .tl-arrow-left {
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-right: 8px solid var(--ctrl-arrow);
+    flex-shrink: 0;
+  }
+  .tl-dashes {
+    flex: 1;
+    height: 0;
+    border-top: 2.5px dashed var(--ctrl-arrow);
+  }
+  .tl-arrow-right {
+    width: 0; height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid var(--ctrl-arrow);
+    flex-shrink: 0;
+  }
+  .tunnel-tag {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 8px;
+    color: var(--ctrl-strip);
+    background: rgba(140,90,0,0.08);
+    border: 1px solid rgba(140,90,0,0.2);
+    padding: 2px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    font-weight: 600;
+  }
+
+  /* spacer nodes in control plane (greyed out = not involved) */
+  .ctrl-spacer-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    opacity: 0.35;
+  }
+  .ctrl-spacer-node {
+    border-radius: 3px;
+    border: 1px dashed #aaa;
+    padding: 6px 10px;
+    font-size: 8px;
+    color: #666;
+    background: #f8f8f8;
+    font-style: italic;
+    white-space: nowrap;
+    flex: 1;
+    text-align: center;
+  }
+  .ctrl-spacer-gap {
+    flex: 2;
+  }
+  .ctrl-note {
+    font-size: 8.5px;
+    color: var(--ink-light);
+    font-style: italic;
+    text-align: center;
+    margin-top: 2px;
+  }
+
+  /* ── THREE QUESTIONS BAR ── */
+  .questions-bar {
+    display: flex;
+    gap: 0;
+    margin: 18px 0 0;
+    border: 1.5px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .q-cell {
+    flex: 1;
+    padding: 11px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--page);
+    border-right: 1px solid var(--rule);
+  }
+  .q-cell:last-child { border-right: none; }
+  .q-num {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .q-num-1 { color: var(--data-strip); }
+  .q-num-2 { color: var(--ctrl-strip); }
+  .q-num-3 { color: var(--accent-red); }
+  .q-text-title {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .q-text-body {
+    font-size: 9px;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+  .q-answer {
+    display: inline-block;
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 8px;
+    padding: 1px 6px;
+    border-radius: 2px;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .qa-1 { background: rgba(30,77,140,0.1); color: var(--data-strip); border: 1px solid rgba(30,77,140,0.2); }
+  .qa-2 { background: rgba(140,90,0,0.1); color: var(--ctrl-strip); border: 1px solid rgba(140,90,0,0.2); }
+  .qa-3 { background: rgba(176,48,48,0.1); color: var(--accent-red); border: 1px solid rgba(176,48,48,0.2); }
+
+  /* ── LEGEND ── */
+  .bottom-strip {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    border-top: 1.5px solid var(--rule);
+    background: var(--page);
+  }
+  .legend {
+    flex: 1;
+    padding: 12px 24px;
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .legend-title {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 8.5px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9.5px;
+    color: var(--ink-mid);
+    white-space: nowrap;
+  }
+  .li-solid {
+    display: flex; align-items: center;
+    width: 36px;
+  }
+  .li-solid-line { flex:1; height:2px; background: var(--data-arrow); }
+  .li-solid-head {
+    width: 0; height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 7px solid var(--data-arrow);
+  }
+  .li-dashed {
+    display: flex; align-items: center;
+    width: 36px;
+  }
+  .li-d-arrl {
+    width: 0; height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-right: 7px solid var(--ctrl-arrow);
+  }
+  .li-d-line { flex:1; height:0; border-top: 2px dashed var(--ctrl-arrow); }
+  .li-d-arrr {
+    width: 0; height: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 7px solid var(--ctrl-arrow);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    padding: 8px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid var(--data-strip);
+  }
+  .footer-left {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 8.5px;
+    letter-spacing: 1.8px;
+    color: #5a7e9e;
+    text-transform: uppercase;
+  }
+  .footer-right {
+    font-family: &#x27;Source Code Pro&#x27;, monospace;
+    font-size: 8px;
+    color: #3a5a6e;
+  }
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class=&quot;page&quot;&gt;
+
+  &lt;!-- HEADER --&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header-eyebrow&quot;&gt;Intellilink Gateway™ · Technical Architecture Reference&lt;/div&gt;
+    &lt;h1&gt;Control Plane vs Data Plane Separation&lt;br&gt;Intellilink Gateway™ Architecture&lt;/h1&gt;
+    &lt;div class=&quot;header-sub&quot;&gt;Illustrating traffic carriage, policy enforcement, and jurisdictional anchor points across the Intellilink overlay architecture.&lt;/div&gt;
+    &lt;div class=&quot;header-tags&quot;&gt;
+      &lt;span class=&quot;htag htag-data&quot;&gt;Data Plane&lt;/span&gt;
+      &lt;span class=&quot;htag htag-ctrl&quot;&gt;Control Plane&lt;/span&gt;
+      &lt;span class=&quot;htag htag-reg&quot;&gt;Regulator Reference&lt;/span&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- BODY --&gt;
+  &lt;div class=&quot;body&quot;&gt;
+
+    &lt;!-- ════ LAYER 1: DATA PLANE ════ --&gt;
+    &lt;div class=&quot;layer layer-data&quot;&gt;
+      &lt;div class=&quot;layer-strip&quot;&gt;
+        &lt;span class=&quot;layer-strip-dot&quot;&gt;&lt;/span&gt;
+        DATA PLANE — Traffic Flow
+        &lt;span style=&quot;margin-left:auto;font-size:8px;opacity:0.6;letter-spacing:1px;&quot;&gt;LAYER 1 OF 2&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;layer-body&quot;&gt;
+        &lt;div class=&quot;node-chain&quot;&gt;
+
+          &lt;!-- Enterprise LAN --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box&quot;&gt;
+              &lt;span class=&quot;node-badge badge-data&quot;&gt;Enterprise&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;Enterprise LAN&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;Users · Workstations&lt;br&gt;IoT · Applications&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Intellilink Gateway Agent --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box node-gateway&quot;&gt;
+              &lt;span class=&quot;node-badge badge-data&quot;&gt;Agent Node&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;Intellilink Gateway™&lt;br&gt;(Agent)&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;Traffic Steering&lt;br&gt;Tunnel Origination&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Starlink CPE --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box&quot;&gt;
+              &lt;span class=&quot;node-badge badge-infra&quot;&gt;CPE&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;Starlink CPE&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;Satellite Access&lt;br&gt;Terminal · LEO I/F&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- LEO Transport --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box node-cloud&quot;&gt;
+              &lt;span class=&quot;node-badge badge-infra&quot;&gt;Transport&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;LEO Satellite&lt;br&gt;Transport&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;Satellite Underlay&lt;br&gt;Segment&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- ICGPoP --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box node-icgpop&quot;&gt;
+              &lt;span class=&quot;node-badge badge-gov&quot;&gt;Governance&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;Intellilink Compliance&lt;br&gt;Gateway PoP (ICGPoP)&lt;/div&gt;
+              &lt;ul class=&quot;gov-functions&quot;&gt;
+                &lt;li&gt;Tunnel Termination&lt;/li&gt;
+                &lt;li&gt;Identity Binding&lt;/li&gt;
+                &lt;li&gt;Certificate Validation&lt;/li&gt;
+                &lt;li&gt;Policy Anchor&lt;/li&gt;
+                &lt;li&gt;Traffic Re-Anchoring&lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Policy Enforcement Point --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box&quot;&gt;
+              &lt;span class=&quot;node-badge badge-gov&quot;&gt;Policy&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;Policy Enforcement&lt;br&gt;Point&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;Access Control&lt;br&gt;QoS · Geofencing&lt;br&gt;Jurisdiction&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- ISP Edge Router --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box&quot;&gt;
+              &lt;span class=&quot;node-badge badge-ext&quot;&gt;ISP Edge&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;ISP Edge Router /&lt;br&gt;External Peering&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;BGP Peering&lt;br&gt;Transit / IX&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;arrow-seg&quot;&gt;
+              &lt;div class=&quot;arrow-solid&quot;&gt;
+                &lt;div class=&quot;arrow-solid-line&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;arrow-solid-head&quot;&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Global Internet --&gt;
+          &lt;div class=&quot;node-cell&quot;&gt;
+            &lt;div class=&quot;node-box node-internet&quot;&gt;
+              &lt;span class=&quot;node-badge badge-ext&quot;&gt;External&lt;/span&gt;
+              &lt;div class=&quot;node-label&quot;&gt;Global Internet&lt;/div&gt;
+              &lt;div class=&quot;node-sub&quot;&gt;Public Routing&lt;br&gt;Destination&lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt;&lt;!-- end node-chain --&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;&lt;!-- end layer-data --&gt;
+
+    &lt;!-- ════ LAYER 2: CONTROL PLANE ════ --&gt;
+    &lt;div class=&quot;layer layer-ctrl&quot;&gt;
+      &lt;div class=&quot;layer-strip&quot;&gt;
+        &lt;span class=&quot;layer-strip-dot&quot;&gt;&lt;/span&gt;
+        CONTROL PLANE — Overlay Governance
+        &lt;span style=&quot;margin-left:auto;font-size:8px;opacity:0.6;letter-spacing:1px;&quot;&gt;LAYER 2 OF 2&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;layer-body ctrl-layer-body&quot;&gt;
+
+        &lt;!-- Greyed spacer row showing what&#x27;s NOT in the control plane --&gt;
+        &lt;div class=&quot;ctrl-spacer-row&quot;&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot;&gt;Enterprise LAN&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot; style=&quot;border-color:var(--data-strip);color:var(--data-strip);opacity:1;background:rgba(30,77,140,0.04);&quot;&gt;Intellilink&lt;br&gt;Gateway™ Agent&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot;&gt;Starlink CPE&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot;&gt;LEO Transport&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot; style=&quot;border-color:var(--ctrl-strip);color:var(--ctrl-strip);opacity:1;background:rgba(140,90,0,0.04);&quot;&gt;ICGPoP&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot;&gt;PEP&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot;&gt;ISP Edge&lt;/div&gt;
+          &lt;div style=&quot;width:8px;border-top:1px dashed #bbb;margin:0 4px;flex-shrink:0;&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;ctrl-spacer-node&quot;&gt;Internet&lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tunnel Row --&gt;
+        &lt;div class=&quot;tunnel-row&quot;&gt;
+          &lt;!-- Initiator endpoint --&gt;
+          &lt;div class=&quot;tunnel-endpoint ep-initiator&quot;&gt;
+            &lt;div class=&quot;ep-tag ep-tag-init&quot;&gt;Tunnel Endpoint · Initiator&lt;/div&gt;
+            &lt;div class=&quot;ep-label&quot;&gt;Intellilink Gateway™ Agent&lt;/div&gt;
+            &lt;div style=&quot;font-size:8.5px;color:var(--ink-light);margin-top:2px;&quot;&gt;Enterprise-side overlay origin&lt;br&gt;Policy enforcement agent&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Bidirectional dashed tunnel --&gt;
+          &lt;div class=&quot;tunnel-line-wrap&quot;&gt;
+            &lt;div class=&quot;tunnel-line&quot;&gt;
+              &lt;div class=&quot;tl-arrow-left&quot;&gt;&lt;/div&gt;
+              &lt;div class=&quot;tl-dashes&quot;&gt;&lt;/div&gt;
+              &lt;div class=&quot;tl-arrow-right&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;tunnel-tag&quot;&gt;Encrypted Overlay Control Tunnel&lt;/div&gt;
+            &lt;div style=&quot;font-size:7.5px;color:var(--ctrl-strip);opacity:0.75;text-align:center;font-style:italic;&quot;&gt;Bidirectional · Encrypted · Authenticated&lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Terminator endpoint --&gt;
+          &lt;div class=&quot;tunnel-endpoint ep-terminator&quot;&gt;
+            &lt;div class=&quot;ep-tag ep-tag-term&quot;&gt;Tunnel Endpoint · Terminator&lt;/div&gt;
+            &lt;div class=&quot;ep-label&quot;&gt;Intellilink Compliance Gateway PoP (ICGPoP)&lt;/div&gt;
+            &lt;ul class=&quot;gov-functions&quot; style=&quot;margin-top:5px;&quot;&gt;
+              &lt;li&gt;Tunnel Termination&lt;/li&gt;
+              &lt;li&gt;Identity Binding&lt;/li&gt;
+              &lt;li&gt;Certificate Validation&lt;/li&gt;
+              &lt;li&gt;Policy Anchor&lt;/li&gt;
+              &lt;li&gt;Traffic Re-Anchoring&lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;ctrl-note&quot;&gt;
+          The control plane tunnel traverses the satellite transport underlay transparently — it is not terminated or inspected at the CPE or satellite segment.
+        &lt;/div&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;&lt;!-- end layer-ctrl --&gt;
+
+    &lt;!-- ════ THREE REGULATOR QUESTIONS ════ --&gt;
+    &lt;div class=&quot;questions-bar&quot;&gt;
+      &lt;div class=&quot;q-cell&quot;&gt;
+        &lt;div class=&quot;q-num q-num-1&quot;&gt;01&lt;/div&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;q-text-title&quot;&gt;Where is traffic carried?&lt;/div&gt;
+          &lt;div class=&quot;q-text-body&quot;&gt;Enterprise LAN → Intellilink Agent → Starlink CPE → LEO Transport → ICGPoP → PEP → ISP Edge → Internet&lt;/div&gt;
+          &lt;div&gt;&lt;span class=&quot;q-answer qa-1&quot;&gt;Data Plane · Solid Arrow Path&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;q-cell&quot;&gt;
+        &lt;div class=&quot;q-num q-num-2&quot;&gt;02&lt;/div&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;q-text-title&quot;&gt;Where is policy applied?&lt;/div&gt;
+          &lt;div class=&quot;q-text-body&quot;&gt;At the ICGPoP (identity binding, certificate validation, re-anchoring) and the Policy Enforcement Point (access control, QoS, jurisdiction).&lt;/div&gt;
+          &lt;div&gt;&lt;span class=&quot;q-answer qa-2&quot;&gt;ICGPoP + PEP · Governance Nodes&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;q-cell&quot;&gt;
+        &lt;div class=&quot;q-num q-num-3&quot;&gt;03&lt;/div&gt;
+        &lt;div&gt;
+          &lt;div class=&quot;q-text-title&quot;&gt;Where does jurisdiction apply?&lt;/div&gt;
+          &lt;div class=&quot;q-text-body&quot;&gt;At the domestic ISP PoP. The ICGPoP serves as the national jurisdiction re-entry point — traffic is re-anchored before onward transit.&lt;/div&gt;
+          &lt;div&gt;&lt;span class=&quot;q-answer qa-3&quot;&gt;ICGPoP · National Jurisdiction Boundary&lt;/span&gt;&lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;&lt;!-- end body --&gt;
+
+  &lt;!-- LEGEND + FOOTER ROW --&gt;
+  &lt;div class=&quot;bottom-strip&quot;&gt;
+    &lt;div class=&quot;legend&quot;&gt;
+      &lt;span class=&quot;legend-title&quot;&gt;Legend&lt;/span&gt;
+      &lt;div class=&quot;legend-item&quot;&gt;
+        &lt;div class=&quot;li-solid&quot;&gt;
+          &lt;div class=&quot;li-solid-line&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;li-solid-head&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        Data plane traffic
+      &lt;/div&gt;
+      &lt;div class=&quot;legend-item&quot;&gt;
+        &lt;div class=&quot;li-dashed&quot;&gt;
+          &lt;div class=&quot;li-d-arrl&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;li-d-line&quot;&gt;&lt;/div&gt;
+          &lt;div class=&quot;li-d-arrr&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        Control plane tunnel (bidirectional, encrypted)
+      &lt;/div&gt;
+      &lt;div class=&quot;legend-item&quot;&gt;
+        &lt;span style=&quot;display:inline-block;width:12px;height:12px;background:#f0f4fa;border:1.5px dashed var(--data-border);border-radius:2px;&quot;&gt;&lt;/span&gt;
+        Transport / infrastructure segment
+      &lt;/div&gt;
+      &lt;div class=&quot;legend-item&quot;&gt;
+        &lt;span style=&quot;display:inline-block;width:12px;height:12px;background:var(--gov-bg);border:1.5px solid var(--ctrl-strip);border-radius:2px;&quot;&gt;&lt;/span&gt;
+        Governance / compliance node
+      &lt;/div&gt;
+      &lt;div class=&quot;legend-item&quot;&gt;
+        &lt;span style=&quot;display:inline-block;width:12px;height:12px;background:#eee;border:1px dashed #aaa;border-radius:2px;opacity:0.5;&quot;&gt;&lt;/span&gt;
+        Not part of control plane
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- FOOTER --&gt;
+  &lt;div class=&quot;footer&quot;&gt;
+    &lt;span class=&quot;footer-left&quot;&gt;Public — Institutional Release (Anonymized)&lt;/span&gt;
+    &lt;span class=&quot;footer-right&quot;&gt;No ISP names, locations, or sensitive network identifiers disclosed · Technical Whitepaper Reference&lt;/span&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" style="height:860px;"></iframe>
+        <div class="figure-caption-bar">
+          <span class="fig-num">Figure 4</span>
+          <span class="fig-caption">Control Plane vs Data Plane Separation — Intellilink Gateway™ Architecture. Illustrating traffic carriage, policy enforcement, and jurisdictional anchor points across the overlay architecture.</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end content-pages -->
+
+  <!-- ══════════════════════════════════════════
+       DISCLAIMER SECTIONS
+  ══════════════════════════════════════════ -->
+  <div class="disclaimer-section">
+    <div class="section-num" style="margin-bottom:14px;">Sections 09 — 10</div>
+    <div class="disclaimer-cols">
+      <div class="disclaimer-box">
+        <div class="disclaimer-box-title">Legal &amp; Operational Disclaimer</div>
+        <p>This document describes a technical architecture and validation outcomes only. It does not constitute a commercial offer, regulatory certification, or service guarantee.</p>
+        <p style="margin-top:8px;">The Intellilink Gateway™ control plane operates independently of satellite providers and does not imply endorsement or partnership with any satellite operator.</p>
+      </div>
+      <div class="disclaimer-box">
+        <div class="disclaimer-box-title">Intellectual Property Notice</div>
+        <p>The Intellilink Gateway™ architecture, control-plane design, and operational workflows described herein are proprietary intellectual property of Intellilink Media LLC™.</p>
+        <p style="margin-top:8px;">Unauthorized reproduction or redistribution is prohibited.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IP NOTICE BAR -->
+  <div class="ip-bar">
+    © 2026 Intellilink Media LLC™ · All Rights Reserved · Proprietary &amp; Confidential
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <span class="footer-left">Intellilink Media LLC™ — Technical Validation Documentation</span>
+    <span class="footer-right">Version 2.0 · 07 February 2026 · Public — Institutional Release (Anonymized)</span>
+  </div>
+
+</div><!-- end doc-page -->
+</body>
+</html>

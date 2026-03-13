@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Intellilink Gateway™ — Regulator Brief v1.0</title>
+<style>
+/* ═══════════════════════════════════════════
+   GLOBAL RESET & BASE
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap');
+
+:root {
+  --navy:      #0d1e35;
+  --navy-mid:  #1a3255;
+  --blue:      #2a5a90;
+  --blue-lt:   #5a85b8;
+  --accent:    #c0392b;
+  --green:     #1a6030;
+  --rule:      #d0d8e4;
+  --page-bg:   #f5f6f8;
+  --text:      #1a2030;
+  --text-lt:   #4a5868;
+  --gold:      #9a7020;
+  --font-body: 'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+html { font-size: 10pt; }
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--page-bg);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════
+   PRINT / PAGE SETUP
+═══════════════════════════════════════════ */
+@page {
+  size: A4 portrait;
+  margin: 16mm 16mm 20mm 16mm;
+}
+
+@media print {
+  body { background: white; }
+  .page-break { page-break-before: always; }
+  .no-break { page-break-inside: avoid; }
+  .footer-bar { position: fixed; bottom: 0; left: 0; right: 0; }
+  a { color: inherit; text-decoration: none; }
+}
+
+/* ═══════════════════════════════════════════
+   SCREEN WRAPPER
+═══════════════════════════════════════════ */
+.document {
+  max-width: 210mm;
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: 0 2px 24px rgba(0,0,0,0.12);
+}
+
+/* ═══════════════════════════════════════════
+   COVER PAGE
+═══════════════════════════════════════════ */
+.cover {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  position: relative;
+  page-break-after: always;
+}
+
+.cover-top-stripe {
+  height: 6px;
+  background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 60%, var(--blue-lt) 100%);
+}
+
+.cover-header {
+  padding: 32px 40px 24px;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cover-logo-block { display: flex; flex-direction: column; gap: 3px; }
+.cover-org {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+.cover-org-sub {
+  font-size: 8.5pt;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.cover-class-badge {
+  background: #5a0808;
+  color: #ffd8d8;
+  font-family: var(--font-mono);
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  text-transform: uppercase;
+  border: 1px solid #8a2020;
+}
+
+.cover-hero {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 40px 40px;
+}
+
+.cover-doc-type {
+  font-family: var(--font-mono);
+  font-size: 8pt;
+  font-weight: 600;
+  color: var(--blue);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cover-doc-type::before {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: var(--blue);
+}
+
+.cover-title {
+  font-size: 28pt;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  max-width: 480px;
+}
+
+.cover-product-name {
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 24px;
+}
+
+.cover-abstract {
+  font-size: 10pt;
+  color: var(--text-lt);
+  line-height: 1.65;
+  max-width: 440px;
+  border-left: 3px solid var(--rule);
+  padding-left: 16px;
+  margin-bottom: 40px;
+}
+
+.cover-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--rule);
+  max-width: 420px;
+  width: 100%;
+}
+.cover-meta-row {
+  display: contents;
+}
+.cover-meta-label, .cover-meta-value {
+  padding: 8px 14px;
+  font-size: 9pt;
+  border-bottom: 1px solid var(--rule);
+}
+.cover-meta-label {
+  font-weight: 700;
+  color: var(--navy-mid);
+  background: #f0f3f8;
+  border-right: 1px solid var(--rule);
+}
+.cover-meta-value {
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: 8.5pt;
+}
+.cover-meta-row:last-child .cover-meta-label,
+.cover-meta-row:last-child .cover-meta-value {
+  border-bottom: none;
+}
+
+.cover-architect-box {
+  margin-top: 28px;
+  border: 1px solid var(--blue);
+  background: #f0f5fc;
+  padding: 16px 20px;
+  max-width: 420px;
+  width: 100%;
+}
+.cover-architect-label {
+  font-size: 7.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--blue);
+  font-family: var(--font-mono);
+  margin-bottom: 5px;
+}
+.cover-architect-name {
+  font-size: 12pt;
+  font-weight: 700;
+  color: var(--navy);
+}
+.cover-architect-role {
+  font-size: 9pt;
+  color: var(--text-lt);
+}
+
+.cover-footer {
+  padding: 18px 40px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fc;
+}
+.cover-footer-text {
+  font-size: 7.5pt;
+  color: #8090a8;
+  font-family: var(--font-mono);
+}
+
+/* ═══════════════════════════════════════════
+   PAGE FOOTER (per-page)
+═══════════════════════════════════════════ */
+.page-footer {
+  background: var(--navy);
+  color: #7aaace;
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  padding: 7px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 0.04em;
+}
+.page-footer-center { color: #5a7a98; }
+
+/* ═══════════════════════════════════════════
+   INNER PAGE LAYOUT
+═══════════════════════════════════════════ */
+.inner-page {
+  padding: 32px 40px 0;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION HEADING SYSTEM
+═══════════════════════════════════════════ */
+.section-number-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin: 28px 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--navy);
+}
+.section-num {
+  font-size: 8pt;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--blue);
+  background: #e8f0fc;
+  border: 1px solid var(--blue);
+  padding: 2px 7px;
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+.section-title {
+  font-size: 13pt;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--navy-mid);
+  margin: 18px 0 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+}
+
+p {
+  margin-bottom: 10px;
+  font-size: 10pt;
+  color: var(--text);
+  line-height: 1.65;
+}
+
+ul, ol {
+  margin: 8px 0 12px 22px;
+}
+li {
+  font-size: 10pt;
+  line-height: 1.65;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════
+   TABLE OF CONTENTS
+═══════════════════════════════════════════ */
+.toc-page {
+  page-break-after: always;
+}
+
+.toc-header {
+  font-size: 16pt;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy);
+}
+
+.toc-section {
+  margin-bottom: 4px;
+}
+.toc-entry {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 5px 0;
+  border-bottom: 1px dotted #c8cfe0;
+}
+.toc-entry:last-child { border-bottom: none; }
+.toc-num {
+  font-family: var(--font-mono);
+  font-size: 8.5pt;
+  color: var(--blue);
+  font-weight: 600;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+.toc-label {
+  flex: 1;
+  font-size: 10pt;
+  color: var(--text);
+}
+.toc-dots {
+  flex: 1;
+  border-bottom: 1px dotted #c0c8d8;
+  margin: 0 8px;
+  position: relative;
+  top: -3px;
+}
+.toc-page-ref {
+  font-family: var(--font-mono);
+  font-size: 9pt;
+  color: var(--text-lt);
+  min-width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.toc-sub-entry {
+  display: flex;
+  align-items: baseline;
+  padding: 3px 0 3px 28px;
+  border-bottom: 1px dotted #d8dfe8;
+}
+.toc-sub-entry:last-child { border-bottom: none; }
+.toc-sub-label {
+  flex: 1;
+  font-size: 9pt;
+  color: var(--text-lt);
+  font-style: italic;
+}
+
+.toc-divider {
+  height: 1px;
+  background: var(--rule);
+  margin: 14px 0;
+}
+
+/* Figures list */
+.toc-figures-header {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--navy-mid);
+  margin: 28px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ═══════════════════════════════════════════
+   DOCUMENT CONTROL BOX
+═══════════════════════════════════════════ */
+.doc-control-box {
+  border: 1.5px solid var(--navy-mid);
+  margin: 0 0 28px 0;
+}
+.doc-control-title {
+  background: var(--navy-mid);
+  color: #fff;
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+}
+.doc-control-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.doc-control-table tr td {
+  padding: 7px 14px;
+  font-size: 9pt;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+.doc-control-table tr:last-child td { border-bottom: none; }
+.doc-control-table td:first-child {
+  font-weight: 700;
+  color: var(--navy-mid);
+  background: #f0f4f8;
+  border-right: 1px solid var(--rule);
+  width: 38%;
+  font-family: var(--font-mono);
+  font-size: 8.5pt;
+}
+.doc-control-table td:last-child {
+  font-family: var(--font-mono);
+  font-size: 9pt;
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════
+   LOGICAL FLOW BOX
+═══════════════════════════════════════════ */
+.flow-box {
+  background: #f0f5fc;
+  border: 1.5px solid var(--blue);
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-family: var(--font-mono);
+  font-size: 9pt;
+  color: var(--navy);
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+.flow-box .flow-arrow { color: var(--blue); margin: 0 6px; font-weight: 700; }
+
+/* ═══════════════════════════════════════════
+   OUTCOME BULLETS (green ticks, red crosses)
+═══════════════════════════════════════════ */
+.outcome-list {
+  list-style: none;
+  margin: 8px 0;
+  padding: 0;
+}
+.outcome-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 10pt;
+  line-height: 1.55;
+}
+.outcome-list .oi { flex-shrink: 0; font-size: 11pt; margin-top: 1px; }
+.outcome-list.good .oi { color: var(--green); }
+.outcome-list.neutral .oi { color: var(--navy-mid); }
+
+/* ═══════════════════════════════════════════
+   CALLOUT / NOTE BOXES
+═══════════════════════════════════════════ */
+.callout {
+  padding: 14px 18px;
+  margin: 16px 0;
+  border-left: 4px solid;
+  background: #f8f9fc;
+  font-size: 9.5pt;
+  line-height: 1.6;
+}
+.callout.note { border-color: var(--blue); background: #f0f5fc; }
+.callout.warn { border-color: var(--accent); background: #fdf5f5; }
+.callout.positive { border-color: var(--green); background: #f0f8f2; }
+
+.callout-title {
+  font-weight: 700;
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: var(--font-mono);
+  margin-bottom: 5px;
+}
+.callout.note .callout-title { color: var(--blue); }
+.callout.warn .callout-title { color: var(--accent); }
+.callout.positive .callout-title { color: var(--green); }
+
+/* ═══════════════════════════════════════════
+   TWO-COLUMN COMPLIANCE GRID
+═══════════════════════════════════════════ */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 14px 0;
+}
+.grid-panel {
+  border: 1px solid;
+  padding: 12px 14px;
+}
+.grid-panel.positive { border-color: var(--green); background: #f2faf2; }
+.grid-panel.neutral  { border-color: var(--navy-mid); background: #f0f4f8; }
+.grid-panel-title {
+  font-size: 8.5pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+.grid-panel.positive .grid-panel-title { color: var(--green); }
+.grid-panel.neutral  .grid-panel-title { color: var(--navy-mid); }
+
+/* ═══════════════════════════════════════════
+   FIGURE CONTAINERS
+═══════════════════════════════════════════ */
+.figure-container {
+  margin: 22px 0 28px;
+  page-break-inside: avoid;
+}
+.figure-inner {
+  border: 1.5px solid var(--rule);
+  overflow: hidden;
+}
+.figure-inner svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.figure-inner iframe {
+  display: block;
+  width: 100%;
+  border: none;
+}
+/* Figure 5 is HTML-styled, render via iframe */
+.figure-caption-bar {
+  border-top: 1.5px solid var(--rule);
+  background: #f0f4f8;
+  padding: 8px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.figure-num-badge {
+  background: var(--navy-mid);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 7.5pt;
+  font-weight: 700;
+  padding: 2px 8px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.figure-caption-text { flex: 1; }
+.figure-title {
+  font-size: 9.5pt;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 2px;
+}
+.figure-caption {
+  font-size: 8.5pt;
+  color: var(--text-lt);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   DISCLAIMER BOX (end of document)
+═══════════════════════════════════════════ */
+.disclaimer-box {
+  border: 1.5px solid var(--navy-mid);
+  margin: 32px 0 24px;
+}
+.disclaimer-title {
+  background: var(--navy-mid);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 8.5pt;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.disclaimer-body {
+  padding: 14px 18px;
+  font-size: 9pt;
+  color: var(--text-lt);
+  line-height: 1.65;
+  background: #f8f9fc;
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION SEPARATOR
+═══════════════════════════════════════════ */
+.section-sep {
+  height: 1px;
+  background: var(--rule);
+  margin: 6px 0;
+}
+
+/* Inline highlight */
+strong { color: var(--navy); }
+
+/* ═══════════════════════════════════════════
+   INTELLILINK LOGO LOCKUP (Institutional)
+═══════════════════════════════════════════ */
+.ig-logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+.ig-logo-globe {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 4px rgba(0,0,0,0.18));
+}
+.ig-logo-divider {
+  width: 1px;
+  height: 52px;
+  background: #c8d0dc;
+  margin: 0 22px;
+  flex-shrink: 0;
+}
+.ig-logo-wordmark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+  padding-top: 2px;
+}
+.ig-logo-name {
+  font-family: 'IBM Plex Sans', 'Arial', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #0d1e35;
+  margin-bottom: 4px;
+}
+.ig-logo-product {
+  font-family: 'IBM Plex Sans', 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: #2a5a90;
+}
+.ig-logo-tm {
+  font-size: 9px;
+  font-weight: 400;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+.ig-logo-rule {
+  width: 154px;
+  height: 2px;
+  background: #e8720a;
+  margin-top: 7px;
+}
+
+</style>
+</head>
+<body>
+<div class="document">
+
+<!-- ══════════════════════════════════════════
+     COVER PAGE
+══════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-top-stripe"></div>
+
+  <div class="cover-header">
+    <div class="ig-logo-lockup">
+
+      <!-- Globe logo -->
+      <svg class="ig-logo-globe" width="72" height="72" viewBox="0 0 72 72"
+           xmlns="http://www.w3.org/2000/svg" aria-label="Intellilink Globe Logo">
+        <defs>
+          <radialGradient id="ig-rg-sphere" cx="36%" cy="28%" r="65%">
+            <stop offset="0%"   stop-color="#7ad0f8"/>
+            <stop offset="30%"  stop-color="#3090e0"/>
+            <stop offset="70%"  stop-color="#1460b8"/>
+            <stop offset="100%" stop-color="#0a3070"/>
+          </radialGradient>
+          <radialGradient id="ig-rg-sheen" cx="28%" cy="22%" r="42%">
+            <stop offset="0%"   stop-color="rgba(255,255,255,0.32)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+          </radialGradient>
+          <clipPath id="ig-sphere-clip">
+            <circle cx="36" cy="36" r="28"/>
+          </clipPath>
+        </defs>
+
+        <!-- Sphere -->
+        <circle cx="36" cy="36" r="28" fill="url(#ig-rg-sphere)"/>
+        <circle cx="36" cy="36" r="28" fill="url(#ig-rg-sheen)"/>
+
+        <!-- Grid lines, clipped -->
+        <g clip-path="url(#ig-sphere-clip)" fill="none"
+           stroke="rgba(255,255,255,0.28)" stroke-width="0.6">
+          <ellipse cx="36" cy="36" rx="28" ry="10"/>
+          <ellipse cx="36" cy="36" rx="28" ry="19"/>
+          <ellipse cx="36" cy="36" rx="28" ry="26"/>
+          <ellipse cx="36" cy="36" rx="10" ry="28"/>
+          <ellipse cx="36" cy="36" rx="19" ry="28"/>
+        </g>
+
+        <!-- Text band -->
+        <g clip-path="url(#ig-sphere-clip)">
+          <rect x="8" y="31" width="56" height="10" fill="rgba(6,24,64,0.5)"/>
+          <text x="36" y="39" text-anchor="middle"
+                font-family="'IBM Plex Sans','Arial',sans-serif"
+                font-size="5.8" font-weight="700" letter-spacing="1.2"
+                fill="rgba(255,255,255,0.92)">INTELLILINK</text>
+          <text x="36" y="46" text-anchor="middle"
+                font-family="'IBM Plex Sans','Arial',sans-serif"
+                font-size="3.8" font-weight="400" letter-spacing="0.9"
+                fill="rgba(255,255,255,0.60)">MEDIA</text>
+        </g>
+
+        <!-- Orange ring -->
+        <circle cx="36" cy="36" r="31" fill="none"
+                stroke="#e8720a" stroke-width="2.8"/>
+
+        <!-- Antenna arc (top-right) -->
+        <path d="M 54 12 Q 64 5 68 17" fill="none" stroke="#e8720a"
+              stroke-width="2.0" stroke-linecap="round" opacity="0.9"/>
+        <path d="M 57 8  Q 70 0 74 15" fill="none" stroke="#e8720a"
+              stroke-width="1.3" stroke-linecap="round" opacity="0.55"/>
+      </svg>
+
+      <!-- Vertical divider -->
+      <div class="ig-logo-divider"></div>
+
+      <!-- Wordmark -->
+      <div class="ig-logo-wordmark">
+        <div class="ig-logo-name">INTELLILINK</div>
+        <div class="ig-logo-product">GATEWAY<sup class="ig-logo-tm">&#8482;</sup></div>
+        <div class="ig-logo-rule"></div>
+      </div>
+
+    </div>
+    <div class="cover-class-badge">Public — Institutional Brief&nbsp;&nbsp;·&nbsp;&nbsp;For Regulatory Review</div>
+  </div>
+
+  <div class="cover-hero">
+    <div class="cover-doc-type">Regulator Brief</div>
+    <div class="cover-title">Integrating Satellite Connectivity into National Internet Governance Frameworks</div>
+    <div class="cover-product-name">Intellilink Gateway&#8482;</div>
+    <p class="cover-abstract">
+      This brief provides telecommunications regulators and policy authorities with a technical and architectural perspective on how satellite Internet connectivity — particularly low-Earth-orbit (LEO) systems — can be integrated into national Internet governance frameworks without undermining regulatory mandates. The model presented is neutral with respect to specific providers and is intended to demonstrate how satellite innovation and national governance principles can coexist.
+    </p>
+
+    <div class="cover-meta-grid">
+      <div class="cover-meta-row">
+        <div class="cover-meta-label">Document</div>
+        <div class="cover-meta-value">Regulator Brief</div>
+      </div>
+      <div class="cover-meta-row">
+        <div class="cover-meta-label">Version</div>
+        <div class="cover-meta-value">1.0</div>
+      </div>
+      <div class="cover-meta-row">
+        <div class="cover-meta-label">Date</div>
+        <div class="cover-meta-value">07 February 2026</div>
+      </div>
+      <div class="cover-meta-row">
+        <div class="cover-meta-label">Prepared by</div>
+        <div class="cover-meta-value">Intellilink Media LLC&#8482; (USA)</div>
+      </div>
+      <div class="cover-meta-row">
+        <div class="cover-meta-label">Classification</div>
+        <div class="cover-meta-value">Public — Institutional Brief</div>
+      </div>
+      <div class="cover-meta-row">
+        <div class="cover-meta-label">Audience</div>
+        <div class="cover-meta-value">Regulatory / Policy Authorities</div>
+      </div>
+    </div>
+
+    <div class="cover-architect-box">
+      <div class="cover-architect-label">Architect Attribution</div>
+      <div class="cover-architect-name">Emmanuel Mukwesa</div>
+      <div class="cover-architect-role">Founder &amp; Architect &nbsp;·&nbsp; Intellilink Media LLC&#8482;</div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div class="cover-footer-text">Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</div>
+    <div class="cover-footer-text">© 2026 Intellilink Media LLC&#8482;. All rights reserved.</div>
+  </div>
+</div><!-- /cover -->
+
+
+<!-- ══════════════════════════════════════════
+     TABLE OF CONTENTS PAGE
+══════════════════════════════════════════ -->
+<div class="inner-page toc-page page-break">
+  <div style="flex:1">
+    <div class="toc-header">Table of Contents</div>
+
+    <div class="toc-entry">
+      <span class="toc-num">—</span>
+      <span class="toc-label">Document Control</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">3</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">1.</span>
+      <span class="toc-label">Purpose of This Brief</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">3</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">2.</span>
+      <span class="toc-label">The Emerging Context</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">3</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">3.</span>
+      <span class="toc-label">The Regulatory Consideration</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">4</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">4.</span>
+      <span class="toc-label">The Intellilink Gateway&#8482; Model</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">4</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">5.</span>
+      <span class="toc-label">Alignment with Regulatory Principles</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">5</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">6.</span>
+      <span class="toc-label">What the Model Does Not Do</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">6</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">7.</span>
+      <span class="toc-label">Field Validation Summary</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">7</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">8.</span>
+      <span class="toc-label">Why Proactive Engagement Matters</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">7</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">9.</span>
+      <span class="toc-label">Recommended Engagement Model</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">8</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">10.</span>
+      <span class="toc-label">Conclusion</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">8</span>
+    </div>
+
+    <div class="toc-entry">
+      <span class="toc-num">—</span>
+      <span class="toc-label">Legal &amp; Policy Disclaimer</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">8</span>
+    </div>
+
+    <div class="toc-divider"></div>
+
+    <div class="toc-figures-header">List of Figures</div>
+
+    <div class="toc-entry">
+      <span class="toc-num">Fig. 1</span>
+      <span class="toc-label">Sovereignty Restoration via Domestic Traffic Anchoring</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">4</span>
+    </div>
+    <div class="toc-entry">
+      <span class="toc-num">Fig. 2</span>
+      <span class="toc-label">Regulatory Control &amp; Oversight Architecture</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">5</span>
+    </div>
+    <div class="toc-entry">
+      <span class="toc-num">Fig. 3</span>
+      <span class="toc-label">Audit Flow Architecture — Evidence Generation &amp; Regulated Access</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">6</span>
+    </div>
+    <div class="toc-entry">
+      <span class="toc-num">Fig. 4</span>
+      <span class="toc-label">Intellilink Compliance Gateway — Reference Architecture</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">7</span>
+    </div>
+    <div class="toc-entry">
+      <span class="toc-num">Fig. 5</span>
+      <span class="toc-label">Traffic Anchoring — Before / After Routing Comparison</span>
+      <span class="toc-dots"></span>
+      <span class="toc-page-ref">8</span>
+    </div>
+
+  </div>
+  <div class="page-footer">
+    <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+    <span class="page-footer-center">Table of Contents</span>
+    <span>Page 2</span>
+  </div>
+</div><!-- /toc-page -->
+
+
+<!-- ══════════════════════════════════════════
+     MAIN CONTENT — SECTIONS 1–3
+══════════════════════════════════════════ -->
+<div class="inner-page page-break">
+<div style="flex:1">
+
+  <!-- Document Control -->
+  <div class="doc-control-box no-break">
+    <div class="doc-control-title">Document Control</div>
+    <table class="doc-control-table">
+      <tr><td>Document</td><td>Regulator Brief</td></tr>
+      <tr><td>Version</td><td>1.0</td></tr>
+      <tr><td>Date</td><td>07 February 2026</td></tr>
+      <tr><td>Prepared by</td><td>Intellilink Media LLC&#8482; (USA)</td></tr>
+      <tr><td>Architect</td><td>Emmanuel Mukwesa &nbsp;·&nbsp; Founder &amp; Architect &nbsp;·&nbsp; Intellilink Media LLC&#8482;</td></tr>
+      <tr><td>Classification</td><td>Public — Institutional Brief &nbsp;·&nbsp; For Regulatory Review</td></tr>
+      <tr><td>Status</td><td>Final — v1.0</td></tr>
+    </table>
+  </div>
+
+  <!-- Section 1 -->
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 1</span>
+    <span class="section-title">Purpose of This Brief</span>
+  </div>
+  <p>This document is intended to provide regulators and policy authorities with a technical and architectural perspective on how satellite Internet connectivity — particularly low-Earth-orbit (LEO) systems — can be integrated into national Internet governance frameworks without undermining regulatory mandates.</p>
+  <p>The brief does not advocate for or against any specific satellite provider. Its objective is to demonstrate a neutral technical model that restores visibility and accountability where they may otherwise be reduced.</p>
+
+  <!-- Section 2 -->
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 2</span>
+    <span class="section-title">The Emerging Context</span>
+  </div>
+  <p>Satellite Internet services are increasingly being adopted by enterprises, institutions, and public-sector organizations to improve resilience against:</p>
+  <ul>
+    <li>Terrestrial fiber outages</li>
+    <li>Power instability</li>
+    <li>Geographic access limitations</li>
+  </ul>
+  <p>This trend is expected to accelerate as multi-orbit enterprise satellite networks enter service. In many cases, however, satellite connectivity is deployed outside traditional ISP delivery models, resulting in reduced visibility within national networks.</p>
+
+  <!-- Section 3 -->
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 3</span>
+    <span class="section-title">The Regulatory Consideration</span>
+  </div>
+  <p>Most national communications frameworks are built around a foundational principle:</p>
+  <div class="callout note">
+    <div class="callout-title">Foundational Principle</div>
+    Internet traffic should traverse accountable upstream providers operating within national jurisdiction.
+  </div>
+  <p>When enterprise traffic bypasses local ISP Points of Presence (PoPs), regulators may experience:</p>
+  <ul>
+    <li>Reduced traffic visibility</li>
+    <li>Ambiguous upstream accountability</li>
+    <li>Limited policy enforcement points</li>
+    <li>Difficulty applying existing regulatory tools</li>
+  </ul>
+  <p>These outcomes are <strong>architectural, not intentional</strong>. They arise from the way satellite connectivity is currently deployed, rather than from deliberate attempts to circumvent regulatory oversight.</p>
+
+</div>
+<div class="page-footer">
+  <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+  <span class="page-footer-center">Sections 1 – 3</span>
+  <span>Page 3</span>
+</div>
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — The Gateway Model + Figure 1
+══════════════════════════════════════════ -->
+<div class="inner-page page-break">
+<div style="flex:1">
+
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 4</span>
+    <span class="section-title">The Intellilink Gateway&#8482; Model</span>
+  </div>
+  <p>Intellilink Gateway&#8482; introduces a control-plane architecture that allows satellite-based enterprise traffic to be delivered through a traditional ISP-style governance model, without altering satellite access infrastructure.</p>
+
+  <h3>Core Concept</h3>
+  <p>Satellite connectivity remains the <em>access layer</em>, while governance is reintroduced at a local ISP PoP through secure tunneling.</p>
+
+  <h3>Logical Flow</h3>
+  <div class="flow-box">
+    Enterprise
+    <span class="flow-arrow">→</span>
+    Satellite Access
+    <span class="flow-arrow">→</span>
+    Governance Gateway
+    <span class="flow-arrow">→</span>
+    Local ISP PoP
+    <span class="flow-arrow">→</span>
+    Internet
+  </div>
+
+  <p>This architecture restores three critical governance elements that are absent from unanchored satellite deployments:</p>
+  <ul>
+    <li>A visible upstream provider within national jurisdiction</li>
+    <li>A national policy enforcement point (PEP)</li>
+    <li>An audit-ready control location for lawful regulatory access</li>
+  </ul>
+
+  <!-- Figure 1 -->
+  <div class="figure-container no-break">
+    <div class="figure-inner">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 980" font-family="'IBM Plex Sans', Arial, Helvetica, sans-serif">
+<defs>
+  <marker id="arr-data" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4z" fill="#1e3a5f"/></marker>
+  <marker id="arr-bad" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4z" fill="#991a1a"/></marker>
+  <marker id="arr-tun" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L0,8 L10,4z" fill="#2255aa"/></marker>
+  <marker id="arr-tun-sm" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#2255aa"/></marker>
+  <marker id="arr-data-sm" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#1e3a5f"/></marker>
+  <marker id="arr-bad-sm" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3z" fill="#991a1a"/></marker>
+  <filter id="drop-lg" x="-8%" y="-8%" width="116%" height="116%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="3" flood-color="#00000030"/></filter>
+  <filter id="drop-md" x="-6%" y="-6%" width="112%" height="112%"><feDropShadow dx="1" dy="1.5" stdDeviation="2" flood-color="#00000025"/></filter>
+  <filter id="drop-sm" x="-4%" y="-4%" width="108%" height="108%"><feDropShadow dx="0.5" dy="1" stdDeviation="1.5" flood-color="#00000018"/></filter>
+  <linearGradient id="hdr-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0d1b2e"/><stop offset="100%" stop-color="#162840"/></linearGradient>
+  <linearGradient id="panel-l-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f8f2f2"/><stop offset="100%" stop-color="#f3eded"/></linearGradient>
+  <linearGradient id="panel-r-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#f2f7f2"/><stop offset="100%" stop-color="#edf4ed"/></linearGradient>
+  <linearGradient id="pop-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1a2e50"/><stop offset="100%" stop-color="#0e1e38"/></linearGradient>
+  <linearGradient id="agent-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#1a3258"/><stop offset="100%" stop-color="#0e2040"/></linearGradient>
+  <linearGradient id="bad-hdr" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8b1a1a"/><stop offset="100%" stop-color="#a82020"/></linearGradient>
+  <linearGradient id="good-hdr" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#1a5228"/><stop offset="100%" stop-color="#1e6030"/></linearGradient>
+  <linearGradient id="legend-grad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#edf1f7"/><stop offset="100%" stop-color="#e8ecf4"/></linearGradient>
+  <pattern id="hatch-red" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" stroke="#c03030" stroke-width="0.9" stroke-opacity="0.15"/></pattern>
+  <pattern id="tunnel-stripe" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="10" fill="#c0d8f0" opacity="0.50"/></pattern>
+  <clipPath id="panel-l-clip"><rect x="16" y="102" width="740" height="648" rx="3"/></clipPath>
+  <clipPath id="panel-r-clip"><rect x="800" y="102" width="744" height="648" rx="3"/></clipPath>
+</defs>
+<rect width="1560" height="980" fill="#f0f2f5"/>
+<!-- Header -->
+<rect x="0" y="0" width="1560" height="96" fill="url(#hdr-grad)"/>
+<rect x="0" y="93" width="1560" height="3" fill="#2a6090"/>
+<text x="28" y="22" font-size="9" fill="#5a90c0" font-weight="600" font-family="'Courier New',monospace" letter-spacing="2">REGULATORY TECHNICAL BRIEF  ·  FIGURE 1  ·  SOVEREIGNTY RESTORATION VIA DOMESTIC TRAFFIC ANCHORING</text>
+<text x="28" y="52" font-size="22" fill="#ffffff" font-weight="700">Sovereignty Restoration via Domestic Traffic Anchoring</text>
+<text x="28" y="68" font-size="10" fill="#90b8d8">Comparative architecture illustrating restoration of national visibility, accountability, and lawful authority for enterprise satellite connectivity.</text>
+<text x="28" y="82" font-size="8.5" fill="#5a7a98" font-style="italic">Intellilink Compliance Gateway (ICG) — Unanchored vs. Compliant Satellite Connectivity  |  Figure 1</text>
+<text x="1376" y="50" font-size="8.5" fill="#4a7298" text-anchor="end" font-family="'Courier New',monospace">Technical Proof Brief</text>
+<text x="1376" y="63" font-size="8.5" fill="#4a7298" text-anchor="end" font-family="'Courier New',monospace">Revision 2.0  |  February 2026</text>
+<!-- Left panel -->
+<rect x="16" y="102" width="740" height="648" rx="3" fill="url(#panel-l-grad)" stroke="#b83030" stroke-width="2" filter="url(#drop-lg)"/>
+<rect x="16" y="102" width="740" height="648" rx="3" fill="url(#hatch-red)" clip-path="url(#panel-l-clip)"/>
+<rect x="16" y="102" width="740" height="30" rx="3" fill="url(#bad-hdr)"/>
+<rect x="16" y="122" width="740" height="10" fill="url(#bad-hdr)"/>
+<text x="386" y="122" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1.5">UNANCHORED SATELLITE CONNECTIVITY — SOVEREIGNTY BYPASS</text>
+<!-- Right panel -->
+<rect x="800" y="102" width="744" height="648" rx="3" fill="url(#panel-r-grad)" stroke="#2a7030" stroke-width="2" filter="url(#drop-lg)"/>
+<rect x="800" y="102" width="744" height="30" rx="3" fill="url(#good-hdr)"/>
+<rect x="800" y="122" width="744" height="10" fill="url(#good-hdr)"/>
+<text x="1172" y="122" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1.5">ANCHORED COMPLIANT CONNECTIVITY — SOVEREIGNTY RESTORED</text>
+<!-- Center divider -->
+<rect x="758" y="102" width="40" height="648" fill="#f0f2f5"/>
+<line x1="778" y1="102" x2="778" y2="750" stroke="#a0a8b8" stroke-width="1.2" stroke-dasharray="5,4"/>
+<!-- Left panel nodes -->
+<rect x="28" y="172" width="126" height="58" rx="2" fill="#ffffff" stroke="#4a6898" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="91" y="196" font-size="10.5" font-weight="700" fill="#1a2840" text-anchor="middle">Enterprise</text>
+<text x="91" y="211" font-size="10.5" font-weight="700" fill="#1a2840" text-anchor="middle">Network</text>
+<rect x="182" y="172" width="126" height="58" rx="2" fill="#ffffff" stroke="#7a6020" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="264" y="196" font-size="10.5" font-weight="700" fill="#1a2840" text-anchor="middle">Satellite</text>
+<text x="264" y="211" font-size="10.5" font-weight="700" fill="#1a2840" text-anchor="middle">Terminal</text>
+<ellipse cx="465" cy="201" rx="74" ry="44" fill="#eaeff8" stroke="#3a609a" stroke-width="1.5" stroke-dasharray="3,2"/>
+<circle cx="420" cy="201" r="4" fill="#3a609a"/>
+<circle cx="465" cy="163" r="4" fill="#3a609a"/>
+<circle cx="510" cy="201" r="4" fill="#3a609a"/>
+<text x="465" y="198" font-size="9.5" font-weight="600" fill="#1a3060" text-anchor="middle">LEO Satellite</text>
+<text x="465" y="211" font-size="9.5" font-weight="600" fill="#1a3060" text-anchor="middle">Constellation</text>
+<rect x="545" y="168" width="152" height="66" rx="8" fill="#fceaea" stroke="#b83030" stroke-width="2" filter="url(#drop-sm)"/>
+<text x="643" y="190" font-size="8.5" font-weight="700" fill="#8b1a1a" text-anchor="middle">External Networks /</text>
+<text x="643" y="204" font-size="8.5" font-weight="700" fill="#8b1a1a" text-anchor="middle">Global Internet</text>
+<text x="643" y="219" font-size="7.5" fill="#aa3030" text-anchor="middle" font-style="italic">Externally Governed Domain</text>
+<rect x="664" y="178" width="78" height="46" rx="2" fill="#f4f4f4" stroke="#909090" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="703" y="198" font-size="9.5" font-weight="600" fill="#555" text-anchor="middle">Destina-</text>
+<text x="703" y="212" font-size="9.5" font-weight="600" fill="#555" text-anchor="middle">tion</text>
+<!-- Left arrows -->
+<line x1="154" y1="201" x2="179" y2="201" stroke="#991a1a" stroke-width="2.2" marker-end="url(#arr-bad)"/>
+<line x1="308" y1="201" x2="388" y2="201" stroke="#991a1a" stroke-width="2.2" marker-end="url(#arr-bad)"/>
+<line x1="540" y1="201" x2="542" y2="201" stroke="#991a1a" stroke-width="2.2" marker-end="url(#arr-bad)"/>
+<line x1="697" y1="201" x2="661" y2="201" stroke="#991a1a" stroke-width="2.2" marker-end="url(#arr-bad)"/>
+<!-- Boundary violation indicator left -->
+<rect x="350" y="136" width="22" height="608" fill="#f5efef"/>
+<line x1="361" y1="136" x2="361" y2="740" stroke="#c01010" stroke-width="3.5" stroke-dasharray="9,5"/>
+<text transform="translate(355,436) rotate(-90)" font-size="8.5" font-weight="700" fill="#c01010" text-anchor="middle" letter-spacing="2">NATIONAL JURISDICTION BOUNDARY</text>
+<rect x="296" y="236" width="132" height="22" rx="2" fill="#b81010" opacity="0.92"/>
+<text x="362" y="251" font-size="8" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="0.8">⚠  BOUNDARY VIOLATED</text>
+<!-- Left deficiency block -->
+<rect x="28" y="282" width="700" height="200" rx="2" fill="#fff0f0" stroke="#c84040" stroke-width="1.2" stroke-dasharray="6,3"/>
+<rect x="28" y="282" width="700" height="20" rx="2" fill="#c03030"/>
+<rect x="28" y="292" width="700" height="10" fill="#c03030"/>
+<text x="378" y="296" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">COMPLIANCE DEFICIENCIES — UNANCHORED CONNECTIVITY</text>
+<rect x="40" y="310" width="330" height="158" rx="2" fill="#fff5f5" stroke="#d06060" stroke-width="0.8"/>
+<text x="50" y="328" font-size="8.5" font-weight="700" fill="#700000">Jurisdiction &amp; Routing:</text>
+<text x="50" y="344" font-size="8" fill="#7a2020">✗  Traffic exits national jurisdiction immediately</text>
+<text x="50" y="359" font-size="8" fill="#7a2020">✗  External jurisdiction routing — no domestic control</text>
+<text x="50" y="374" font-size="8" fill="#7a2020">✗  No local ASN attribution for source traffic</text>
+<text x="50" y="389" font-size="8" fill="#7a2020">✗  Foreign ASN egress — uncontrolled addressing</text>
+<text x="50" y="404" font-size="8" fill="#7a2020">✗  No address localization or NAT capability</text>
+<text x="50" y="419" font-size="8" fill="#7a2020">✗  No regulated exit policy enforcement</text>
+<text x="50" y="434" font-size="8" fill="#7a2020">✗  No domestic traffic anchoring point</text>
+<rect x="384" y="310" width="332" height="158" rx="2" fill="#fff5f5" stroke="#d06060" stroke-width="0.8"/>
+<text x="394" y="328" font-size="8.5" font-weight="700" fill="#700000">Oversight &amp; Legal Framework:</text>
+<text x="394" y="344" font-size="8" fill="#7a2020">✗  No lawful intercept capability (domestic)</text>
+<text x="394" y="359" font-size="8" fill="#7a2020">✗  Limited regulatory visibility of traffic flows</text>
+<text x="394" y="374" font-size="8" fill="#7a2020">✗  No compliance logging or audit trail</text>
+<text x="394" y="389" font-size="8" fill="#7a2020">✗  No policy enforcement point (PEP)</text>
+<text x="394" y="404" font-size="8" fill="#7a2020">✗  No traffic accounting or flow attribution</text>
+<text x="394" y="419" font-size="8" fill="#7a2020">✗  National telecom law cannot be enforced</text>
+<text x="394" y="434" font-size="8" fill="#7a2020">✗  Regulator audit interface absent</text>
+<rect x="28" y="496" width="700" height="52" rx="2" fill="#991a1a"/>
+<text x="378" y="517" font-size="11" font-weight="700" fill="#ffffff" text-anchor="middle">Sovereignty Bypass: Traffic operates entirely outside national legal framework.</text>
+<text x="378" y="535" font-size="9" fill="#ffcccc" text-anchor="middle">National telecommunications obligations cannot be enforced on this traffic path.</text>
+<!-- Right panel nodes -->
+<rect x="812" y="172" width="110" height="58" rx="2" fill="#ffffff" stroke="#4a6898" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="867" y="196" font-size="10" font-weight="700" fill="#1a2840" text-anchor="middle">Enterprise</text>
+<text x="867" y="211" font-size="10" font-weight="700" fill="#1a2840" text-anchor="middle">Network</text>
+<rect x="944" y="162" width="122" height="78" rx="2" fill="url(#agent-grad)" stroke="#0e1e38" stroke-width="2" filter="url(#drop-md)"/>
+<text x="1005" y="190" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">Intellilink</text>
+<text x="1005" y="207" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">Agent</text>
+<circle cx="1005" cy="224" r="5.5" fill="#40c840"/>
+<rect x="812" y="290" width="110" height="58" rx="2" fill="#ffffff" stroke="#7a6020" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="868" y="316" font-size="9.5" font-weight="600" fill="#1a2840" text-anchor="middle">Satellite</text>
+<text x="868" y="330" font-size="9.5" font-weight="600" fill="#1a2840" text-anchor="middle">Terminal</text>
+<ellipse cx="1005" cy="330" rx="66" ry="42" fill="#eaeff8" stroke="#3a609a" stroke-width="1.5" stroke-dasharray="3,2"/>
+<circle cx="964" cy="330" r="4" fill="#3a609a"/>
+<circle cx="1005" cy="294" r="4" fill="#3a609a"/>
+<circle cx="1046" cy="330" r="4" fill="#3a609a"/>
+<text x="1005" y="326" font-size="9" font-weight="600" fill="#1a3060" text-anchor="middle">LEO Satellite</text>
+<text x="1005" y="340" font-size="9" font-weight="600" fill="#1a3060" text-anchor="middle">Constellation</text>
+<!-- Encrypted tunnel band -->
+<rect x="1072" y="307" width="54" height="46" rx="4" fill="url(#tunnel-stripe)" stroke="#1a509a" stroke-width="2" filter="url(#drop-sm)"/>
+<rect x="1088" y="315" width="16" height="12" rx="2" fill="#1a2e60"/>
+<rect x="1091" y="311" width="10" height="8" rx="5" fill="none" stroke="#1a2e60" stroke-width="2.2"/>
+<circle cx="1096" cy="321" r="2" fill="#7ab8e8"/>
+<!-- National compliance gateway pop -->
+<rect x="808" y="386" width="314" height="17" rx="2" fill="#1a4a28" opacity="0.88"/>
+<text x="965" y="398" font-size="8" font-weight="700" fill="#c0f0d0" text-anchor="middle" letter-spacing="1">DOMESTIC ISP / COMPLIANCE DOMAIN</text>
+<rect x="808" y="404" width="314" height="192" rx="2" fill="url(#pop-grad)" stroke="#0a1828" stroke-width="2.2" filter="url(#drop-lg)"/>
+<rect x="808" y="404" width="314" height="26" rx="2" fill="#0a1828"/>
+<rect x="808" y="420" width="314" height="10" fill="#0a1828"/>
+<text x="965" y="420" font-size="9.5" font-weight="700" fill="#c0d8f0" text-anchor="middle" letter-spacing="0.8">NATIONAL COMPLIANCE GATEWAY PoP</text>
+<text x="965" y="434" font-size="7.5" fill="#7aa8d0" text-anchor="middle">National Traffic Anchoring Point — Primary Domestic Enforcement Zone</text>
+<rect x="818" y="442" width="140" height="30" rx="2" fill="#d4dce8" stroke="#8090a8" stroke-width="1"/>
+<text x="830" y="454" font-size="8" font-weight="700" fill="#1a2840">Local ASN Assignment</text>
+<text x="830" y="465" font-size="7" fill="#3a5070">Address localization / NAT</text>
+<rect x="964" y="442" width="148" height="30" rx="2" fill="#d4dce8" stroke="#8090a8" stroke-width="1"/>
+<text x="976" y="454" font-size="8" font-weight="700" fill="#1a2840">Policy Enforcement Point</text>
+<text x="976" y="465" font-size="7" fill="#3a5070">PEP — Routing &amp; traffic control</text>
+<rect x="818" y="478" width="140" height="30" rx="2" fill="#d4dce8" stroke="#8090a8" stroke-width="1"/>
+<text x="830" y="490" font-size="8" font-weight="700" fill="#1a2840">Traffic Monitoring</text>
+<text x="830" y="501" font-size="7" fill="#3a5070">IPFIX / NetFlow / Accounting</text>
+<rect x="964" y="478" width="148" height="30" rx="2" fill="#d4dce8" stroke="#8090a8" stroke-width="1"/>
+<text x="976" y="490" font-size="8" font-weight="700" fill="#1a2840">Lawful Intercept Anchor</text>
+<text x="976" y="501" font-size="7" fill="#3a5070">National legal framework</text>
+<rect x="818" y="514" width="140" height="30" rx="2" fill="#d4dce8" stroke="#8090a8" stroke-width="1"/>
+<text x="830" y="526" font-size="8" font-weight="700" fill="#1a2840">Compliance Logging</text>
+<text x="830" y="537" font-size="7" fill="#3a5070">Immutable audit trail</text>
+<rect x="964" y="514" width="148" height="30" rx="2" fill="#d4dce8" stroke="#8090a8" stroke-width="1"/>
+<text x="976" y="526" font-size="8" font-weight="700" fill="#1a2840">Regulator Audit Interface</text>
+<text x="976" y="537" font-size="7" fill="#3a5070">Authorised access only</text>
+<rect x="818" y="550" width="294" height="22" rx="2" fill="#c0d0e8" stroke="#4a70a8" stroke-width="1"/>
+<text x="965" y="565" font-size="7.5" font-weight="700" fill="#1a2850" text-anchor="middle">Chain-of-Custody Initiation  ·  Evidence Signing  ·  Timestamp Authority</text>
+<rect x="808" y="600" width="314" height="18" rx="2" fill="#2a6838" opacity="0.90"/>
+<text x="965" y="613" font-size="7.5" font-weight="700" fill="#d0f0d8" text-anchor="middle" letter-spacing="0.5">Primary Domestic Evidence Anchor  ·  Domestic Address Space Restoration Point</text>
+<!-- ISP Edge right -->
+<rect x="1142" y="450" width="138" height="56" rx="2" fill="#ffffff" stroke="#2a7030" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="1211" y="472" font-size="9.5" font-weight="600" fill="#1a2840" text-anchor="middle">ISP Edge /</text>
+<text x="1211" y="487" font-size="9.5" font-weight="600" fill="#1a2840" text-anchor="middle">External Peering</text>
+<text x="1211" y="499" font-size="7" fill="#286828" text-anchor="middle">BGP — Domestic ASN</text>
+<!-- External networks right -->
+<rect x="1296" y="440" width="144" height="76" rx="8" fill="#f0f4f8" stroke="#607090" stroke-width="1.5" filter="url(#drop-sm)"/>
+<text x="1368" y="467" font-size="8.5" font-weight="600" fill="#444" text-anchor="middle">External Networks /</text>
+<text x="1368" y="481" font-size="8.5" font-weight="600" fill="#444" text-anchor="middle">Global Internet</text>
+<text x="1368" y="496" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Externally Governed Domain</text>
+<!-- Right arrows -->
+<line x1="922" y1="201" x2="940" y2="201" stroke="#1e3a5f" stroke-width="2.2" marker-end="url(#arr-data)"/>
+<line x1="944" y1="220" x2="867" y2="288" stroke="#1e3a5f" stroke-width="2" marker-end="url(#arr-data-sm)"/>
+<line x1="922" y1="319" x2="944" y2="319" stroke="#2255aa" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-tun-sm)"/>
+<line x1="1072" y1="330" x2="1074" y2="330" stroke="#2255aa" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-tun-sm)"/>
+<line x1="1126" y1="330" x2="1126" y2="404" stroke="#2255aa" stroke-width="2.2" stroke-dasharray="5,3"/>
+<line x1="1126" y1="404" x2="1040" y2="404" stroke="#2255aa" stroke-width="2.2" stroke-dasharray="5,3" marker-end="url(#arr-tun-sm)"/>
+<rect x="1084" y="378" width="162" height="22" rx="2" fill="#1a5a28" opacity="0.88"/>
+<text x="1165" y="393" font-size="7.5" font-weight="700" fill="#d0f0d8" text-anchor="middle">↓ Re-enters national jurisdiction</text>
+<line x1="1122" y1="478" x2="1139" y2="478" stroke="#1e3a5f" stroke-width="2.2" marker-end="url(#arr-data)"/>
+<line x1="1280" y1="478" x2="1300" y2="479" stroke="#1e3a5f" stroke-width="2.2" marker-end="url(#arr-data)"/>
+<!-- Compliance outcomes right -->
+<rect x="808" y="634" width="726" height="108" rx="2" fill="#eaf6ea" stroke="#2a7030" stroke-width="1.2"/>
+<rect x="808" y="634" width="726" height="20" rx="2" fill="#1a5828"/>
+<rect x="808" y="644" width="726" height="10" fill="#1a5828"/>
+<text x="1171" y="648" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="1">COMPLIANCE OUTCOMES — ANCHORED CONNECTIVITY</text>
+<rect x="818" y="662" width="338" height="74" rx="2" fill="#ffffff" stroke="#2a7030" stroke-width="0.8"/>
+<text x="828" y="677" font-size="8.5" font-weight="700" fill="#183818">Jurisdiction &amp; Routing:</text>
+<text x="828" y="691" font-size="8" fill="#1a4a1a">✔  Traffic anchored within national jurisdiction</text>
+<text x="828" y="704" font-size="8" fill="#1a4a1a">✔  Domestic ASN assignment and address attribution</text>
+<text x="828" y="717" font-size="8" fill="#1a4a1a">✔  Controlled BGP — regulated exit policy enforced</text>
+<text x="828" y="730" font-size="8" fill="#1a4a1a">✔  National sovereignty maintained end-to-end</text>
+<rect x="1166" y="662" width="358" height="74" rx="2" fill="#ffffff" stroke="#2a7030" stroke-width="0.8"/>
+<text x="1176" y="677" font-size="8.5" font-weight="700" fill="#183818">Oversight &amp; Legal Framework:</text>
+<text x="1176" y="691" font-size="8" fill="#1a4a1a">✔  Lawful intercept capability — domestic, court-activated</text>
+<text x="1176" y="704" font-size="8" fill="#1a4a1a">✔  Full regulatory visibility — compliance logging active</text>
+<text x="1176" y="717" font-size="8" fill="#1a4a1a">✔  Policy enforcement point (PEP) operational</text>
+<text x="1176" y="730" font-size="8" fill="#1a4a1a">✔  National telecom obligations fully enforceable</text>
+<!-- Footer strip -->
+<rect x="0" y="756" width="1560" height="24" fill="url(#hdr-grad)"/>
+<text x="28" y="773" font-size="8" fill="#7aaace" font-family="'Courier New',monospace">INTELLILINK COMPLIANCE GATEWAY — FIGURE 1  |  SOVEREIGNTY RESTORATION  |  Revision 2.0  |  February 2026</text>
+<text x="1532" y="773" font-size="8" fill="#7aaace" text-anchor="end" font-family="'Courier New',monospace">UNCLASSIFIED — REGULATORY / TECHNICAL USE</text>
+      </svg>
+    </div>
+    <div class="figure-caption-bar">
+      <div class="figure-num-badge">Figure 1</div>
+      <div class="figure-caption-text">
+        <div class="figure-title">Sovereignty Restoration via Domestic Traffic Anchoring</div>
+        <div class="figure-caption">Side-by-side comparison of unanchored (non-compliant) versus anchored (compliant) satellite connectivity architectures. Left panel illustrates compliance deficiencies when traffic bypasses national jurisdiction; right panel shows the restoration of sovereignty, lawful intercept capability, and audit controls achieved through the Intellilink Gateway&#8482; model.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+  <span class="page-footer-center">Section 4 — The Intellilink Gateway&#8482; Model</span>
+  <span>Page 4</span>
+</div>
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — Regulatory Alignment + Figure 2
+══════════════════════════════════════════ -->
+<div class="inner-page page-break">
+<div style="flex:1">
+
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 5</span>
+    <span class="section-title">Alignment with Regulatory Principles</span>
+  </div>
+  <p>The Intellilink Gateway&#8482; model aligns with core regulatory objectives commonly found across African jurisdictions:</p>
+
+  <div class="two-col-grid no-break">
+    <div class="grid-panel positive">
+      <div class="grid-panel-title">Sovereignty</div>
+      <p style="font-size:9.5pt;margin:0">Traffic is anchored within national networks, ensuring that enterprise connectivity does not bypass the domestic regulatory perimeter.</p>
+    </div>
+    <div class="grid-panel positive">
+      <div class="grid-panel-title">Accountability</div>
+      <p style="font-size:9.5pt;margin:0">A licensed ISP remains the upstream entity, preserving the chain of regulatory accountability required under national telecommunications frameworks.</p>
+    </div>
+    <div class="grid-panel positive">
+      <div class="grid-panel-title">Visibility</div>
+      <p style="font-size:9.5pt;margin:0">Traffic inspection and monitoring points are restored, enabling regulators to observe and, where legally authorized, act upon traffic flows.</p>
+    </div>
+    <div class="grid-panel positive">
+      <div class="grid-panel-title">Policy Compatibility</div>
+      <p style="font-size:9.5pt;margin:0">Lawful intercept and compliance logging systems may be integrated where legally required, without requiring changes to existing regulatory frameworks.</p>
+    </div>
+  </div>
+
+  <div class="callout positive no-break">
+    <div class="callout-title">Key Point — Framework Compatibility</div>
+    The Intellilink Gateway&#8482; model does <strong>not</strong> require regulators to modify existing frameworks. It is designed to operate within current legal and policy structures, providing enhanced visibility as a technical overlay.
+  </div>
+
+  <!-- Figure 2 — Regulator Control Points -->
+  <div class="figure-container no-break">
+    <div class="figure-inner">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 930" font-family="Arial, Helvetica, sans-serif">
+<defs>
+  <marker id="ad2" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#1a3060"/></marker>
+  <marker id="ac2" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#8b1a1a"/></marker>
+  <marker id="acl2" markerWidth="9" markerHeight="9" refX="2" refY="3.5" orient="auto"><path d="M9,0 L9,7 L0,3.5z" fill="#8b1a1a"/></marker>
+  <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#5a2a8a"/></marker>
+  <marker id="at2" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#1a6060"/></marker>
+  <filter id="sh2"><feDropShadow dx="1" dy="1.5" stdDeviation="2.5" flood-color="#00000028"/></filter>
+  <pattern id="rp2" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#9060c0" stroke-width="0.8" stroke-opacity="0.25"/></pattern>
+</defs>
+<rect width="1280" height="930" fill="#f3f4f6"/>
+<rect x="0" y="0" width="1280" height="96" fill="#182840"/>
+<rect x="0" y="93" width="1280" height="4" fill="#2a5080"/>
+<text x="28" y="24" font-size="9.5" fill="#7aaace" font-weight="600" letter-spacing="2">REGULATORY TECHNICAL BRIEF — FIGURE 2  |  REGULATORY CONTROL &amp; OVERSIGHT ARCHITECTURE</text>
+<text x="28" y="50" font-size="18" fill="#ffffff" font-weight="700">Regulatory Control &amp; Oversight Architecture</text>
+<text x="28" y="68" font-size="10.5" fill="#9ab8d0">Intellilink Compliance Gateway (ICG) — Enterprise Satellite Connectivity with National Jurisdiction Enforcement</text>
+<text x="28" y="83" font-size="9" fill="#7a9ab8" font-style="italic">Illustrates how enterprise satellite traffic is anchored within national jurisdiction while enabling lawful oversight.</text>
+<text x="1254" y="28" font-size="9" fill="#6a92b8" text-anchor="end" font-family="'Courier New',monospace">Technical Proof Brief</text>
+<text x="1254" y="43" font-size="9" fill="#6a92b8" text-anchor="end" font-family="'Courier New',monospace">Revision 4.0  |  February 2026</text>
+<!-- Domain backgrounds -->
+<rect x="18" y="94" width="258" height="516" rx="2" fill="#e6edf8" stroke="#4a6a9a" stroke-width="1.5"/>
+<rect x="18" y="94" width="258" height="24" rx="2" fill="#c0d4ec" stroke="#4a6a9a" stroke-width="1.5"/>
+<text x="147" y="111" font-size="9.5" font-weight="700" fill="#1a2e60" text-anchor="middle" letter-spacing="1.5">ENTERPRISE DOMAIN</text>
+<rect x="284" y="94" width="284" height="516" rx="2" fill="#fdf5e6" stroke="#9a7428" stroke-width="1.5" stroke-dasharray="7,3"/>
+<rect x="284" y="94" width="284" height="24" rx="2" fill="#eedad8" stroke="#9a7428" stroke-width="1.5"/>
+<text x="426" y="111" font-size="8.5" font-weight="700" fill="#5a3400" text-anchor="middle" letter-spacing="1">SATELLITE ACCESS / NON-SOVEREIGN TRANSPORT DOMAIN</text>
+<rect x="576" y="94" width="300" height="516" rx="2" fill="#ecf5ec" stroke="#286828" stroke-width="1.5"/>
+<rect x="576" y="94" width="300" height="24" rx="2" fill="#b8e0b8" stroke="#286828" stroke-width="1.5"/>
+<text x="726" y="111" font-size="9.5" font-weight="700" fill="#183818" text-anchor="middle" letter-spacing="1.5">COMPLIANCE / ISP DOMAIN</text>
+<rect x="884" y="94" width="378" height="516" rx="2" fill="#f5f0fc" stroke="#5a2888" stroke-width="1.5"/>
+<rect x="884" y="94" width="378" height="24" rx="2" fill="#d8c8f0" stroke="#5a2888" stroke-width="1.5"/>
+<text x="1073" y="111" font-size="9.5" font-weight="700" fill="#38126a" text-anchor="middle" letter-spacing="1.5">NATIONAL REGULATORY AUTHORITY</text>
+<!-- Regulatory overlay -->
+<rect x="580" y="120" width="292" height="244" rx="2" fill="url(#rp2)" stroke="#7a30b0" stroke-width="1.5" stroke-dasharray="6,3"/>
+<rect x="580" y="120" width="292" height="20" rx="2" fill="#c8a0e8" stroke="#7a30b0" stroke-width="1.5"/>
+<text x="726" y="134" font-size="8.5" font-weight="700" fill="#38106a" text-anchor="middle" letter-spacing="0.8">REGULATORY OVERSIGHT OVERLAY</text>
+<!-- Jurisdiction boundary -->
+<rect x="556" y="90" width="22" height="536" fill="#f3f4f6"/>
+<line x1="567" y1="90" x2="567" y2="622" stroke="#b00c0c" stroke-width="4.5"/>
+<polygon points="567,96 561,109 573,109" fill="#b00c0c"/>
+<polygon points="567,616 561,603 573,603" fill="#b00c0c"/>
+<text transform="translate(561,390) rotate(-90)" font-size="9.5" font-weight="700" fill="#b00c0c" text-anchor="middle" letter-spacing="2.5">NATIONAL JURISDICTION BOUNDARY</text>
+<!-- Control tunnel band -->
+<rect x="152" y="134" width="490" height="22" rx="2" fill="#fef0f0" stroke="#8b1a1a" stroke-width="1" stroke-dasharray="5,3"/>
+<text x="397" y="149" font-size="8.5" font-weight="700" fill="#7a1010" text-anchor="middle" letter-spacing="0.5">Bidirectional Encrypted Control Tunnel (ICG Agent ⇄ ICG PoP) — Control Plane Only</text>
+<line x1="248" y1="141" x2="570" y2="141" stroke="#8b1a1a" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#ac2)"/>
+<line x1="570" y1="148" x2="248" y2="148" stroke="#8b1a1a" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#acl2)"/>
+<!-- Non-sovereign banner -->
+<rect x="294" y="124" width="264" height="30" rx="2" fill="#f5dfa0" stroke="#9a7428" stroke-width="1"/>
+<text x="426" y="137" font-size="8.5" font-weight="700" fill="#5a3400" text-anchor="middle">Non-Sovereign Transport Layer</text>
+<text x="426" y="149" font-size="7.5" fill="#7a5018" text-anchor="middle">(No Domestic Policy Authority)</text>
+<!-- Enterprise nodes -->
+<rect x="28" y="192" width="90" height="54" rx="2" fill="#fff" stroke="#4a6a9a" stroke-width="1.5" filter="url(#sh2)"/>
+<text x="73" y="216" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">Enterprise</text>
+<text x="73" y="231" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">LAN</text>
+<rect x="160" y="174" width="104" height="72" rx="2" fill="#1a2e60" stroke="#0e1e40" stroke-width="2" filter="url(#sh2)"/>
+<text x="212" y="202" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">ICG</text>
+<text x="212" y="218" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">Agent</text>
+<circle cx="212" cy="234" r="5" fill="#50a8e0"/>
+<rect x="28" y="272" width="240" height="68" rx="2" fill="#d8e8f4" stroke="#4a6a9a" stroke-width="1"/>
+<text x="38" y="289" font-size="8.5" fill="#1a2e60">— Policy Enforcement Agent</text>
+<text x="38" y="304" font-size="8.5" fill="#1a2e60">— Encrypted Tunnel Endpoint (Control Plane)</text>
+<text x="38" y="319" font-size="8.5" fill="#1a2e60">— Routing Control &amp; Traffic Steering</text>
+<text x="38" y="333" font-size="8.5" fill="#1a2e60">— Telemetry Anchor Point</text>
+<rect x="28" y="358" width="240" height="60" rx="2" fill="#daf0f0" stroke="#1a6060" stroke-width="1.5"/>
+<rect x="28" y="358" width="240" height="18" rx="2" fill="#a8dcdc" stroke="#1a6060" stroke-width="1.5"/>
+<text x="148" y="371" font-size="8.5" font-weight="700" fill="#0a3030" text-anchor="middle" letter-spacing="0.5">AUTHENTICATED TELEMETRY EXPORT</text>
+<text x="38" y="390" font-size="8.5" fill="#0a3838">— IPFIX / NetFlow — Domestic Collection Only</text>
+<text x="38" y="406" font-size="8.5" fill="#0a3838">— Anchored to Compliance PoP</text>
+<!-- Satellite nodes -->
+<rect x="298" y="186" width="106" height="54" rx="2" fill="#fff" stroke="#9a7428" stroke-width="1.5" filter="url(#sh2)"/>
+<text x="351" y="210" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">LEO Satellite</text>
+<text x="351" y="225" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">CPE</text>
+<rect x="444" y="186" width="112" height="54" rx="2" fill="#fff" stroke="#9a7428" stroke-width="1.5" filter="url(#sh2)"/>
+<text x="500" y="210" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">Satellite</text>
+<text x="500" y="225" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">Gateway</text>
+<!-- ICG PoP compliance node -->
+<rect x="586" y="168" width="120" height="78" rx="2" fill="#1a2e60" stroke="#0e1e40" stroke-width="2" filter="url(#sh2)"/>
+<text x="646" y="196" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">ICG PoP</text>
+<circle cx="646" cy="212" r="5" fill="#40c840"/>
+<text x="646" y="232" font-size="7.5" fill="#b0e0b0" text-anchor="middle" font-style="italic">National Traffic Anchoring Point</text>
+<!-- ICG PoP detail boxes -->
+<rect x="586" y="248" width="278" height="14" rx="2" fill="#eaf5ea" stroke="#4a9a4a" stroke-width="0.8"/>
+<text x="725" y="259" font-size="7.5" fill="#1a4a1a" text-anchor="middle" font-style="italic">Domestic Address Space Restoration Point</text>
+<rect x="586" y="264" width="278" height="16" rx="2" fill="#e8f4e8" stroke="#286828" stroke-width="1"/>
+<text x="725" y="276" font-size="8" font-weight="700" fill="#1a4a1a" text-anchor="middle" letter-spacing="0.3">Primary Domestic Policy Enforcement Node</text>
+<rect x="586" y="270" width="278" height="88" rx="2" fill="#d8f0d8" stroke="#286828" stroke-width="1"/>
+<text x="596" y="286" font-size="8.5" font-weight="700" fill="#183818">ICG PoP Capabilities:</text>
+<text x="596" y="301" font-size="8.5" fill="#1a3a1a">— NAT / Address Localization</text>
+<text x="596" y="315" font-size="8.5" fill="#1a3a1a">— Policy Enforcement PoP (PEP)</text>
+<text x="596" y="329" font-size="8.5" fill="#1a3a1a">— Lawful Intercept Interface</text>
+<text x="596" y="343" font-size="8.5" fill="#1a3a1a">— Regulated External Egress Control</text>
+<!-- ISP Edge -->
+<rect x="726" y="174" width="136" height="82" rx="2" fill="#fff" stroke="#286828" stroke-width="1.5" filter="url(#sh2)"/>
+<text x="794" y="196" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">ISP Edge /</text>
+<text x="794" y="210" font-size="10" font-weight="600" fill="#1a2840" text-anchor="middle">External Peering</text>
+<text x="740" y="229" font-size="7.5" fill="#1a3a1a">— Domestic ASN</text>
+<text x="740" y="241" font-size="7.5" fill="#1a3a1a">— Controlled BGP Announcements</text>
+<text x="740" y="252" font-size="7.5" fill="#1a3a1a">— Regulated Exit Policy</text>
+<!-- Regulatory authority blocks -->
+<rect x="894" y="124" width="358" height="36" rx="2" fill="#d0b8ec" stroke="#5a2888" stroke-width="1.5"/>
+<text x="1073" y="140" font-size="9.5" font-weight="700" fill="#280848" text-anchor="middle" letter-spacing="0.5">National Telecommunications Regulatory Authority</text>
+<text x="1073" y="153" font-size="8" fill="#400870" text-anchor="middle">Mandated Oversight Body — National Legal Framework</text>
+<rect x="894" y="176" width="164" height="72" rx="2" fill="#e8dcf8" stroke="#6a38a0" stroke-width="1.5" filter="url(#sh2)"/>
+<rect x="894" y="176" width="164" height="18" rx="2" fill="#c0a0e0" stroke="#6a38a0" stroke-width="1.5"/>
+<text x="976" y="189" font-size="8.5" font-weight="700" fill="#28086a" text-anchor="middle">Compliance Monitoring</text>
+<text x="904" y="206" font-size="8" fill="#3a1060">Receive compliance telemetry</text>
+<text x="904" y="219" font-size="8" fill="#3a1060">from ICG PoP in real-time.</text>
+<text x="904" y="232" font-size="8" fill="#3a1060">Verify policy adherence.</text>
+<rect x="1074" y="176" width="164" height="72" rx="2" fill="#e8dcf8" stroke="#6a38a0" stroke-width="1.5" filter="url(#sh2)"/>
+<rect x="1074" y="176" width="164" height="18" rx="2" fill="#c0a0e0" stroke="#6a38a0" stroke-width="1.5"/>
+<text x="1156" y="189" font-size="8.5" font-weight="700" fill="#28086a" text-anchor="middle">Audit Log Repository</text>
+<text x="1084" y="206" font-size="8" fill="#3a1060">Immutable audit trail access.</text>
+<text x="1084" y="219" font-size="8" fill="#3a1060">Traffic anchoring evidence.</text>
+<text x="1084" y="232" font-size="8" fill="#3a1060">Retention per legal mandate.</text>
+<rect x="894" y="264" width="164" height="72" rx="2" fill="#e8dcf8" stroke="#6a38a0" stroke-width="1.5" filter="url(#sh2)"/>
+<rect x="894" y="264" width="164" height="18" rx="2" fill="#c0a0e0" stroke="#6a38a0" stroke-width="1.5"/>
+<text x="976" y="277" font-size="8.5" font-weight="700" fill="#28086a" text-anchor="middle">LI Authorization</text>
+<text x="904" y="294" font-size="8" fill="#3a1060">Issue LI warrants via secure</text>
+<text x="904" y="307" font-size="8" fill="#3a1060">authorization channel.</text>
+<text x="904" y="320" font-size="8" fill="#3a1060">Governed by national law.</text>
+<rect x="1074" y="264" width="164" height="72" rx="2" fill="#e8dcf8" stroke="#6a38a0" stroke-width="1.5" filter="url(#sh2)"/>
+<rect x="1074" y="264" width="164" height="18" rx="2" fill="#c0a0e0" stroke="#6a38a0" stroke-width="1.5"/>
+<text x="1156" y="277" font-size="8.5" font-weight="700" fill="#28086a" text-anchor="middle">Traffic Reporting</text>
+<text x="1084" y="294" font-size="8" fill="#3a1060">Receive anchoring reports.</text>
+<text x="1084" y="307" font-size="8" fill="#3a1060">ASN egress statistics.</text>
+<text x="1084" y="320" font-size="8" fill="#3a1060">Jurisdiction verification data.</text>
+<rect x="894" y="350" width="344" height="36" rx="2" fill="#f0e8fc" stroke="#7a30b0" stroke-width="1" stroke-dasharray="4,2"/>
+<text x="1066" y="365" font-size="8.5" font-weight="700" fill="#38106a" text-anchor="middle">All oversight interfaces operate over dedicated</text>
+<text x="1066" y="378" font-size="8" fill="#5a2888" text-anchor="middle">encrypted, authenticated government network segments</text>
+<rect x="894" y="394" width="344" height="60" rx="2" fill="#fdf8ff" stroke="#9a50c8" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="1066" y="408" font-size="8" font-weight="700" fill="#38106a" text-anchor="middle">NOTE: Oversight interfaces provide monitoring and</text>
+<text x="1066" y="421" font-size="8" fill="#5a2888" text-anchor="middle">authorization functions only and do not permit direct</text>
+<text x="1066" y="434" font-size="8" fill="#5a2888" text-anchor="middle">operational control of enterprise networks.</text>
+<!-- LI Shield icon -->
+<g transform="translate(622,380)">
+  <path d="M28,0 L56,13 L56,38 C56,53 28,64 28,64 C28,64 0,53 0,38 L0,13 Z" fill="#1a2e60" stroke="#0e1e40" stroke-width="1.5"/>
+  <path d="M28,8 L48,18 L48,38 C48,49 28,57 28,57 C28,57 8,49 8,38 L8,18 Z" fill="#2a4880"/>
+  <polyline points="17,40 25,50 40,28" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<rect x="580" y="452" width="280" height="50" rx="2" fill="#d8f0d8" stroke="#286828" stroke-width="1"/>
+<text x="720" y="467" font-size="8" font-weight="700" fill="#183818" text-anchor="middle">Domestic Lawful Intercept Anchor Point</text>
+<text x="720" y="480" font-size="7.5" fill="#284a28" text-anchor="middle">(Subject to National Legal Framework)</text>
+<text x="720" y="494" font-size="7.5" font-style="italic" fill="#1a4a1a" text-anchor="middle">Activated only upon lawful authorization.</text>
+<!-- Data plane arrows -->
+<line x1="118" y1="219" x2="157" y2="213" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ad2)"/>
+<line x1="264" y1="213" x2="295" y2="213" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ad2)"/>
+<line x1="404" y1="213" x2="441" y2="213" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ad2)"/>
+<line x1="556" y1="213" x2="583" y2="213" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ad2)"/>
+<line x1="706" y1="210" x2="723" y2="210" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ad2)"/>
+<line x1="862" y1="210" x2="876" y2="210" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ad2)"/>
+<text x="880" y="205" font-size="7.5" fill="#1a3060" font-weight="600">→ External Networks /</text>
+<text x="880" y="216" font-size="7.5" fill="#1a3060" font-weight="600">   Global Internet</text>
+<!-- Telemetry arrow -->
+<line x1="197" y1="358" x2="612" y2="278" stroke="#1a6060" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#at2)"/>
+<!-- Regulatory oversight arrows -->
+<line x1="958" y1="248" x2="720" y2="185" stroke="#5a2888" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#ar2)"/>
+<line x1="1138" y1="248" x2="793" y2="185" stroke="#5a2888" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#ar2)"/>
+<line x1="958" y1="336" x2="720" y2="240" stroke="#5a2888" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#ar2)"/>
+<line x1="1138" y1="336" x2="793" y2="240" stroke="#5a2888" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#ar2)"/>
+<!-- Footer -->
+<rect x="0" y="620" width="1280" height="28" fill="#182840"/>
+<line x1="0" y1="620" x2="1280" y2="620" stroke="#2a5080" stroke-width="1.5"/>
+<text x="28" y="637" font-size="8.5" fill="#7aaace" font-family="'Courier New',monospace">INTELLILINK COMPLIANCE GATEWAY — REGULATORY CONTROL &amp; OVERSIGHT ARCHITECTURE  |  FIGURE 2  |  February 2026</text>
+<text x="1254" y="637" font-size="8.5" fill="#7aaace" text-anchor="end" font-family="'Courier New',monospace">Page 1 of 1</text>
+      </svg>
+    </div>
+    <div class="figure-caption-bar">
+      <div class="figure-num-badge">Figure 2</div>
+      <div class="figure-caption-text">
+        <div class="figure-title">Regulatory Control &amp; Oversight Architecture for Sovereign Satellite Traffic Anchoring</div>
+        <div class="figure-caption">Architecture diagram showing how the Intellilink Compliance Gateway establishes regulatory control points across enterprise, satellite, compliance, and regulatory authority domains. Oversight interfaces provide monitoring and authorization functions; they do not grant direct operational control of enterprise networks.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+  <span class="page-footer-center">Section 5 — Alignment with Regulatory Principles</span>
+  <span>Page 5</span>
+</div>
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 6 — What the Model Does Not Do + Figure 3
+══════════════════════════════════════════ -->
+<div class="inner-page page-break">
+<div style="flex:1">
+
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 6</span>
+    <span class="section-title">What the Model Does Not Do</span>
+  </div>
+  <p>For clarity, the Intellilink Gateway&#8482; model is a technical integration mechanism only. Specifically, it:</p>
+  <ul class="outcome-list neutral">
+    <li><span class="oi">·</span><span>Does <strong>not</strong> operate as a retail ISP</span></li>
+    <li><span class="oi">·</span><span>Does <strong>not</strong> resell satellite services</span></li>
+    <li><span class="oi">·</span><span>Does <strong>not</strong> bypass licensing regimes</span></li>
+    <li><span class="oi">·</span><span>Does <strong>not</strong> claim regulatory exemption</span></li>
+    <li><span class="oi">·</span><span>Does <strong>not</strong> reduce regulator authority</span></li>
+  </ul>
+
+  <div class="callout note no-break">
+    <div class="callout-title">Note on Evidence and Audit Architecture</div>
+    The audit flow architecture illustrated in Figure 3 demonstrates how evidence is generated, stored immutably, and made available to regulatory authorities through a legally authorized access pathway. All evidentiary access requires independent legal authorization and is independently logged.
+  </div>
+
+  <!-- Figure 3 — Audit Flow -->
+  <div class="figure-container no-break">
+    <div class="figure-inner">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 780" font-family="Arial, Helvetica, sans-serif">
+<defs>
+  <marker id="ev3" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#1a3060"/></marker>
+  <marker id="st3" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#0a2040"/></marker>
+  <marker id="ra3" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#5a2888"/></marker>
+  <marker id="la3" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#8b1a1a"/></marker>
+  <marker id="la3l" markerWidth="9" markerHeight="9" refX="2" refY="3.5" orient="auto"><path d="M9,0 L9,7 L0,3.5z" fill="#8b1a1a"/></marker>
+  <marker id="li3" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L0,7 L9,3.5z" fill="#1a6060"/></marker>
+  <filter id="sh3"><feDropShadow dx="1" dy="1.5" stdDeviation="2.5" flood-color="#00000028"/></filter>
+  <pattern id="tunnel-stripe3" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="4" height="8" fill="#d0e4f8" opacity="0.6"/></pattern>
+  <pattern id="log-hatch3" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#9070b0" stroke-width="0.6" stroke-opacity="0.2"/></pattern>
+</defs>
+<rect width="1400" height="780" fill="#f3f4f6"/>
+<!-- Header -->
+<rect x="0" y="0" width="1400" height="88" fill="#182840"/>
+<rect x="0" y="85" width="1400" height="4" fill="#2a5080"/>
+<text x="28" y="24" font-size="9.5" fill="#7aaace" font-weight="600" letter-spacing="2">REGULATORY TECHNICAL BRIEF — AUDIT FLOW ARCHITECTURE  |  FIGURE 3</text>
+<text x="28" y="50" font-size="18" fill="#ffffff" font-weight="700">Audit Flow Architecture for Sovereign Satellite Traffic Compliance</text>
+<text x="28" y="67" font-size="10.5" fill="#9ab8d0">Intellilink Compliance Gateway (ICG) — Evidence Generation, Storage, and Regulated Access Pathways</text>
+<text x="28" y="81" font-size="9" fill="#7a9ab8" font-style="italic">Illustrates evidence generation, storage, and regulated access pathways for enterprise satellite connectivity.</text>
+<!-- Jurisdiction boundary -->
+<rect x="591" y="92" width="22" height="446" fill="#f3f4f6"/>
+<line x1="602" y1="92" x2="602" y2="534" stroke="#b00c0c" stroke-width="4.5"/>
+<polygon points="602,98 596,112 608,112" fill="#b00c0c"/>
+<polygon points="602,528 596,514 608,514" fill="#b00c0c"/>
+<text transform="translate(596,320) rotate(-90)" font-size="9.5" font-weight="700" fill="#b00c0c" text-anchor="middle" letter-spacing="2.5">NATIONAL JURISDICTION BOUNDARY</text>
+<!-- Domain columns -->
+<rect x="14" y="98" width="204" height="444" rx="2" fill="#e6edf8" stroke="#4a6a9a" stroke-width="1.5"/>
+<rect x="14" y="98" width="204" height="22" rx="2" fill="#c0d4ec" stroke="#4a6a9a" stroke-width="1.5"/>
+<text x="116" y="114" font-size="9" font-weight="700" fill="#1a2e60" text-anchor="middle" letter-spacing="1.2">ENTERPRISE DOMAIN</text>
+<rect x="222" y="98" width="198" height="444" rx="2" fill="#e8f0e8" stroke="#2a6a2a" stroke-width="1.5"/>
+<rect x="222" y="98" width="198" height="22" rx="2" fill="#b8deb8" stroke="#2a6a2a" stroke-width="1.5"/>
+<text x="321" y="114" font-size="9" font-weight="700" fill="#183818" text-anchor="middle" letter-spacing="1.2">ICG AGENT DOMAIN</text>
+<rect x="426" y="98" width="162" height="444" rx="2" fill="#e0e8f4" stroke="#3a5a8a" stroke-width="1.5" stroke-dasharray="6,3"/>
+<rect x="426" y="98" width="162" height="22" rx="2" fill="#b8ccdf" stroke="#3a5a8a" stroke-width="1.5"/>
+<text x="507" y="114" font-size="9" font-weight="700" fill="#1a2e60" text-anchor="middle" letter-spacing="1.2">ENCRYPTED TUNNEL</text>
+<rect x="618" y="98" width="212" height="444" rx="2" fill="#ecf5ec" stroke="#286828" stroke-width="1.5"/>
+<rect x="618" y="98" width="212" height="22" rx="2" fill="#b8e0b8" stroke="#286828" stroke-width="1.5"/>
+<text x="724" y="114" font-size="9" font-weight="700" fill="#183818" text-anchor="middle" letter-spacing="1.2">ICG PoP — NATIONAL TRAFFIC ANCHOR</text>
+<rect x="840" y="98" width="194" height="444" rx="2" fill="#f0ece8" stroke="#7a5030" stroke-width="1.5"/>
+<rect x="840" y="98" width="194" height="22" rx="2" fill="#e0ceb8" stroke="#7a5030" stroke-width="1.5"/>
+<text x="937" y="114" font-size="8.5" font-weight="700" fill="#4a2810" text-anchor="middle" letter-spacing="1">COMPLIANCE LOG REPOSITORY</text>
+<rect x="1044" y="98" width="246" height="444" rx="2" fill="#f5f0fc" stroke="#5a2888" stroke-width="1.5"/>
+<rect x="1044" y="98" width="246" height="22" rx="2" fill="#d8c8f0" stroke="#5a2888" stroke-width="1.5"/>
+<text x="1167" y="114" font-size="9" font-weight="700" fill="#38126a" text-anchor="middle" letter-spacing="1.2">NATIONAL REGULATORY AUTHORITY</text>
+<!-- Lifecycle stages (simplified) -->
+<rect x="28" y="143" width="148" height="13" rx="2" fill="#1a3060" opacity="0.90"/>
+<text x="102" y="153" font-size="6.8" fill="#c8e0f8" text-anchor="middle" font-weight="700" letter-spacing="0.5">① EVIDENCE GENERATION BEGINS</text>
+<rect x="28" y="158" width="148" height="58" rx="2" fill="#fff" stroke="#4a6a9a" stroke-width="1.5" filter="url(#sh3)"/>
+<text x="102" y="183" font-size="11" font-weight="700" fill="#1a2840" text-anchor="middle">Enterprise LAN</text>
+<text x="38" y="203" font-size="7.5" fill="#3a5a80">Event Source (User Activity / Incident Trigger)</text>
+<rect x="234" y="134" width="174" height="13" rx="2" fill="#183818" opacity="0.90"/>
+<text x="321" y="144" font-size="6.8" fill="#c0f0c0" text-anchor="middle" font-weight="700" letter-spacing="0.5">② SESSION LOGS CAPTURED &amp; ENCRYPTED</text>
+<rect x="234" y="148" width="174" height="72" rx="2" fill="#1a2e60" stroke="#0e1e40" stroke-width="2" filter="url(#sh3)"/>
+<text x="321" y="172" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">ICG Agent</text>
+<text x="321" y="188" font-size="8" fill="#a0c8e8" text-anchor="middle">(Intellilink Compliance Gateway)</text>
+<circle cx="321" cy="207" r="5" fill="#50c850"/>
+<rect x="234" y="242" width="174" height="104" rx="2" fill="#d0ead0" stroke="#2a6a2a" stroke-width="1"/>
+<text x="244" y="258" font-size="8.5" font-weight="700" fill="#183818">Logging Functions:</text>
+<text x="244" y="272" font-size="8" fill="#1a3a1a">— Session Metadata Logging</text>
+<text x="244" y="285" font-size="8" fill="#1a3a1a">— Tunnel Session Records</text>
+<text x="244" y="298" font-size="8" fill="#1a3a1a">— Timestamping &amp; Pre-Tunnel Capture</text>
+<text x="244" y="311" font-size="8" fill="#1a3a1a">— Encrypted Log Forwarding</text>
+<!-- Tunnel -->
+<rect x="436" y="168" width="142" height="52" rx="4" fill="url(#tunnel-stripe3)" stroke="#2a5a9a" stroke-width="2" filter="url(#sh3)"/>
+<rect x="436" y="168" width="142" height="52" rx="4" fill="none" stroke="#1a4a8a" stroke-width="2"/>
+<rect x="496" y="179" width="22" height="16" rx="3" fill="#1a3060" stroke="#0a2040" stroke-width="1"/>
+<rect x="500" y="175" width="14" height="10" rx="7" fill="none" stroke="#1a3060" stroke-width="2.5"/>
+<circle cx="507" cy="187" r="2.5" fill="#7ab8e8"/>
+<text x="507" y="231" font-size="8.5" font-weight="700" fill="#1a3060" text-anchor="middle">Secure Evidence</text>
+<text x="507" y="242" font-size="8.5" font-weight="700" fill="#1a3060" text-anchor="middle">Transport Channel</text>
+<!-- ICG PoP -->
+<rect x="630" y="134" width="188" height="13" rx="2" fill="#1a5a1a" opacity="0.90"/>
+<text x="724" y="144" font-size="6.8" fill="#c8f0c8" text-anchor="middle" font-weight="700" letter-spacing="0.5">③ EVIDENCE FINALIZED, SIGNED &amp; SEALED</text>
+<rect x="630" y="148" width="188" height="72" rx="2" fill="#1a2e60" stroke="#0e1e40" stroke-width="2" filter="url(#sh3)"/>
+<text x="724" y="172" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">ICG PoP</text>
+<text x="724" y="186" font-size="8" fill="#a0c8e8" text-anchor="middle">National Traffic Anchoring Point</text>
+<circle cx="724" cy="206" r="5" fill="#50c850"/>
+<rect x="630" y="224" width="188" height="16" rx="2" fill="#c8e8c8" stroke="#2a8a2a" stroke-width="1.2"/>
+<text x="724" y="236" font-size="8" font-weight="700" fill="#183818" text-anchor="middle" letter-spacing="0.3">Primary Domestic Evidence Anchor</text>
+<rect x="630" y="260" width="188" height="120" rx="2" fill="#d0ead0" stroke="#286828" stroke-width="1"/>
+<text x="640" y="275" font-size="8.5" font-weight="700" fill="#183818">Evidence Generation:</text>
+<text x="640" y="289" font-size="8" fill="#1a3a1a">— Traffic Accounting &amp; Flow Records</text>
+<text x="640" y="302" font-size="8" fill="#1a3a1a">— NAT Translation Logs</text>
+<text x="640" y="315" font-size="8" fill="#1a3a1a">— Policy Enforcement Logs</text>
+<text x="640" y="328" font-size="8" fill="#1a3a1a">— Timestamp Authority</text>
+<text x="640" y="341" font-size="8" fill="#1a3a1a">— Chain-of-Custody Initiation</text>
+<text x="640" y="354" font-size="8" fill="#1a3a1a">— Evidence Signing &amp; Sealing</text>
+<!-- Compliance Log Repo -->
+<rect x="852" y="134" width="170" height="13" rx="2" fill="#5a3010" opacity="0.90"/>
+<text x="937" y="144" font-size="6.8" fill="#f0d8b8" text-anchor="middle" font-weight="700" letter-spacing="0.5">④ AUTHORITATIVE EVIDENCE STORAGE</text>
+<rect x="852" y="148" width="170" height="58" rx="2" fill="#7a5030" stroke="#5a3010" stroke-width="2" filter="url(#sh3)"/>
+<text x="937" y="172" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">Compliance Log</text>
+<text x="937" y="186" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">Repository</text>
+<rect x="852" y="222" width="170" height="100" rx="2" fill="#f0e8dc" stroke="#7a5030" stroke-width="1" opacity="0.95"/>
+<text x="862" y="238" font-size="8.5" font-weight="700" fill="#4a2810">Repository Functions:</text>
+<text x="862" y="252" font-size="8" fill="#4a2810">— Immutable Log Storage</text>
+<text x="862" y="265" font-size="8" fill="#4a2810">— Retention Policy Enforcement</text>
+<text x="862" y="278" font-size="8" fill="#4a2810">— Chain-of-Custody Controls</text>
+<text x="862" y="291" font-size="8" fill="#4a2810">— Cryptographic Integrity</text>
+<text x="862" y="304" font-size="8" fill="#4a2810">— Access Audit Logging</text>
+<rect x="852" y="330" width="170" height="24" rx="2" fill="#f0e0c8" stroke="#9a6030" stroke-width="1"/>
+<text x="937" y="346" font-size="8" font-weight="700" fill="#5a3010" text-anchor="middle">Write-once / tamper-evident storage</text>
+<!-- Regulatory authority -->
+<rect x="1056" y="148" width="222" height="58" rx="2" fill="#5a2888" stroke="#3a1060" stroke-width="2" filter="url(#sh3)"/>
+<text x="1167" y="172" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">National Regulatory</text>
+<text x="1167" y="188" font-size="11" font-weight="700" fill="#fff" text-anchor="middle">Authority</text>
+<rect x="1056" y="222" width="222" height="90" rx="2" fill="#e8dcf8" stroke="#6a38a0" stroke-width="1"/>
+<text x="1066" y="238" font-size="8.5" font-weight="700" fill="#28086a">Oversight Functions:</text>
+<text x="1066" y="252" font-size="8" fill="#38086a">— Audit Request Interface</text>
+<text x="1066" y="265" font-size="8" fill="#38086a">— Compliance Reporting Portal</text>
+<text x="1066" y="278" font-size="8" fill="#38086a">— Investigative Access Portal</text>
+<text x="1066" y="291" font-size="8" fill="#38086a">— Policy Adherence Monitoring</text>
+<text x="1066" y="304" font-size="8" fill="#38086a">— Statistical / Aggregate Reporting</text>
+<rect x="1056" y="320" width="222" height="52" rx="2" fill="#fdf8ff" stroke="#9a50c8" stroke-width="1" stroke-dasharray="3,3"/>
+<text x="1167" y="336" font-size="8" font-weight="700" fill="#38106a" text-anchor="middle">NOTE: Oversight access requires</text>
+<text x="1167" y="349" font-size="8" fill="#5a2888" text-anchor="middle">legal authorization and does not</text>
+<text x="1167" y="362" font-size="8" fill="#5a2888" text-anchor="middle">permit direct operational control.</text>
+<!-- Flow arrows -->
+<line x1="176" y1="187" x2="230" y2="187" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ev3)"/>
+<line x1="408" y1="187" x2="432" y2="191" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ev3)"/>
+<line x1="580" y1="191" x2="626" y2="191" stroke="#0a2040" stroke-width="2.8" marker-end="url(#st3)"/>
+<line x1="818" y1="320" x2="848" y2="320" stroke="#1a3060" stroke-width="2.2" marker-end="url(#ev3)"/>
+<!-- Regulatory audit path -->
+<path d="M 1036 178 L 1036 133 L 930 133 L 930 144" stroke="#5a2888" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#ra3)"/>
+<text x="983" y="129" font-size="7.5" fill="#5a2888" text-anchor="middle" font-weight="600">Audit request (via legal authorization)</text>
+<path d="M 930 148 L 930 125 L 1165 125 L 1165 145" stroke="#5a2888" stroke-width="1.5" stroke-dasharray="3,3" fill="none" marker-end="url(#ra3)"/>
+<text x="1048" y="121" font-size="7.5" fill="#5a2888" text-anchor="middle" font-weight="600">Compliance report</text>
+<!-- Legal auth domain -->
+<rect x="840" y="556" width="450" height="56" rx="2" fill="#fdf0f0" stroke="#8b1a1a" stroke-width="1.5" stroke-dasharray="6,3"/>
+<rect x="840" y="556" width="450" height="20" rx="2" fill="#e8c0c0" stroke="#8b1a1a" stroke-width="1.5"/>
+<text x="1065" y="570" font-size="9" font-weight="700" fill="#5a0808" text-anchor="middle" letter-spacing="1.2">LEGAL AUTHORIZATION PATHWAY — COURT / STATUTORY PROCESS</text>
+<text x="1065" y="586" font-size="8.5" fill="#7a1a1a" text-anchor="middle">Independent authorization required before any regulatory access or intercept activation.</text>
+<text x="1065" y="598" font-size="8" fill="#8a3030" text-anchor="middle" font-style="italic">All authorization decisions are logged, time-stamped, and independently auditable.</text>
+<!-- Footer -->
+<rect x="0" y="620" width="1400" height="28" fill="#182840"/>
+<line x1="0" y1="620" x2="1400" y2="620" stroke="#2a5080" stroke-width="1.5"/>
+<text x="28" y="637" font-size="8.5" fill="#7aaace" font-family="'Courier New',monospace">INTELLILINK COMPLIANCE GATEWAY — AUDIT FLOW ARCHITECTURE  |  FIGURE 3  |  Revision 2.0  |  February 2026</text>
+<text x="1374" y="637" font-size="8.5" fill="#7aaace" text-anchor="end" font-family="'Courier New',monospace">UNCLASSIFIED — REGULATORY / TECHNICAL USE</text>
+      </svg>
+    </div>
+    <div class="figure-caption-bar">
+      <div class="figure-num-badge">Figure 3</div>
+      <div class="figure-caption-text">
+        <div class="figure-title">Audit Flow Architecture — Evidence Generation, Storage, and Regulated Access</div>
+        <div class="figure-caption">Flow diagram illustrating the four-stage evidence lifecycle: (1) generation at the enterprise LAN, (2) encryption and capture by the ICG Agent, (3) finalization and signing at the ICG PoP, and (4) immutable storage in the Compliance Log Repository. Regulatory access requires independent legal authorization and is separately audited.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+  <span class="page-footer-center">Section 6 — What the Model Does Not Do</span>
+  <span>Page 6</span>
+</div>
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTIONS 7–8 + Figure 4 (Technical Architecture)
+══════════════════════════════════════════ -->
+<div class="inner-page page-break">
+<div style="flex:1">
+
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 7</span>
+    <span class="section-title">Field Validation Summary</span>
+  </div>
+  <p>The architecture has been validated through both laboratory testing and a live field deployment involving:</p>
+  <ul>
+    <li>A local ISP Point of Presence</li>
+    <li>An enterprise site</li>
+    <li>Active satellite connectivity</li>
+    <li>Real enterprise traffic</li>
+  </ul>
+  <p>All participating entities were anonymized. The exercise was non-commercial and exploratory in nature, intended to demonstrate architectural feasibility rather than to establish a commercial service.</p>
+
+  <!-- Figure 4 — Reference Architecture -->
+  <div class="figure-container no-break">
+    <div class="figure-inner">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 660" font-family="'IBM Plex Sans','Arial','Helvetica',sans-serif">
+<defs>
+  <marker id="arrow-solid4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#1a3a5c"/></marker>
+  <marker id="arrow-ctrl4" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#8b1a1a"/></marker>
+  <marker id="arrow-ctrl-r4" markerWidth="8" markerHeight="8" refX="2" refY="3" orient="auto"><path d="M8,0 L8,6 L0,3 z" fill="#8b1a1a"/></marker>
+  <filter id="sh4"><feDropShadow dx="1" dy="1" stdDeviation="2" flood-color="#00000028"/></filter>
+</defs>
+<rect width="1100" height="660" fill="#f5f6f7"/>
+<!-- Header -->
+<rect x="0" y="0" width="1100" height="74" fill="#1a3a5c"/>
+<text x="24" y="22" font-size="9.5" fill="#8ab4d4" font-weight="600" letter-spacing="1.8">FIGURE 4  |  USE CASE: DOMESTIC TRAFFIC ANCHORING FOR SATELLITE BROADBAND NETWORKS</text>
+<text x="24" y="44" font-size="17" fill="#ffffff" font-weight="700">Intellilink Compliance Gateway (ICG) — Reference Architecture</text>
+<text x="24" y="62" font-size="10.5" fill="#a8c4dc">Architecture for compliant enterprise satellite connectivity with domestic traffic anchoring and sovereign enforcement.</text>
+<text x="1078" y="28" font-size="9" fill="#8ab4d4" text-anchor="end" font-family="'IBM Plex Mono',monospace">Technical Proof Brief</text>
+<text x="1078" y="43" font-size="9" fill="#8ab4d4" text-anchor="end" font-family="'IBM Plex Mono',monospace">Revision: 3.0  |  February 2026</text>
+<!-- Domain backgrounds -->
+<rect x="16" y="86" width="214" height="394" rx="2" fill="#e8eff7" stroke="#5a7fa8" stroke-width="1.5"/>
+<rect x="16" y="86" width="214" height="22" rx="2" fill="#c8daea" stroke="#5a7fa8" stroke-width="1.5"/>
+<text x="123" y="101" font-size="9.5" font-weight="700" fill="#1a3a5c" text-anchor="middle" letter-spacing="1.2">ENTERPRISE DOMAIN</text>
+<rect x="238" y="86" width="238" height="394" rx="2" fill="#fdf7ee" stroke="#a08040" stroke-width="1.5" stroke-dasharray="6,3"/>
+<rect x="238" y="86" width="238" height="22" rx="2" fill="#f0ddb8" stroke="#a08040" stroke-width="1.5"/>
+<text x="357" y="101" font-size="9.5" font-weight="700" fill="#6b4a00" text-anchor="middle" letter-spacing="1.2">SATELLITE ACCESS DOMAIN</text>
+<rect x="504" y="86" width="284" height="394" rx="2" fill="#edf6ed" stroke="#2a7a2a" stroke-width="1.5"/>
+<rect x="504" y="86" width="284" height="22" rx="2" fill="#c8e8c8" stroke="#2a7a2a" stroke-width="1.5"/>
+<text x="646" y="101" font-size="9.5" font-weight="700" fill="#1a4a1a" text-anchor="middle" letter-spacing="1.2">COMPLIANCE / ISP DOMAIN</text>
+<rect x="796" y="86" width="288" height="394" rx="2" fill="#f0f0f0" stroke="#909090" stroke-width="1.5"/>
+<rect x="796" y="86" width="288" height="22" rx="2" fill="#d8d8d8" stroke="#909090" stroke-width="1.5"/>
+<text x="940" y="101" font-size="9.5" font-weight="700" fill="#444" text-anchor="middle" letter-spacing="1.2">EXTERNAL NETWORKS DOMAIN</text>
+<!-- Sovereign boundary -->
+<rect x="480" y="86" width="24" height="394" fill="#f5f6f7"/>
+<line x1="492" y1="86" x2="492" y2="498" stroke="#c0392b" stroke-width="3" stroke-dasharray="10,5"/>
+<polygon points="492,90 487,101 497,101" fill="#c0392b"/>
+<polygon points="492,494 487,483 497,483" fill="#c0392b"/>
+<text transform="translate(486,340) rotate(-90)" font-size="9.5" font-weight="700" fill="#c0392b" text-anchor="middle" letter-spacing="2">NATIONAL SOVEREIGN BOUNDARY</text>
+<!-- Control plane tunnel band -->
+<rect x="138" y="132" width="444" height="20" rx="2" fill="#fef0f0" stroke="#c0392b" stroke-width="1" stroke-dasharray="5,3"/>
+<text x="360" y="146" font-size="8.5" font-weight="700" fill="#8b1a1a" text-anchor="middle" letter-spacing="0.5">Bidirectional Encrypted Control Tunnel (ICG Agent ⇄ ICG PoP)</text>
+<line x1="222" y1="140" x2="498" y2="140" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-ctrl4)"/>
+<line x1="498" y1="146" x2="222" y2="146" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-ctrl-r4)"/>
+<!-- Non-sovereign banner -->
+<rect x="248" y="113" width="218" height="26" rx="2" fill="#f5e4bb" stroke="#a08040" stroke-width="1"/>
+<text x="357" y="126" font-size="8.5" font-weight="700" fill="#6b4a00" text-anchor="middle">Non-Sovereign Transport Layer</text>
+<text x="357" y="137" font-size="7.5" fill="#8a6020" text-anchor="middle">(Out-of-Country Infrastructure)</text>
+<!-- Nodes -->
+<rect x="26" y="182" width="76" height="50" rx="2" fill="#ffffff" stroke="#5a7fa8" stroke-width="1.5" filter="url(#sh4)"/>
+<text x="64" y="204" font-size="10" font-weight="600" fill="#1a2a3a" text-anchor="middle">Enterprise</text>
+<text x="64" y="218" font-size="10" font-weight="600" fill="#1a2a3a" text-anchor="middle">LAN</text>
+<rect x="134" y="164" width="88" height="64" rx="2" fill="#1a3a5c" stroke="#0d2240" stroke-width="1.5" filter="url(#sh4)"/>
+<text x="178" y="190" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ICG</text>
+<text x="178" y="206" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Agent</text>
+<circle cx="178" cy="220" r="4" fill="#5ab4e4"/>
+<text x="30" y="258" font-size="8.5" fill="#2a4a6a">― Policy Enforcement Agent</text>
+<text x="30" y="272" font-size="8.5" fill="#2a4a6a">― Telemetric / NetFlow / IPFIX Anchor</text>
+<text x="30" y="286" font-size="8.5" fill="#2a4a6a">― Tunnel Endpoint (Control Plane)</text>
+<rect x="250" y="172" width="92" height="50" rx="2" fill="#ffffff" stroke="#a08040" stroke-width="1.5" filter="url(#sh4)"/>
+<text x="296" y="194" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">LEO Satellite</text>
+<text x="296" y="208" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">CPE</text>
+<rect x="372" y="172" width="92" height="50" rx="2" fill="#ffffff" stroke="#a08040" stroke-width="1.5" filter="url(#sh4)"/>
+<text x="418" y="194" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">LEO Satellite</text>
+<text x="418" y="208" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">Gateway</text>
+<rect x="250" y="244" width="214" height="34" rx="2" fill="#f5e4bb" stroke="#c0a060" stroke-width="1" stroke-dasharray="4,2"/>
+<text x="357" y="260" font-size="8.5" fill="#6b4a00" text-anchor="middle" font-style="italic">Satellite Access Network</text>
+<text x="357" y="272" font-size="8" fill="#8a6020" text-anchor="middle">(Non-Sovereign Transport Layer)</text>
+<!-- Domestic address space -->
+<rect x="514" y="112" width="176" height="44" rx="2" fill="#d4ecd4" stroke="#4a8a4a" stroke-width="1"/>
+<text x="602" y="127" font-size="8.5" font-weight="700" fill="#1a4a1a" text-anchor="middle">Domestic Address Space</text>
+<text x="602" y="139" font-size="8" fill="#2a5a2a" text-anchor="middle">National ISP Allocation (Masked)</text>
+<text x="602" y="151" font-size="8" fill="#2a5a2a" text-anchor="middle" font-family="'IBM Plex Mono',monospace">IP Block: [Anonymized] /16</text>
+<rect x="516" y="170" width="88" height="64" rx="2" fill="#1a3a5c" stroke="#0d2240" stroke-width="1.5" filter="url(#sh4)"/>
+<text x="560" y="196" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ICG</text>
+<text x="560" y="212" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">PoP</text>
+<circle cx="560" cy="226" r="4" fill="#4ad44a"/>
+<text x="514" y="258" font-size="8.5" fill="#1a4a1a">― NAT / Address Localization</text>
+<text x="514" y="272" font-size="8.5" fill="#1a4a1a">― National Traffic Anchoring Point</text>
+<text x="514" y="286" font-size="8.5" fill="#1a4a1a">― Policy Enforcement Point (PEP)</text>
+<text x="514" y="300" font-size="8.5" fill="#1a4a1a">― Sovereign Exit Control</text>
+<rect x="644" y="170" width="132" height="64" rx="2" fill="#ffffff" stroke="#2a7a2a" stroke-width="1.5" filter="url(#sh4)"/>
+<text x="710" y="192" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">ISP Edge —</text>
+<text x="710" y="206" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">External Peering /</text>
+<text x="710" y="220" font-size="9.5" font-weight="600" fill="#1a2a3a" text-anchor="middle">Transit (BGP)</text>
+<!-- LI shield -->
+<g transform="translate(600,318)">
+  <path d="M32,0 L64,14 L64,40 C64,57 32,70 32,70 C32,70 0,57 0,40 L0,14 Z" fill="#1a3a5c" stroke="#0d2240" stroke-width="1.5"/>
+  <path d="M32,9 L55,20 L55,40 C55,53 32,63 32,63 C32,63 9,53 9,40 L9,20 Z" fill="#2a5a8a"/>
+  <polyline points="19,42 28,52 46,30" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<rect x="515" y="396" width="266" height="34" rx="2" fill="#d4ecd4" stroke="#2a7a2a" stroke-width="1"/>
+<text x="648" y="411" font-size="8.5" font-weight="700" fill="#1a4a1a" text-anchor="middle">Authorized Lawful Intercept Interface</text>
+<text x="648" y="424" font-size="8" fill="#2a5a2a" text-anchor="middle">National Jurisdiction</text>
+<!-- Globe -->
+<circle cx="940" cy="215" r="54" fill="#ffffff" stroke="#909090" stroke-width="1.5" filter="url(#sh4)"/>
+<ellipse cx="940" cy="215" rx="32" ry="54" fill="none" stroke="#c0c0c0" stroke-width="1"/>
+<line x1="886" y1="215" x2="994" y2="215" stroke="#c0c0c0" stroke-width="1"/>
+<ellipse cx="940" cy="215" rx="54" ry="20" fill="none" stroke="#c0c0c0" stroke-width="1"/>
+<circle cx="940" cy="215" r="54" fill="none" stroke="#909090" stroke-width="1.5"/>
+<text x="940" y="285" font-size="9.5" font-weight="600" fill="#555" text-anchor="middle">External Networks /</text>
+<text x="940" y="299" font-size="9.5" font-weight="600" fill="#555" text-anchor="middle">Global Internet</text>
+<!-- Data plane arrows -->
+<line x1="102" y1="207" x2="131" y2="200" stroke="#1a3a5c" stroke-width="2" marker-end="url(#arrow-solid4)"/>
+<line x1="222" y1="197" x2="248" y2="197" stroke="#1a3a5c" stroke-width="2" marker-end="url(#arrow-solid4)"/>
+<line x1="342" y1="197" x2="370" y2="197" stroke="#1a3a5c" stroke-width="2" marker-end="url(#arrow-solid4)"/>
+<line x1="464" y1="197" x2="514" y2="197" stroke="#1a3a5c" stroke-width="2" marker-end="url(#arrow-solid4)"/>
+<line x1="604" y1="202" x2="642" y2="202" stroke="#1a3a5c" stroke-width="2" marker-end="url(#arrow-solid4)"/>
+<line x1="776" y1="202" x2="882" y2="202" stroke="#1a3a5c" stroke-width="2" marker-end="url(#arrow-solid4)"/>
+<!-- Footer -->
+<rect x="0" y="494" width="1100" height="48" fill="#1a3a5c"/>
+<line x1="0" y1="494" x2="1100" y2="494" stroke="#2a5a8a" stroke-width="1.5"/>
+<text x="24" y="513" font-size="8.5" fill="#8ab4d4" font-family="'IBM Plex Mono',monospace">INTELLILINK COMPLIANCE GATEWAY — REFERENCE ARCHITECTURE  |  FIGURE 4  |  Rev. 3.0  |  February 2026</text>
+<text x="24" y="529" font-size="8" fill="#6a8aaa" font-family="'IBM Plex Mono',monospace">All IP addresses masked for anonymity. No real infrastructure addresses disclosed. No vendor branding. Standards-based neutral terminology.</text>
+      </svg>
+    </div>
+    <div class="figure-caption-bar">
+      <div class="figure-num-badge">Figure 4</div>
+      <div class="figure-caption-text">
+        <div class="figure-title">Intellilink Compliance Gateway (ICG) — Reference Architecture</div>
+        <div class="figure-caption">Reference architecture diagram showing the four functional domains: enterprise, satellite access (non-sovereign transport), compliance/ISP (domestic enforcement zone), and external networks. The ICG Agent and ICG PoP form the enforcement backbone, separated by the national sovereign boundary. All IP addresses are masked; no vendor-specific details are disclosed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 8 -->
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 8</span>
+    <span class="section-title">Why Proactive Engagement Matters</span>
+  </div>
+  <p>Satellite Internet adoption is accelerating. Future enterprise satellite networks are expected to operate at unprecedented scale and capacity. Proactive architectural engagement allows regulators to:</p>
+  <ul>
+    <li>Preserve oversight before satellite connectivity becomes architecturally entrenched</li>
+    <li>Shape integration models that serve both connectivity and sovereignty objectives</li>
+    <li>Avoid reactive policy measures that may disrupt existing deployments</li>
+    <li>Encourage responsible innovation through structured technical collaboration</li>
+  </ul>
+
+</div>
+<div class="page-footer">
+  <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+  <span class="page-footer-center">Sections 7–8 — Validation &amp; Proactive Engagement</span>
+  <span>Page 7</span>
+</div>
+</div><!-- /page -->
+
+
+<!-- ══════════════════════════════════════════
+     SECTIONS 9–10 + Figure 5 + Disclaimer
+══════════════════════════════════════════ -->
+<div class="inner-page page-break">
+<div style="flex:1">
+
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 9</span>
+    <span class="section-title">Recommended Engagement Model</span>
+  </div>
+  <p>Rather than enforcement-led intervention, this brief recommends a structured and collaborative approach to evaluating the Intellilink Gateway&#8482; model:</p>
+  <ul>
+    <li><strong>Technical sandboxes</strong> — Controlled evaluation environments for architecture testing</li>
+    <li><strong>Observational pilots</strong> — Non-commercial deployments to validate compliance outcomes</li>
+    <li><strong>Multi-stakeholder dialogue</strong> — Structured engagement between ISPs, enterprises, and regulators</li>
+    <li><strong>Architecture-first evaluation</strong> — Technical review before policy determination</li>
+  </ul>
+  <p>This approach enables informed policy evolution without disrupting enterprise connectivity.</p>
+
+  <!-- Section 10 -->
+  <div class="section-number-header no-break">
+    <span class="section-num">SECTION 10</span>
+    <span class="section-title">Conclusion</span>
+  </div>
+  <p>Satellite connectivity is becoming foundational to national digital infrastructure. The question facing regulators is not whether to allow satellite Internet, but <em>how to integrate it responsibly</em>.</p>
+  <p>Intellilink Gateway&#8482; demonstrates that satellite innovation and national governance principles can coexist — provided that integration is approached deliberately and collaboratively.</p>
+
+  <div class="callout positive no-break">
+    <div class="callout-title">Summary Position</div>
+    The technical model presented in this brief restores regulatory visibility, national accountability, and lawful intercept capability to satellite-based enterprise connectivity — without requiring modification to existing regulatory frameworks or satellite infrastructure. The architecture is ISP-compatible, governance-neutral, and designed for collaborative adoption.
+  </div>
+
+  <!-- Figure 5 — Before / After Routing (HTML-based: embedded as scaled iframe) -->
+  <div class="figure-container no-break">
+    <div style="border: 1.5px solid #d0d8e4; background: #fff; padding: 12px; overflow: hidden;">
+      <!-- Simplified inline HTML representation of Figure 5 -->
+      <div style="font-family: 'IBM Plex Mono', monospace; background: #1a3a5c; color: #fff; padding: 12px 16px; margin: -12px -12px 14px -12px;">
+        <div style="font-size: 8.5pt; color: #8ab4d4; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px;">Figure 5 — Use Case: Domestic Traffic Anchoring for Satellite Broadband Networks</div>
+        <div style="font-size: 13pt; font-weight: 700;">Traffic Anchoring — Before / After Routing Comparison</div>
+        <div style="font-size: 9pt; color: #a8c4dc; margin-top: 3px;">Traceroute-Based Routing Validation &nbsp;|&nbsp; Enterprise LAN → Domestic Internet Destination</div>
+      </div>
+
+      <!-- Summary latency bar -->
+      <div style="display: flex; gap: 14px; margin-bottom: 14px; align-items: stretch;">
+        <div style="border: 1.5px solid #c0392b; background: #fdf4f4; padding: 10px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 9pt; text-align: center; min-width: 180px;">
+          <div style="font-weight: 700; color: #c0392b; letter-spacing: 0.06em; font-size: 8.5pt; margin-bottom: 3px;">⚠ BEFORE ICG</div>
+          <div style="font-size: 13pt; font-weight: 700; color: #8a1a1a;">17 hops / 242 ms</div>
+          <div style="font-size: 8.5pt; color: #666;">8 foreign ASN hops &nbsp;·&nbsp; No LI capability</div>
+        </div>
+        <div style="border: 1.5px solid #2a7a2a; background: #f2faf2; padding: 10px 18px; font-family: 'IBM Plex Mono', monospace; font-size: 9pt; text-align: center; min-width: 180px;">
+          <div style="font-weight: 700; color: #2a7a2a; letter-spacing: 0.06em; font-size: 8.5pt; margin-bottom: 3px;">✔ AFTER ICG</div>
+          <div style="font-size: 13pt; font-weight: 700; color: #1a5a1a;">7 hops / 302 ms</div>
+          <div style="font-size: 8.5pt; color: #666;">0 foreign ASN hops &nbsp;·&nbsp; Full LI capability</div>
+        </div>
+        <div style="border-left: 3px solid #888; padding: 6px 12px; font-size: 9pt; color: #555; line-height: 1.5; max-width: 320px;">
+          <strong>Note on latency delta (+60 ms):</strong> Increased latency reflects the overhead of domestic traffic anchoring, NAT processing, and compliance enforcement at the ICG PoP. This is consistent with the security and regulatory objectives of the deployment.
+        </div>
+      </div>
+
+      <!-- Two-column comparison table -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+
+        <!-- BEFORE column -->
+        <div>
+          <div style="background: #fdf4f4; border: 1.5px solid #c0392b; padding: 8px 12px; font-weight: 700; color: #8a1a1a; font-size: 9.5pt; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">⚠ Before ICG — Non-Compliant</div>
+          <div style="border: 1px solid #ddd; background: #0d1117; padding: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt; color: #c9d1d9; line-height: 1.8;">
+            <div style="color: #8b949e; font-size: 8pt; border-bottom: 1px solid #21262d; margin-bottom: 6px; padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em;">Traceroute — Before ICG</div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">1</span><span style="color: #3fb950;">192.168.1.x</span><span style="color: #d29922; margin-left: 12px;">112 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> LAN Default GW</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">2</span><span style="color: #3fb950;">100.64.0.x</span><span style="color: #d29922; margin-left: 12px;">171 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> Satellite CPE / CGNAT</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">3</span><span style="color: #3fb950;">172.16.x.x</span><span style="color: #d29922; margin-left: 12px;">170 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> Satellite Provider PoP</span></div>
+            <div style="border-top: 1px dashed #f85149; padding-top: 3px; margin-top: 3px; color: #f85149; font-size: 7.5pt;">⚠ Sovereign boundary crossed — foreign ASN transit begins</div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">4</span><span style="color: #f85149;">206.x.x.x</span><span style="color: #d29922; margin-left: 12px;">170 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> Foreign ASN</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">5–11</span><span style="color: #f85149;">[Foreign ASN transit]</span><span style="color: #d29922; margin-left: 8px;">170–216 ms</span></div>
+            <div style="border-top: 1px dashed #3fb950; padding-top: 3px; margin-top: 3px; color: #3fb950; font-size: 7.5pt;">↩ Re-entry into domestic ASN (hop 12)</div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">12–17</span><span style="color: #3fb950;">[Domestic ASN]</span><span style="color: #d29922; margin-left: 8px;">215–242 ms</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">17</span><span style="color: #3fb950;">DESTINATION</span><span style="color: #d29922; margin-left: 12px;">242 ms</span></div>
+          </div>
+          <div style="margin-top: 8px; border: 1px solid #c0392b; padding: 8px 10px; background: #fdf8f8; font-size: 8.5pt; line-height: 1.6;">
+            <div style="font-weight: 700; color: #c0392b; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px;">Compliance Assessment — Non-Compliant</div>
+            <div style="display: flex; gap: 6px; margin-bottom: 3px;"><span style="color: #c0392b;">✗</span><span>8 hops through foreign ASN infrastructure — traffic exits national legal jurisdiction</span></div>
+            <div style="display: flex; gap: 6px; margin-bottom: 3px;"><span style="color: #c0392b;">✗</span><span>No domestic address localization — source IP not anchored to national ASN</span></div>
+            <div style="display: flex; gap: 6px; margin-bottom: 3px;"><span style="color: #c0392b;">✗</span><span>No lawful intercept capability during foreign ASN transit segment</span></div>
+            <div style="display: flex; gap: 6px;"><span style="color: #c0392b;">✗</span><span>No policy enforcement point present before international egress</span></div>
+          </div>
+        </div>
+
+        <!-- AFTER column -->
+        <div>
+          <div style="background: #f2faf2; border: 1.5px solid #2a7a2a; padding: 8px 12px; font-weight: 700; color: #1a4a1a; font-size: 9.5pt; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px;">✔ After ICG — Compliant</div>
+          <div style="border: 1px solid #ddd; background: #0d1117; padding: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt; color: #c9d1d9; line-height: 1.8;">
+            <div style="color: #8b949e; font-size: 8pt; border-bottom: 1px solid #21262d; margin-bottom: 6px; padding-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em;">Traceroute — After ICG</div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">1</span><span style="color: #3fb950;">192.168.x.x</span><span style="color: #d29922; margin-left: 12px;">2 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> ICG Agent — LAN GW</span></div>
+            <div style="color: #a371f7; font-size: 7.5pt; border-top: 1px dashed #a371f7; padding-top: 3px; margin-top: 3px;">→ Satellite segment (encapsulated — hops not data-plane visible)</div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">2</span><span style="color: #3fb950;">172.16.x.x</span><span style="color: #d29922; margin-left: 12px;">246 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> ICG PoP — tunnel decap</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">3</span><span style="color: #3fb950;">[Local ASN] (masked)</span><span style="color: #d29922; margin-left: 8px;">244 ms</span><span style="color: #6e7681; font-size: 7.5pt;"> NAT egress</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">4</span><span style="color: #6e7681;">* * *</span><span style="color: #6e7681; font-size: 7.5pt; margin-left: 12px;">ICMP filtered</span></div>
+            <div style="border-top: 1px dashed #3fb950; padding-top: 3px; margin-top: 3px; color: #3fb950; font-size: 7.5pt;">→ Local IXP / domestic peering</div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">5–6</span><span style="color: #3fb950;">[Domestic ASN]</span><span style="color: #d29922; margin-left: 8px;">292–269 ms</span></div>
+            <div><span style="color: #6e7681; min-width: 22px; display: inline-block;">7</span><span style="color: #3fb950;">DESTINATION</span><span style="color: #d29922; margin-left: 12px;">302 ms</span></div>
+          </div>
+          <div style="margin-top: 8px; border: 1px solid #2a7a2a; padding: 8px 10px; background: #f2faf2; font-size: 8.5pt; line-height: 1.6;">
+            <div style="font-weight: 700; color: #2a7a2a; font-size: 8pt; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 5px;">Compliance Assessment — Compliant</div>
+            <div style="display: flex; gap: 6px; margin-bottom: 3px;"><span style="color: #2a7a2a;">✔</span><span>Zero foreign ASN hops — all intermediate addresses within domestic ASN space</span></div>
+            <div style="display: flex; gap: 6px; margin-bottom: 3px;"><span style="color: #2a7a2a;">✔</span><span>Address localization enforced at ICG PoP via NAT — domestic ASN public egress</span></div>
+            <div style="display: flex; gap: 6px; margin-bottom: 3px;"><span style="color: #2a7a2a;">✔</span><span>Lawful intercept capability present at ICG PoP, within national legal jurisdiction</span></div>
+            <div style="display: flex; gap: 6px;"><span style="color: #2a7a2a;">✔</span><span>Policy Enforcement Point (PEP) active at both ICG Agent and ICG PoP</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="background: #1a3a5c; color: #8ab4d4; font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; padding: 7px 14px; display: flex; justify-content: space-between;">
+        <span>INTELLILINK COMPLIANCE GATEWAY — TECHNICAL PROOF BRIEF</span>
+        <span>Figure 5 — Traceroute Routing Validation  |  Rev. 2.0  |  February 2026  |  For Regulatory Review</span>
+      </div>
+    </div>
+
+    <div class="figure-caption-bar">
+      <div class="figure-num-badge">Figure 5</div>
+      <div class="figure-caption-text">
+        <div class="figure-title">Traffic Anchoring — Before / After Routing Comparison (Traceroute Validation)</div>
+        <div class="figure-caption">Comparative traceroute analysis demonstrating the routing behaviour change before and after ICG deployment. Before: 17 hops, 8 through foreign ASN infrastructure, no lawful intercept capability. After: 7 hops, zero foreign ASN hops, full LI capability and domestic address localization. The observed latency increase of +60 ms reflects the overhead of domestic anchoring and compliance enforcement at the ICG PoP.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Disclaimer -->
+  <div class="disclaimer-box no-break">
+    <div class="disclaimer-title">Legal &amp; Policy Disclaimer</div>
+    <div class="disclaimer-body">
+      This document describes a technical integration model and validation outcomes only. It does not constitute regulatory guidance, approval, or policy recommendation. The model and architecture described are presented for informational and evaluation purposes only. Nothing in this document creates any legal obligation on the part of any regulator, ISP, enterprise, or satellite provider. All participating entities referenced in the field validation summary were anonymized; no operational details, IP addresses, ISP names, or configuration data have been disclosed. All enforcement components described are subject to applicable national telecommunications regulatory frameworks.
+    </div>
+  </div>
+
+</div>
+<div class="page-footer">
+  <span>Intellilink Media LLC&#8482; &nbsp;—&nbsp; Regulator Brief v1.0 &nbsp;—&nbsp; Public — Institutional Brief</span>
+  <span class="page-footer-center">Sections 9–10 — Conclusion &amp; Disclaimer</span>
+  <span>Page 8</span>
+</div>
+</div><!-- /page -->
+
+</div><!-- /document -->
+</body>
+</html>
