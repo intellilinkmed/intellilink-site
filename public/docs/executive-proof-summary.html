@@ -581,12 +581,68 @@ body {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 8px; color: #1e3848;
 }
+
+
+
+/* ── BRAND LOCKUP ── */
+.cover-brand-lockup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  line-height: 1;
+}
+.cbl-globe {
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+}
+.cbl-divider {
+  width: 1px;
+  height: 62px;
+  background: rgba(255,255,255,0.22);
+  margin: 0 26px;
+  flex-shrink: 0;
+}
+.cbl-words {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 2px;
+}
+.cbl-top {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  margin-bottom: 3px;
+}
+.cbl-main {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: #5ab4e0;
+  line-height: 1;
+}
+.cbl-tm {
+  font-size: 11px;
+  font-weight: 400;
+  vertical-align: super;
+  letter-spacing: 0;
+}
+.cbl-rule {
+  width: 205px;
+  height: 2px;
+  background: #e8720a;
+  margin-top: 8px;
+}
+
 </style>
 </head>
 <body>
 <div class="doc">
 
-  <!-- ══ COVER ══ -->
+<!-- ══ COVER ══ -->
   <div class="cover">
     <div class="cover-hatch"></div>
     <div class="cover-accent-bar"></div>
@@ -597,7 +653,77 @@ body {
     <div class="cover-body">
       <div class="cover-left">
         <div class="cover-kicker">Enterprise Satellite Connectivity · National Governance Integration</div>
-        <h1>INTELLILINK<br><em>GATEWAY™</em></h1>
+        <div class="cover-brand-lockup">
+        
+                <!-- Globe SVG -->
+                <svg class="cbl-globe" width="84" height="84" viewBox="0 0 84 84"
+                     xmlns="http://www.w3.org/2000/svg" aria-label="Intellilink Globe Logo">
+                  <defs>
+                    <radialGradient id="cbl-rg-sphere" cx="36%" cy="28%" r="64%">
+                      <stop offset="0%"   stop-color="#7ad0f8"/>
+                      <stop offset="32%"  stop-color="#2e8ed8"/>
+                      <stop offset="72%"  stop-color="#1460b8"/>
+                      <stop offset="100%" stop-color="#0a2e6e"/>
+                    </radialGradient>
+                    <radialGradient id="cbl-rg-sheen" cx="28%" cy="22%" r="42%">
+                      <stop offset="0%"   stop-color="rgba(255,255,255,0.30)"/>
+                      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+                    </radialGradient>
+                    <clipPath id="cbl-sphere-clip">
+                      <circle cx="42" cy="42" r="32"/>
+                    </clipPath>
+                  </defs>
+        
+                  <!-- Sphere -->
+                  <circle cx="42" cy="42" r="32" fill="url(#cbl-rg-sphere)"/>
+                  <circle cx="42" cy="42" r="32" fill="url(#cbl-rg-sheen)"/>
+        
+                  <!-- Grid lines, clipped to sphere -->
+                  <g clip-path="url(#cbl-sphere-clip)" fill="none"
+                     stroke="rgba(255,255,255,0.26)" stroke-width="0.65">
+                    <ellipse cx="42" cy="42" rx="32" ry="11.5"/>
+                    <ellipse cx="42" cy="42" rx="32" ry="22"/>
+                    <ellipse cx="42" cy="42" rx="32" ry="30"/>
+                    <ellipse cx="42" cy="42" rx="11.5" ry="32"/>
+                    <ellipse cx="42" cy="42" rx="22" ry="32"/>
+                  </g>
+        
+                  <!-- Text band across equator -->
+                  <g clip-path="url(#cbl-sphere-clip)">
+                    <rect x="10" y="36" width="64" height="12" fill="rgba(6,24,64,0.52)"/>
+                    <text x="42" y="44.5" text-anchor="middle"
+                          font-family="'IBM Plex Sans','Arial',sans-serif"
+                          font-size="6.6" font-weight="700" letter-spacing="1.35"
+                          fill="rgba(255,255,255,0.92)">INTELLILINK</text>
+                    <text x="42" y="52" text-anchor="middle"
+                          font-family="'IBM Plex Sans','Arial',sans-serif"
+                          font-size="4.1" font-weight="400" letter-spacing="0.9"
+                          fill="rgba(255,255,255,0.60)">MEDIA</text>
+                  </g>
+        
+                  <!-- Orange ring -->
+                  <circle cx="42" cy="42" r="36" fill="none"
+                          stroke="#e8720a" stroke-width="3.2"/>
+        
+                  <!-- Antenna arcs (top-right) -->
+                  <path d="M 63 15 Q 74 8 78 21" fill="none" stroke="#e8720a"
+                        stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
+                  <path d="M 66 11 Q 80 3 84 18" fill="none" stroke="#e8720a"
+                        stroke-width="1.4" stroke-linecap="round" opacity="0.55"/>
+                </svg>
+        
+                <!-- Vertical divider -->
+                <div class="cbl-divider"></div>
+        
+                <!-- Wordmark -->
+                <div class="cbl-words">
+                  <div class="cbl-top">INTELLILINK</div>
+                  <div class="cbl-main">GATEWAY<sup class="cbl-tm">&#8482;</sup></div>
+                  <div class="cbl-rule"></div>
+                </div>
+        
+              </div>
+
         <div class="cover-doctype">Executive Proof Summary</div>
         <div class="cover-subtitle">Integrating Satellite Connectivity into National Internet Governance Frameworks</div>
         <div class="cover-rule"></div>
