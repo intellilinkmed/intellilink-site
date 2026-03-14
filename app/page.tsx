@@ -170,7 +170,7 @@ export default function IntellilinkLanding() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-3">
             <Image
-              src="/library/intellilink-gateway-logo.png"
+              src="/intellilink-gateway-logo.png"
               alt="Intellilink Gateway logo"
               width={160}
               height={48}
