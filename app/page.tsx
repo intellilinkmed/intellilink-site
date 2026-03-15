@@ -357,26 +357,6 @@ export default function IntellilinkLanding() {
         </div>
       </Section>
 
-const trustNodes = [
-  {
-    title: "Enterprise Site",
-    desc: "User network and applications",
-  },
-  {
-    title: "Intellilink Gateway",
-    desc: "Compliance boundary and secure tunnel",
-    highlight: true,
-  },
-  {
-    title: "ISP Governance PoP",
-    desc: "Policy, routing, NAT, and audit controls",
-  },
-  {
-    title: "Internet",
-    desc: "Published through accountable upstream delivery",
-  },
-];
-
       {/* Problem */}
       <Section
         id="problem"
