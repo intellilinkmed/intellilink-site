@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intellilink Media LLC",
+  title: "Intellilink Gateway™ — Enterprise Satellite Internet Governance",
   description:
     "Intellilink Gateway™ — governance layer for enterprise satellite connectivity.",
 };
