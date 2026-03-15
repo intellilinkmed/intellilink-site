@@ -129,6 +129,26 @@ export default function IntellilinkLanding() {
     },
   ];
 
+  const trustNodes = [
+    {
+      title: "Enterprise Site",
+      desc: "User network and applications",
+    },
+    {
+      title: "Intellilink Gateway",
+      desc: "Compliance boundary and secure tunnel",
+      highlight: true,
+    },
+    {
+      title: "ISP Governance PoP",
+      desc: "Policy, routing, NAT, and audit controls",
+    },
+    {
+      title: "Internet",
+      desc: "Published through accountable upstream delivery",
+    },
+  ];  
+
   const steps = [
     {
       title: "Starlink Access",
@@ -280,6 +300,82 @@ export default function IntellilinkLanding() {
           </div>
         </div>
       </section>
+
+      <Section
+        id="architecture"
+        kicker="Trust Architecture"
+        title="How Intellilink restores trust to satellite delivery"
+        subtitle="A simple governance path that preserves satellite resilience while restoring the delivery model enterprises, ISPs, and regulators recognize."
+      >
+        <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-6 sm:p-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-3">
+            {trustNodes.map((node, idx) => (
+              <div key={node.title} className="relative">
+                <div
+                  className={`h-full rounded-2xl border p-5 ${
+                    node.highlight
+                      ? "border-amber-200/30 bg-amber-200/10 shadow-[0_0_0_1px_rgba(253,230,138,0.08)]"
+                      : "border-white/10 bg-white/[0.03]"
+                  }`}
+                >
+                  <p
+                    className={`text-sm font-semibold ${
+                      node.highlight ? "text-amber-100" : "text-white"
+                    }`}
+                  >
+                    {node.title}
+                  </p>
+                  <p className="mt-2 text-sm leading-relaxed text-white/70">
+                    {node.desc}
+                  </p>
+                </div>
+      
+                {idx < trustNodes.length - 1 && (
+                  <div className="hidden lg:flex absolute top-1/2 -right-3 z-10 -translate-y-1/2 items-center">
+                    <ArrowRight className="h-5 w-5 text-amber-200/70" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+      
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Accountable upstream boundary",
+              "Policy insertion point",
+              "Audit-ready control model",
+              "Satellite resilience preserved",
+            ].map((item) => (
+              <div
+                key={item}
+                className="rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white/80"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+const trustNodes = [
+  {
+    title: "Enterprise Site",
+    desc: "User network and applications",
+  },
+  {
+    title: "Intellilink Gateway",
+    desc: "Compliance boundary and secure tunnel",
+    highlight: true,
+  },
+  {
+    title: "ISP Governance PoP",
+    desc: "Policy, routing, NAT, and audit controls",
+  },
+  {
+    title: "Internet",
+    desc: "Published through accountable upstream delivery",
+  },
+];
 
       {/* Problem */}
       <Section
