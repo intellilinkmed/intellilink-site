@@ -647,7 +647,7 @@ export default function IntellilinkLanding() {
                 />
               </div>
               <button
-                type="button"
+                type="submit"
                 className="w-full rounded-xl bg-amber-200 px-5 py-3 text-sm font-semibold text-[#07132b] hover:bg-amber-100"
               >
                 Submit
