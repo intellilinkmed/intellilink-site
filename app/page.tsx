@@ -608,12 +608,25 @@ export default function IntellilinkLanding() {
                   message: form[3].value,
                 };
 
-                await fetch("/api/contact", {
-                  method: "POST",
-                  body: JSON.stringify(data),
-                });
+                try {
+                  const res = await fetch("/api/contact", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data),
+                  });
 
-                alert("Pilot request sent successfully.");
+                  if (!res.ok) {
+                    throw new Error("Failed to send");
+                  }
+
+                  alert("Pilot request sent successfully.");
+                  form.reset();
+                } catch (error) {
+                  console.error(error);
+                  alert("Failed to send pilot request.");
+                }
               }}
             >
               <div>
