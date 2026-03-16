@@ -599,14 +599,13 @@ export default function IntellilinkLanding() {
               onSubmit={async (e) => {
                 e.preventDefault();
 
-                const form = e.currentTarget;
-                const elements = form.elements;
+                const form = e.target as HTMLFormElement;
 
                 const data = {
-                  name: (elements.namedItem("name") as HTMLInputElement).value,
-                  organization: (elements.namedItem("organization") as HTMLInputElement).value,
-                  email: (elements.namedItem("email") as HTMLInputElement).value,
-                  message: (elements.namedItem("message") as HTMLTextAreaElement).value,
+                  name: form[0].value,
+                  organization: form[1].value,
+                  email: form[2].value,
+                  message: form[3].value,
                 };
 
                 try {
@@ -619,22 +618,20 @@ export default function IntellilinkLanding() {
                   });
 
                   if (!res.ok) {
-                    throw new Error("Server responded with an error");
+                    throw new Error("Failed to send");
                   }
 
                   alert("Pilot request sent successfully.");
                   form.reset();
                 } catch (error) {
                   console.error(error);
-                  alert("Failed to send pilot request. Please try again.");
+                  alert("Failed to send pilot request.");
                 }
               }}
             >
               <div>
                 <label className="text-xs text-white/70">Full name</label>
                 <input
-                  name="name"
-                  required
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm outline-none focus:border-amber-200/40"
                   placeholder="Your name"
                 />
@@ -642,8 +639,6 @@ export default function IntellilinkLanding() {
               <div>
                 <label className="text-xs text-white/70">Organization</label>
                 <input
-                  name="organization"
-                  required
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm outline-none focus:border-amber-200/40"
                   placeholder="Company / Agency"
                 />
@@ -652,8 +647,6 @@ export default function IntellilinkLanding() {
                 <label className="text-xs text-white/70">Email</label>
                 <input
                   type="email"
-                  name="email"
-                  required
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm outline-none focus:border-amber-200/40"
                   placeholder="name@organization.com"
                 />
@@ -661,8 +654,6 @@ export default function IntellilinkLanding() {
               <div>
                 <label className="text-xs text-white/70">Message</label>
                 <textarea
-                  name="message"
-                  required
                   rows={4}
                   className="mt-1 w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm outline-none focus:border-amber-200/40"
                   placeholder="Briefly describe your pilot interest"
