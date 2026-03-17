@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     // 1️⃣ Notification email to Intellilink
     await resend.emails.send({
-      from: "Intellilink Website <info@intellilink.media>",
+      from: "Intellilink Website <onboarding@resend.dev>",
       to: ["info@intellilink.media"],
       replyTo: email,
       subject: `New Pilot Request from ${name} — ${organization}`,
@@ -33,7 +33,7 @@ export async function POST(req: Request) {
 
     // 2️⃣ Auto-reply to the person who submitted the form
     await resend.emails.send({
-      from: "Intellilink Media <info@intellilink.media>",
+      from: "Intellilink Media <onboarding@resend.dev>",
       to: [email],
       subject: "We received your pilot request",
       html: `
