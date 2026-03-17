@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     // 2️⃣ Auto-reply to the person who submitted the form
     await resend.emails.send({
       from: "Intellilink Media <onboarding@resend.dev>",
-      to: ["mukwesaemmanuel@gmail.com"],
+      to: [email],
       subject: "We received your pilot request",
       html: `
         <h2>Thank you, ${name}</h2>
