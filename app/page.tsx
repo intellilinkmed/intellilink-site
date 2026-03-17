@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   ShieldCheck,
@@ -69,6 +69,10 @@ type ProofDoc = {
 };
 
 export default function IntellilinkLanding() {
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [formError, setFormError] = useState("");
+
   const proofDocs: ProofDoc[] = [
     {
       title: "Technical Proof Brief",
@@ -599,6 +603,10 @@ export default function IntellilinkLanding() {
               onSubmit={async (e) => {
                 e.preventDefault();
 
+                setFormLoading(true);
+                setFormSuccess(false);
+                setFormError("");
+
                 const form = e.currentTarget;
                 const elements = form.elements;
 
@@ -622,11 +630,13 @@ export default function IntellilinkLanding() {
                     throw new Error("Server responded with an error");
                   }
 
-                  alert("Pilot request sent successfully.");
+                  setFormSuccess(true);
                   form.reset();
                 } catch (error) {
                   console.error(error);
-                  alert("Failed to send pilot request. Please try again.");
+                  setFormError("Failed to send pilot request. Please try again.");
+                } finally {
+                  setFormLoading(false);
                 }
               }}
             >
@@ -668,12 +678,27 @@ export default function IntellilinkLanding() {
                   placeholder="Briefly describe your pilot interest"
                 />
               </div>
+
               <button
                 type="submit"
-                className="w-full rounded-xl bg-amber-200 px-5 py-3 text-sm font-semibold text-[#07132b] hover:bg-amber-100"
+                disabled={formLoading}
+                className="w-full rounded-xl bg-amber-200 px-5 py-3 text-sm font-semibold text-[#07132b] hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Submit
+                {formLoading ? "Sending..." : "Submit"}
               </button>
+
+              {formSuccess && (
+                <div className="rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-300">
+                  ✓ Pilot request sent successfully. We will be in touch within 24 hours.
+                </div>
+              )}
+
+              {formError && (
+                <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                  {formError}
+                </div>
+              )}
+
               <p className="text-xs text-white/55">
                 Note: All submissions are treated as confidential.
               </p>
