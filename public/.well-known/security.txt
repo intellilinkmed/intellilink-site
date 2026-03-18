@@ -1,0 +1,5 @@
+Contact: mailto:info@intellilink.media
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://intellilink.media/.well-known/security.txt
+Policy: https://intellilink.media/trust

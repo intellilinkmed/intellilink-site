@@ -754,9 +754,13 @@ export default function IntellilinkLanding() {
               <p className="mt-1 text-xs text-white/60">
                 Governance layer for enterprise satellite connectivity
               </p>
+             <div className="mt-3 flex gap-4 text-xs text-white/60">
+               <a href="/trust" className="hover:text-white">
+                  Trust Center
+               </a>
+             </div>
             </div>
           </div>
-
           <p className="text-xs text-white/50">
             © {new Date().getFullYear()} Intellilink Media LLC. All rights
             reserved.
