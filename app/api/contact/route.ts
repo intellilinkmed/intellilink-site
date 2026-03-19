@@ -149,6 +149,7 @@ export async function POST(req: Request) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+        console.log("Send data to Google Sheets...");
           name,
           organization,
           email,
