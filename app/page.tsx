@@ -718,7 +718,7 @@ export default function IntellilinkLanding() {
               </div>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">Phone / WhatsApp</p>
-                <p className="mt-1 font-semibold">+260 963 880 701</p>
+                <p className="mt-1 font-semibold">+260 762 811 065</p>
               </div>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">LinkedIn</p>
