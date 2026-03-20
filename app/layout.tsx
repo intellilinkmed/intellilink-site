@@ -12,10 +12,37 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Ensure /public/og-image.png exists (recommended: 1200×630px)
 export const metadata: Metadata = {
-  title: "Intellilink Gateway™ — Enterprise Satellite Internet Governance",
+  title: "Intellilink Gateway – Enterprise Satellite Governance",
   description:
-    "Intellilink Gateway™ — governance layer for enterprise satellite connectivity.",
+    "A governance layer for compliant enterprise satellite connectivity. Designed for regulators, banks, and ISPs.",
+
+  metadataBase: new URL("https://intellilink.media"),
+
+  openGraph: {
+    title: "Intellilink Gateway",
+    description:
+      "Enterprise satellite internet… the way regulators and banks understand it.",
+    url: "https://intellilink.media",
+    siteName: "Intellilink Media",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Intellilink Gateway",
+    description: "Governance layer for enterprise satellite connectivity.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
