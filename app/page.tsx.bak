@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   ShieldCheck,
@@ -69,6 +69,10 @@ type ProofDoc = {
 };
 
 export default function IntellilinkLanding() {
+  const [formLoading, setFormLoading] = useState(false);
+  const [formSuccess, setFormSuccess] = useState(false);
+  const [formError, setFormError] = useState("");
+
   const proofDocs: ProofDoc[] = [
     {
       title: "Technical Proof Brief",
@@ -599,6 +603,10 @@ export default function IntellilinkLanding() {
               onSubmit={async (e) => {
                 e.preventDefault();
 
+                setFormLoading(true);
+                setFormSuccess(false);
+                setFormError("");
+
                 const form = e.currentTarget;
                 const elements = form.elements;
 
@@ -622,11 +630,13 @@ export default function IntellilinkLanding() {
                     throw new Error("Server responded with an error");
                   }
 
-                  alert("Pilot request sent successfully.");
+                  setFormSuccess(true);
                   form.reset();
                 } catch (error) {
                   console.error(error);
-                  alert("Failed to send pilot request. Please try again.");
+                  setFormError("Failed to send pilot request. Please try again.");
+                } finally {
+                  setFormLoading(false);
                 }
               }}
             >
@@ -668,12 +678,40 @@ export default function IntellilinkLanding() {
                   placeholder="Briefly describe your pilot interest"
                 />
               </div>
+
               <button
                 type="submit"
-                className="w-full rounded-xl bg-amber-200 px-5 py-3 text-sm font-semibold text-[#07132b] hover:bg-amber-100"
+                disabled={formLoading}
+                className="w-full rounded-xl bg-amber-200 px-5 py-3 text-sm font-semibold text-[#07132b] hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Submit
+                {formLoading ? "Sending..." : "Submit"}
               </button>
+
+              {formSuccess && (
+                <div className="space-y-3">
+                  <div className="rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-300">
+                    ✓ Pilot request sent successfully. We will be in touch within 24 hours.
+                  </div>
+                  {process.env.NEXT_PUBLIC_BOOKING_URL && (
+                    <a
+                      href={process.env.NEXT_PUBLIC_BOOKING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-amber-200/30 bg-amber-200/10 px-5 py-3 text-sm font-semibold text-amber-200 hover:bg-amber-200/20"
+                    >
+                      Book a Pilot Call
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  )}
+                </div>
+              )}
+
+              {formError && (
+                <div className="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+                  {formError}
+                </div>
+              )}
+
               <p className="text-xs text-white/55">
                 Note: All submissions are treated as confidential.
               </p>
@@ -693,7 +731,7 @@ export default function IntellilinkLanding() {
               </div>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">Phone / WhatsApp</p>
-                <p className="mt-1 font-semibold">+260 963 880 701</p>
+                <p className="mt-1 font-semibold">+260 762 811 065</p>
               </div>
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
                 <p className="text-xs text-white/60">LinkedIn</p>
@@ -729,9 +767,13 @@ export default function IntellilinkLanding() {
               <p className="mt-1 text-xs text-white/60">
                 Governance layer for enterprise satellite connectivity
               </p>
+             <div className="mt-3 flex gap-4 text-xs text-white/60">
+               <a href="/trust" className="hover:text-white">
+                  Trust Center
+               </a>
+             </div>
             </div>
           </div>
-
           <p className="text-xs text-white/50">
             © {new Date().getFullYear()} Intellilink Media LLC. All rights
             reserved.

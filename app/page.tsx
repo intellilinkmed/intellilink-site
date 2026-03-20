@@ -13,6 +13,7 @@ import {
   ArrowRight,
   CheckCircle2,
   Globe,
+  CalendarDays,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -688,8 +689,21 @@ export default function IntellilinkLanding() {
               </button>
 
               {formSuccess && (
-                <div className="rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-300">
-                  ✓ Pilot request sent successfully. We will be in touch within 24 hours.
+                <div className="space-y-3">
+                  <div className="rounded-xl border border-green-500/20 bg-green-500/10 px-4 py-3 text-sm text-green-300">
+                    ✓ Pilot request sent successfully. We will be in touch within 24 hours.
+                  </div>
+                  {process.env.NEXT_PUBLIC_BOOKING_URL && (
+                    <a
+                      href={process.env.NEXT_PUBLIC_BOOKING_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-amber-200/30 bg-amber-200/10 px-5 py-3 text-sm font-semibold text-amber-200 hover:bg-amber-200/20"
+                    >
+                      Book a Pilot Call
+                      <ArrowRight className="h-4 w-4" />
+                    </a>
+                  )}
                 </div>
               )}
 
@@ -726,7 +740,24 @@ export default function IntellilinkLanding() {
               </div>
             </div>
 
-            <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+            <div className="mt-3 rounded-xl border border-amber-200/20 bg-amber-200/[0.04] p-4">
+              <p className="text-xs text-white/60">Book a Pilot Call</p>
+              <p className="mt-1 text-sm text-white/70">
+                Schedule a direct call to discuss your pilot requirements.
+              </p>
+              <a
+                href="https://cal.com/intellilink/pilot"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book a pilot call"
+                className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-amber-200 px-4 py-2.5 text-sm font-semibold text-[#07132b] hover:bg-amber-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/60"
+              >
+                <CalendarDays className="h-4 w-4" aria-hidden="true" />
+                Book a Call
+              </a>
+            </div>
+
+            <div className="mt-3 rounded-xl border border-white/10 bg-white/[0.03] p-4">
               <p className="text-xs text-white/60">Positioning note</p>
               <p className="mt-2 text-sm text-white/70">
                 Intellilink Gateway™ is a governance layer for compliant
