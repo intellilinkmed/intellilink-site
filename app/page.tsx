@@ -746,7 +746,7 @@ export default function IntellilinkLanding() {
                 Schedule a direct call to discuss your pilot requirements.
               </p>
               <a
-                href="https://cal.com/intellilink/pilot"
+                href={process.env.NEXT_PUBLIC_BOOKING_URL ?? "https://calendly.com/intellilink-info/30min"}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Book a pilot call"
