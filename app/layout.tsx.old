@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "Intellilink Media",
     images: [
       {
-        url: "https://intellilink.media/api/og",
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "Intellilink Gateway – Enterprise Satellite Governance",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Intellilink Gateway",
     description: "Governance layer for enterprise satellite connectivity.",
-    images: ["https://intellilink.media/api/og"],
+    images: ["/api/og"],
   },
 };
 
