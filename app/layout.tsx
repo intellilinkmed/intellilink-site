@@ -13,16 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Intellilink Gateway – Enterprise Satellite Governance",
+  title: "Intellilink Gateway | Enterprise Satellite Governance",
   description:
-    "A governance layer for compliant enterprise satellite connectivity. Designed for regulators, banks, and ISPs.",
+    "Governance layer for enterprise satellite internet. Restore compliance, accountability, and control across regulated ISP and banking environments.",
 
   metadataBase: new URL("https://intellilink.media"),
 
   openGraph: {
-    title: "Intellilink Gateway",
+    title: "Intellilink Gateway | Enterprise Satellite Governance",
     description:
-      "Enterprise satellite internet… the way regulators and banks understand it.",
+      "Governance layer for enterprise satellite internet. Restore compliance, accountability, and control across regulated ISP and banking environments.",
     url: "https://intellilink.media",
     siteName: "Intellilink Media",
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: "https://intellilink.media/api/og",
         width: 1200,
         height: 630,
-        alt: "Intellilink Gateway – Enterprise Satellite Governance",
+        alt: "Intellilink Gateway | Enterprise Satellite Governance",
       },
     ],
     locale: "en_US",
@@ -39,8 +39,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Intellilink Gateway",
-    description: "Governance layer for enterprise satellite connectivity.",
+    title: "Intellilink Gateway | Enterprise Satellite Governance",
+    description:
+      "Governance layer for enterprise satellite internet. Restore compliance, accountability, and control across regulated ISP and banking environments.",
     images: ["https://intellilink.media/api/og"],
   },
 };
