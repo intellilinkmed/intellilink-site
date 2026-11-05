@@ -1,16 +1,12 @@
-export default function sitemap() {
-  return [
-    {
-      url: "https://intellilink.media",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://intellilink.media/proof",
-      lastModified: new Date(),
-    },
-    {
-      url: "https://intellilink.media/contact",
-      lastModified: new Date(),
-    },
-  ];
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://intellilink.media";
+  const routes = ["", "/about", "/research", "/solutions", "/insights", "/collaborate"];
+
+  return routes.map((route) => ({
+    url: `${baseUrl}${route}`,
+    changeFrequency: route === "" ? "monthly" : "yearly",
+    priority: route === "" ? 1 : 0.7,
+  }));
 }

@@ -7,6 +7,9 @@
 
 /* Mobile navigation and responsive refinement — redesign branch only */
 .mobile-menu{display:none}
+/* Explicitly hide closed content, including browsers where author display rules
+   override the native details disclosure visibility. */
+.mobile-menu:not([open]) > .mobile-nav{display:none}
 @media(max-width:760px){
  .site-header{backdrop-filter:blur(16px)}
  .header-inner{min-height:68px;gap:12px}
@@ -36,3 +39,11 @@
  .footer-grid{gap:14px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Founder & Leadership — corporate website v2 */
+.founder-layout{display:grid;grid-template-columns:minmax(240px,0.85fr) minmax(0,1.5fr);gap:clamp(28px,5vw,70px);align-items:start;margin-top:34px}
+.founder-photo{display:block;width:100%;height:auto;aspect-ratio:3/4;max-width:390px;object-fit:cover;border-radius:18px;border:1px solid #245674}
+.founder-copy h3{font-size:clamp(26px,3vw,36px);margin:0 0 5px;color:#102942}
+.founder-role{color:#007f9a;font-weight:700;margin-top:0}
+.founder-copy p{line-height:1.8;color:#52657a}
+@media(max-width:760px){.founder-layout{grid-template-columns:1fr;gap:22px;margin-top:24px}.founder-photo{width:min(100%,310px);height:auto;aspect-ratio:3/4;justify-self:center}}
