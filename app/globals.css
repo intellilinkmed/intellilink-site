@@ -1,26 +1,49 @@
 @import "tailwindcss";
+:root{--navy:#07172e;--ink:#12253d;--muted:#52657a;--cyan:#47d5ed;--line:#dce6ef}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7fafc;color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{text-decoration:none}a:focus-visible{outline:3px solid #00a8c9;outline-offset:3px}
+.shell{width:min(1160px,calc(100% - 40px));margin:auto}.site-header{position:sticky;top:0;z-index:30;background:#07172ef2;color:white;border-bottom:1px solid #ffffff20;backdrop-filter:blur(12px)}.header-inner{min-height:76px;display:flex;align-items:center;gap:24px;justify-content:space-between}.brand{display:flex;align-items:center;gap:10px;color:white;font-size:15px;font-weight:800;letter-spacing:.12em;white-space:nowrap}.brand small{font-size:10px;color:#92e7f4}.brand-mark{display:grid;place-items:center;width:35px;height:35px;border:1px solid #64dbea;border-radius:10px;color:#64dbea}.desktop-nav{display:flex;gap:17px;align-items:center}.desktop-nav a{font-size:12px;color:#d3e2ee}.desktop-nav a:hover,.mobile-nav a:hover{color:var(--cyan)}.header-cta,.button-primary{display:inline-flex;align-items:center;justify-content:center;padding:12px 19px;background:var(--cyan);color:#08243b;border-radius:8px;font-weight:700;font-size:13px}.mobile-nav{display:none}.hero{position:relative;overflow:hidden;background:radial-gradient(circle at 82% 40%,#174e70 0%,transparent 38%),linear-gradient(135deg,#061326,#0a2440 70%,#0c3048);color:white;padding:110px 0 120px}.hero:after{content:"";position:absolute;right:-140px;top:5%;width:600px;height:600px;border:1px solid #4ed5e933;border-radius:50%;box-shadow:0 0 0 60px #4ed5e90a,0 0 0 130px #4ed5e909;pointer-events:none}.hero-content{position:relative;z-index:1;max-width:800px}.eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:12px;font-weight:700;color:#007e9e}.hero .eyebrow{color:#73ddec}.hero h1{font-size:clamp(42px,6vw,76px);letter-spacing:-.045em;line-height:1.06;margin:22px 0}.hero p{max-width:690px;color:#c4d9e7;font-size:18px;line-height:1.8}.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px}.button-secondary{display:inline-flex;padding:12px 19px;border:1px solid #8cbbce;color:white;border-radius:8px;font-weight:700;font-size:13px}.section{padding:90px 0}.section.alt{background:#edf4f8}.section h2,.page-hero h1{font-size:clamp(30px,4vw,48px);letter-spacing:-.035em;line-height:1.15;margin:12px 0 20px}.section-lead{font-size:17px;line-height:1.8;color:var(--muted);max-width:780px}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:34px}.card{padding:30px;border:1px solid var(--line);border-radius:15px;background:white;box-shadow:0 8px 28px #15304b09}.card h3{font-size:20px;margin:12px 0}.card p{line-height:1.7;color:var(--muted)}.card .num{color:#008da8;font-weight:800}.feature{background:#0c2a46;color:white;border-radius:20px;padding:44px;margin-top:32px}.feature p{color:#c8d9e5;line-height:1.8}.feature a{color:#7de4f3;font-weight:700}.notice{border-left:4px solid #16a4bd;padding:20px 24px;background:#e8f4f7;color:#25475b;line-height:1.7;margin-top:24px}.page-hero{background:#0a223b;color:white;padding:84px 0}.page-hero p{color:#c7d9e6;font-size:18px;max-width:760px;line-height:1.8}.page-hero .eyebrow{color:#76ddeb}.text-link{color:#007f9a;font-weight:700}.cta-band{background:#0b2944;color:white;padding:75px 0}.cta-band p{color:#ccdae5}.site-footer{background:#061527;color:#d6e3ec;padding:44px 0}.footer-grid{display:flex;justify-content:space-between;align-items:start;gap:24px}.site-footer p{color:#9aafc0;font-size:13px}.site-footer a{color:#80e0ee}
+@media(max-width:1080px){.desktop-nav{gap:9px}.desktop-nav a{font-size:11px}.header-cta{display:none}}
+@media(max-width:760px){.desktop-nav{display:none}.mobile-nav{display:flex;overflow-x:auto;gap:18px;padding:12px 20px;border-top:1px solid #ffffff22}.mobile-nav a{color:#d3e2ee;font-size:12px;white-space:nowrap}.hero{padding:80px 0 100px}.section{padding:65px 0}.cards{grid-template-columns:1fr}.feature{padding:27px}.footer-grid{flex-direction:column}.hero p{font-size:16px}}
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Mobile navigation and responsive refinement — redesign branch only */
+.mobile-menu{display:none}
+/* Explicitly hide closed content, including browsers where author display rules
+   override the native details disclosure visibility. */
+.mobile-menu:not([open]) > .mobile-nav{display:none}
+@media(max-width:760px){
+ .site-header{backdrop-filter:blur(16px)}
+ .header-inner{min-height:68px;gap:12px}
+ .brand{font-size:13px;letter-spacing:.08em;min-width:0}
+ .brand small{font-size:9px}
+ .mobile-menu{display:block;position:relative;margin-left:auto}
+ .mobile-menu summary{list-style:none;display:flex;align-items:center;gap:8px;cursor:pointer;border:1px solid #ffffff55;border-radius:10px;padding:10px 12px;color:white;font-size:13px;font-weight:700}
+ .mobile-menu summary::-webkit-details-marker{display:none}
+ .mobile-menu summary:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+ .menu-icon{font-size:20px;line-height:1}
+ .mobile-menu[open] .menu-icon{font-size:0}
+ .mobile-menu[open] .menu-icon:after{content:"✕";font-size:20px}
+ .mobile-nav{display:flex;position:absolute;top:calc(100% + 14px);right:0;width:min(310px,calc(100vw - 40px));max-height:calc(100dvh - 90px);overflow-y:auto;overflow-x:hidden;flex-direction:column;gap:0;padding:8px;background:#10233c;border:1px solid #ffffff33;border-radius:14px;box-shadow:0 16px 36px #0007}
+ .mobile-nav a{display:block;padding:14px 15px;font-size:15px;white-space:normal;border-radius:8px}
+ .mobile-nav a:hover,.mobile-nav a:focus-visible{background:#ffffff13}
+ .hero{padding:70px 0 80px}
+ .hero h1{font-size:clamp(36px,9vw,52px);line-height:1.12}
+ .page-hero{padding:62px 0}
+ .page-hero h1{font-size:clamp(32px,8vw,44px)}
+ .page-hero p{font-size:16px;line-height:1.65}
+ .section{padding:58px 0}
+ .section h2{font-size:clamp(29px,7vw,39px)}
+ .section-lead{font-size:16px;line-height:1.7}
+ .card{padding:24px}
+ .card h3{font-size:19px}
+ .feature{padding:25px}
+ .footer-grid{gap:14px}
 }
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* Founder & Leadership — corporate website v2 */
+.founder-layout{display:grid;grid-template-columns:minmax(240px,0.85fr) minmax(0,1.5fr);gap:clamp(28px,5vw,70px);align-items:start;margin-top:34px}
+.founder-photo{display:block;width:100%;height:auto;aspect-ratio:3/4;max-width:390px;object-fit:cover;border-radius:18px;border:1px solid #245674}
+.founder-copy h3{font-size:clamp(26px,3vw,36px);margin:0 0 5px;color:#102942}
+.founder-role{color:#007f9a;font-weight:700;margin-top:0}
+.founder-copy p{line-height:1.8;color:#52657a}
+@media(max-width:760px){.founder-layout{grid-template-columns:1fr;gap:22px;margin-top:24px}.founder-photo{width:min(100%,310px);height:auto;aspect-ratio:3/4;justify-self:center}}

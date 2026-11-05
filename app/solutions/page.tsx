@@ -1,0 +1,11 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+export const metadata: Metadata = { title: "Solutions & Expertise", description: "Network architecture, hybrid satellite-terrestrial integration, resilience and technical advisory for Africa's digital infrastructure." };
+const items = [
+  ["Network Architecture & Engineering", "IP network architecture, routing, interconnection, secure overlays and infrastructure modernization for telecommunications and enterprise environments."],
+  ["Satellite–Terrestrial Integration", "Technical evaluation of hybrid connectivity architectures, satellite and terrestrial interoperability, and enterprise continuity."],
+  ["Connectivity Governance & Security", "Network visibility, segmentation, routing policy, traffic controls and security architecture, with jurisdiction-specific considerations assessed as appropriate."],
+  ["Infrastructure Resilience", "Architecture reviews covering redundancy, failover, traffic engineering and continuity planning for critical connectivity."],
+  ["Technical Advisory & Engineering Collaboration", "Feasibility assessments, architecture reviews, interoperability evaluation, proof-of-concept planning and technical collaboration."]
+];
+export default function SolutionsPage(){return <><section className="page-hero"><div className="shell"><div className="eyebrow">Solutions & Expertise</div><h1>Engineering expertise for complex connectivity challenges.</h1><p>Practical network engineering, responsible technology integration and applied technical evaluation for evolving digital infrastructure.</p></div></section><section className="section"><div className="shell"><h2>Where we contribute</h2><p className="section-lead">We bring systems thinking and engineering expertise to infrastructure planning, integration and research-oriented engagements.</p><div className="cards">{items.map(([title,desc])=><article className="card" key={title}><h3>{title}</h3><p>{desc}</p></article>)}</div><div className="notice">Engagement scope, feasibility and delivery commitments are determined individually. Research concepts and prototypes are not presented as generally available commercial products.</div><p style={{marginTop:32}}><Link className="text-link" href="/collaborate">Discuss your infrastructure challenge ↗</Link></p></div></section></>}
