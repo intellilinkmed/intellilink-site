@@ -7,6 +7,9 @@
 
 /* Mobile navigation and responsive refinement — redesign branch only */
 .mobile-menu{display:none}
+/* Explicitly hide closed content, including browsers where author display rules
+   override the native details disclosure visibility. */
+.mobile-menu:not([open]) > .mobile-nav{display:none}
 @media(max-width:760px){
  .site-header{backdrop-filter:blur(16px)}
  .header-inner{min-height:68px;gap:12px}

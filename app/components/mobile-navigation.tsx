@@ -8,15 +8,19 @@ type Props = { links: readonly (readonly [string, string])[] };
 
 function MobileDisclosure({ links }: Props) {
   const [open, setOpen] = useState(false);
+  const detailsRef = useRef<HTMLDetailsElement>(null);
   const summaryRef = useRef<HTMLElement>(null);
 
   function closeMenu() {
+    // Close the native disclosure immediately, before React or navigation commits.
+    if (detailsRef.current) detailsRef.current.open = false;
     setOpen(false);
     summaryRef.current?.focus();
   }
 
   return (
     <details
+      ref={detailsRef}
       className="mobile-menu"
       open={open}
       onToggle={(event) => setOpen(event.currentTarget.open)}
