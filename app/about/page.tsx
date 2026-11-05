@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -53,10 +54,14 @@ export default function AboutPage() {
           <div className="eyebrow">Founder &amp; Leadership</div>
           <h2>Engineering experience. A vision for Africa.</h2>
           <div className="founder-layout">
-            <div className="founder-photo-pending" role="img" aria-label="Founder portrait awaiting placement">
-              <span>EM</span>
-              <small>Founder portrait to be added</small>
-            </div>
+            <Image
+              className="founder-photo"
+              src="/images/intellilink-founder-portrait.webp"
+              alt="Emmanuel K. Mukwesa, Founder and Chief Executive Officer of Intellilink Media"
+              width={825}
+              height={1100}
+              sizes="(max-width: 760px) min(360px, 100vw), (max-width: 1200px) 34vw, 390px"
+            />
             <div className="founder-copy">
               <h3>Emmanuel K. Mukwesa</h3>
               <p className="founder-role">Founder &amp; Chief Executive Officer</p>

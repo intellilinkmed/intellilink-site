@@ -26,7 +26,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <header className="site-header"><div className="shell header-inner">
       <Link className="brand" href="/" aria-label="Intellilink Media home"><span className="brand-mark">I</span><span>INTELLILINK <small>MEDIA</small></span></Link>
       <nav aria-label="Primary navigation" className="desktop-nav">{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
-      <Link className="header-cta" href="/collaborate">Let's collaborate ↗</Link>
+      <Link className="header-cta" href="/collaborate">Let&apos;s collaborate ↗</Link>
       <details className="mobile-menu"><summary aria-label="Toggle mobile navigation"><span className="menu-icon" aria-hidden="true">☰</span><span className="menu-label">Menu</span></summary>
         <nav aria-label="Mobile navigation" className="mobile-nav">{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
       </details>
