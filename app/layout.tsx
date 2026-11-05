@@ -27,8 +27,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <Link className="brand" href="/" aria-label="Intellilink Media home"><span className="brand-mark">I</span><span>INTELLILINK <small>MEDIA</small></span></Link>
       <nav aria-label="Primary navigation" className="desktop-nav">{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
       <Link className="header-cta" href="/collaborate">Let's collaborate ↗</Link>
-    </div><nav className="mobile-nav" aria-label="Mobile navigation">{nav.map(([label,href])=><Link key={href} href={href}>{label}</Link>)}</nav></header>
-    <main>{children}</main>
+      <details className="mobile-menu"><summary aria-label="Toggle mobile navigation"><span className="menu-icon" aria-hidden="true">☰</span><span className="menu-label">Menu</span></summary>
+        <nav aria-label="Mobile navigation" className="mobile-nav">{nav.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
+      </details>
+    </div></header>
+    <main id="main-content">{children}</main>
     <footer className="site-footer"><div className="shell footer-grid"><div><strong>INTELLILINK MEDIA</strong><p>Technology Integration for Africa</p></div><div><p>Network Engineering · Satellite Integration · Applied Research</p><p>© 2026 Intellilink Media LLC. All rights reserved.</p></div><Link href="/collaborate">Contact us ↗</Link></div></footer>
   </body></html>;
 }
