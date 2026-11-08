@@ -47,3 +47,11 @@
 .founder-role{color:#007f9a;font-weight:700;margin-top:0}
 .founder-copy p{line-height:1.8;color:#52657a}
 @media(max-width:760px){.founder-layout{grid-template-columns:1fr;gap:22px;margin-top:24px}.founder-photo{width:min(100%,310px);height:auto;aspect-ratio:3/4;justify-self:center}}
+
+/* Monday Insights article — scoped editorial readability */
+.monday-insights-article p{line-height:1.8;margin:0 0 1.15em}
+.monday-insights-article h2{margin:1.5em 0 .65em}
+.monday-insights-article ul{padding-left:1.5em;margin:0 0 1.5em}
+.monday-insights-article li{line-height:1.8;margin-bottom:.75em}
+.monday-insights-article li a{color:#007f9a;text-decoration:underline;text-underline-offset:3px}
+.monday-insights-article li a:hover{color:#07576b}
