@@ -39,7 +39,7 @@ export default function MondayInsights001() {
       <h1>Beyond Connectivity: Why Africa Needs Integrated Digital Infrastructure</h1>
       <p>By Emmanuel Mukwesa, Founder &amp; CEO — Intellilink Media</p>
     </div></section>
-    <article className="section"><div className="shell" style={{maxWidth:850}}>
+    <article className="section monday-insights-article"><div className="shell" style={{maxWidth:850}}>
       <Image
         src={cover.url}
         alt={cover.alt}
@@ -86,8 +86,8 @@ export default function MondayInsights001() {
       <p>The opportunity ahead is not merely to connect Africa, but to help build integrated, resilient and responsibly governed digital infrastructure that supports the continent&apos;s long-term development.</p>
       <h2>References</h2>
       <ul>
-        <li>International Telecommunication Union (2025). <em>Measuring Digital Development: Facts and Figures 2025.</em></li>
-        <li>Broadband Commission for Sustainable Development (2025). <em>The State of Broadband in Africa.</em></li>
+        <li>International Telecommunication Union (2025). <a href="https://www.itu.int/itu-d/reports/statistics/facts-figures-2025/" target="_blank" rel="noopener noreferrer"><em>Measuring Digital Development: Facts and Figures 2025.</em></a></li>
+        <li>Broadband Commission for Sustainable Development (2025). <a href="https://www.broadbandcommission.org/publication/state-of-broadband-in-africa/" target="_blank" rel="noopener noreferrer"><em>The State of Broadband in Africa.</em></a></li>
       </ul>
       <p><Link className="text-link" href="/insights">← Back to Insights &amp; Resources</Link></p>
     </div></article>
