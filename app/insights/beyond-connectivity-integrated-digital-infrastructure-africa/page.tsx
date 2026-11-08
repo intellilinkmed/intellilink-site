@@ -1,11 +1,35 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
+const title = "Beyond Connectivity: Why Africa Needs Integrated Digital Infrastructure";
+const description = "Monday Insights 001: Why hybrid connectivity, resilience, governance and local capability matter for Africa's digital future.";
+const articlePath = "/insights/beyond-connectivity-integrated-digital-infrastructure-africa";
+const cover = {
+  url: "/images/monday-insights-001.png",
+  width: 1379,
+  height: 774,
+  alt: "An illuminated map of Africa with interconnected network hubs, flanked by satellites, fibre-optic cables, a telecom tower and solar panels.",
+};
+
 export const metadata: Metadata = {
-  title: "Beyond Connectivity: Why Africa Needs Integrated Digital Infrastructure",
-  description: "Monday Insights 001: Why hybrid connectivity, resilience, governance and local capability matter for Africa's digital future.",
-  alternates: { canonical: "/insights/beyond-connectivity-integrated-digital-infrastructure-africa" },
-  openGraph: { title: "Beyond Connectivity: Why Africa Needs Integrated Digital Infrastructure", description: "Monday Insights — Edition 001 | Intellilink Media", type: "article" },
+  title,
+  description,
+  alternates: { canonical: articlePath },
+  openGraph: {
+    title,
+    description: "Monday Insights — Edition 001 | Intellilink Media",
+    type: "article",
+    url: articlePath,
+    siteName: "Intellilink Media",
+    images: [cover],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: [{ url: cover.url, alt: cover.alt }],
+  },
 };
 
 export default function MondayInsights001() {
@@ -16,6 +40,14 @@ export default function MondayInsights001() {
       <p>By Emmanuel Mukwesa, Founder &amp; CEO — Intellilink Media</p>
     </div></section>
     <article className="section"><div className="shell" style={{maxWidth:850}}>
+      <Image
+        src={cover.url}
+        alt={cover.alt}
+        width={cover.width}
+        height={cover.height}
+        sizes="(max-width: 890px) calc(100vw - 40px), 850px"
+        style={{ width: "100%", height: "auto", marginBottom: 24 }}
+      />
       <h2>Connectivity is only the beginning</h2>
       <p>Africa&apos;s digital transformation is entering an important new phase. Fibre networks continue to expand, mobile broadband technologies are evolving, and low Earth orbit (LEO) satellite systems are introducing new possibilities for reaching locations where terrestrial infrastructure is limited.</p>
       <p>These developments are encouraging. Yet they raise a fundamental question:</p>
